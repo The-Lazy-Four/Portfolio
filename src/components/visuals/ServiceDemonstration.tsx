@@ -29,8 +29,8 @@ function LocalSeoDemo() {
   const [optimized, setOptimized] = useState(true);
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Conceptual Simulation · Not a live Google interface
         </span>
@@ -75,7 +75,7 @@ function LocalSeoDemo() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
         {/* Stylized local discovery map */}
-        <div className="wg-grid-pattern relative flex min-h-[148px] items-center justify-center overflow-hidden border-2 border-ink bg-ivory sm:col-span-5">
+        <div className="wg-grid-pattern relative flex min-h-[116px] items-center justify-center overflow-hidden border-2 border-ink bg-ivory sm:col-span-5">
           {optimized && (
             <>
               <span className="absolute h-28 w-28 border-2 border-dashed border-cobalt" />
@@ -163,8 +163,8 @@ function WebDevDemo() {
   const [viewport, setViewport] = useState<"desktop" | "mobile">("desktop");
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Interactive Storefront Preview · Concept UI
         </span>
@@ -278,8 +278,8 @@ function AppDevDemo() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Workflow App Simulation · Sample Operations UI
         </span>
@@ -365,8 +365,8 @@ function SocialMediaDemo() {
   const activePost = schedule[selectedDay];
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Editorial Calendar &amp; Brand Post System
         </span>
@@ -438,8 +438,8 @@ function NfcQrDemo() {
   const [scanned, setScanned] = useState(false);
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Physical-to-Digital Review Flow Simulation
         </span>
@@ -553,8 +553,8 @@ function TechSupportDemo() {
   const selected = layers[activeLayer];
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+    <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
         <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Connected Digital Infrastructure Care
         </span>

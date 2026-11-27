@@ -4,42 +4,155 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Check } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import {
-  HighlighterReveal,
-  ParallaxContourField,
-  ScrubbedStatement,
-} from "@/components/motion/KineticTypography";
-import { SERVICE_CATEGORIES } from "@/data/services";
+import { Laptop3DStage } from "@/components/visuals/Laptop3DStage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface NodeCoordinate {
-  x: number;
-  y: number;
+interface LaptopStageSpec {
+  number: string;
+  label: string;
+  headline: string;
+  description: string;
+  deliverables: string[];
+  serviceAnchor: string;
+  serviceTitle: string;
+  accentBg: string;
 }
 
-const NODE_POSITIONS: NodeCoordinate[] = [
-  { x: 110, y: 74 },
-  { x: 390, y: 74 },
-  { x: 64, y: 190 },
-  { x: 436, y: 190 },
-  { x: 110, y: 306 },
-  { x: 390, y: 306 },
+const LAPTOP_SERVICE_STAGES: LaptopStageSpec[] = [
+  {
+    number: "01",
+    label: "LOCAL VISIBILITY & MAPS",
+    headline: "Get discovered where it matters.",
+    description:
+      "Help potential customers find your business through accurate Google Business Profile information, stronger local search presence, and an optimized Google Maps listing.",
+    deliverables: [
+      "Google Business Profile setup and optimization.",
+      "Business category and information accuracy.",
+      "Local SEO improvements.",
+      "Google Maps visibility optimization.",
+      "Business photos and profile updates.",
+      "Review collection and management workflows.",
+    ],
+    serviceAnchor: "/services#google-business-local-seo",
+    serviceTitle: "Google Business Profile & Local SEO",
+    accentBg: "bg-acid text-ink",
+  },
+  {
+    number: "02",
+    label: "WEBSITES THAT CONVERT",
+    headline: "Turn your online presence into your strongest first impression.",
+    description:
+      "We design and develop professional websites that communicate your brand, showcase your offerings, and help turn visitors into customers.",
+    deliverables: [
+      "Custom business website design.",
+      "Responsive development.",
+      "Landing pages.",
+      "E-commerce solutions.",
+      "Website redesign and optimization.",
+      "Ongoing website maintenance.",
+    ],
+    serviceAnchor: "/services#website-design-development",
+    serviceTitle: "Website Design & Development",
+    accentBg: "bg-cobalt text-ivory",
+  },
+  {
+    number: "03",
+    label: "CUSTOM WEB & MOBILE APPS",
+    headline: "Give your business the tools it needs to grow.",
+    description:
+      "From custom web applications to mobile experiences, we help businesses implement digital tools that simplify operations and serve customers better.",
+    deliverables: [
+      "Custom web applications.",
+      "Mobile application development.",
+      "Business workflow solutions.",
+      "Application improvements.",
+      "Application maintenance.",
+      "Technical troubleshooting.",
+    ],
+    serviceAnchor: "/services#application-development-management",
+    serviceTitle: "Application Development & Management",
+    accentBg: "bg-orange text-ivory",
+  },
+  {
+    number: "04",
+    label: "CONSISTENT BRAND PRESENCE",
+    headline: "Stay relevant. Stay recognizable.",
+    description:
+      "Maintain a professional and consistent brand identity across your social channels with planned content, creative assets, and reliable publishing.",
+    deliverables: [
+      "Social media account optimization.",
+      "Content strategy and planning.",
+      "Editorial calendars.",
+      "Creative post design.",
+      "Content creation and publishing.",
+      "Social media management.",
+    ],
+    serviceAnchor: "/services#social-media-management",
+    serviceTitle: "Social Media Management",
+    accentBg: "bg-acid text-ink",
+  },
+  {
+    number: "05",
+    label: "PHYSICAL REVIEW TOOLS",
+    headline: "Turn real-world interactions into digital trust.",
+    description:
+      "Make it easier for customers to reach your Google review page through custom-branded NFC and QR solutions designed for physical businesses.",
+    deliverables: [
+      "Custom NFC review cards.",
+      "QR review cards.",
+      "Custom-branded designs.",
+      "Review link configuration.",
+      "QR-based customer feedback access.",
+      "Installation and setup assistance.",
+    ],
+    serviceAnchor: "/services#nfc-qr-review-solutions",
+    serviceTitle: "NFC & QR Review Solutions",
+    accentBg: "bg-cobalt text-ivory",
+  },
+  {
+    number: "06",
+    label: "DEPENDABLE TECH CARE",
+    headline: "Your digital presence, continuously supported.",
+    description:
+      "We stay involved beyond implementation, helping businesses maintain their websites, applications, and digital infrastructure.",
+    deliverables: [
+      "Website maintenance.",
+      "Application maintenance.",
+      "Domain and hosting assistance.",
+      "Technical troubleshooting.",
+      "Business email setup assistance.",
+      "Ongoing technical consultation.",
+    ],
+    serviceAnchor: "/services#complete-technical-support",
+    serviceTitle: "Complete Technical Support",
+    accentBg: "bg-orange text-ivory",
+  },
 ];
 
-/** Renders Scene 02 (The Digital Ecosystem) in Neo-Brutalist color blocking while preserving ScrubbedStatement and interactive SVG topology. */
+/** Renders the pinned scroll-driven 3D laptop showcase on the left and six-stage animated editorial descriptions on the right. */
 export function EcosystemScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { setActiveSceneIndex } = useCinemaEngine();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const pinStageRef = useRef<HTMLDivElement | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const laptopProgressRef = useRef<number>(0);
 
-  const selectedService = SERVICE_CATEGORIES[selectedIndex];
+  const { reducedMotion, setActiveSceneIndex, scrollToTarget } =
+    useCinemaEngine();
+  const [activeStage, setActiveStage] = useState(0);
 
+  const stage = LAPTOP_SERVICE_STAGES[activeStage] || LAPTOP_SERVICE_STAGES[0];
+
+  // Configure desktop GSAP pinned 6-stage scrub and responsive mobile scroll progress cleanly.
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const pinStage = pinStageRef.current;
+    if (!section || !pinStage) return;
+
+    const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -49,281 +162,312 @@ export function EcosystemScene() {
         onEnter: () => setActiveSceneIndex(1),
         onEnterBack: () => setActiveSceneIndex(1),
       });
+
+      if (reducedMotion) {
+        return;
+      }
+
+      // Desktop pinned experience: keep 3D laptop fixed on left while scrolling cleanly through 01..06
+      mm.add("(min-width: 1024px)", () => {
+        const trigger = ScrollTrigger.create({
+          trigger: pinStage,
+          pin: true,
+          scrub: 0.55,
+          anticipatePin: 1,
+          start: "top top",
+          end: "+=3200",
+          onUpdate: (self) => {
+            laptopProgressRef.current = self.progress;
+            const nextStage = Math.min(
+              LAPTOP_SERVICE_STAGES.length - 1,
+              Math.max(
+                0,
+                Math.floor(self.progress * LAPTOP_SERVICE_STAGES.length)
+              )
+            );
+            setActiveStage((prev) => (prev === nextStage ? prev : nextStage));
+          },
+        });
+        scrollTriggerRef.current = trigger;
+        return () => {
+          scrollTriggerRef.current = null;
+        };
+      });
+
+      // Mobile / Tablet natural flow: keep Stage 01 visible at entry and scrub smoothly on downward scroll
+      mm.add("(max-width: 1023px)", () => {
+        const mobileTrigger = ScrollTrigger.create({
+          trigger: section,
+          scrub: true,
+          start: "top 15%",
+          end: "bottom 35%",
+          onUpdate: (self) => {
+            laptopProgressRef.current = self.progress;
+            const nextStage = Math.min(
+              LAPTOP_SERVICE_STAGES.length - 1,
+              Math.max(
+                0,
+                Math.floor(self.progress * LAPTOP_SERVICE_STAGES.length)
+              )
+            );
+            setActiveStage((prev) => (prev === nextStage ? prev : nextStage));
+          },
+        });
+        scrollTriggerRef.current = mobileTrigger;
+        return () => {
+          scrollTriggerRef.current = null;
+        };
+      });
     }, section);
 
-    return () => ctx.revert();
-  }, [setActiveSceneIndex]);
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
+  }, [reducedMotion, setActiveSceneIndex]);
+
+  /** Scrolls directly to a chosen stage milestone or updates immediately under reduced motion. */
+  function jumpToStage(index: number) {
+    setActiveStage(index);
+    const targetProgress = (index + 0.08) / LAPTOP_SERVICE_STAGES.length;
+    laptopProgressRef.current = targetProgress;
+
+    const st = scrollTriggerRef.current;
+    if (st && window.innerWidth >= 1024 && !reducedMotion) {
+      const targetY = st.start + targetProgress * (st.end - st.start);
+      scrollToTarget(targetY);
+    }
+  }
 
   return (
     <section
       id="scene-ecosystem"
       ref={sectionRef}
-      aria-labelledby="ecosystem-heading"
-      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28 xl:pl-12"
+      aria-labelledby="laptop-showcase-heading"
+      className="border-y-[3px] border-ink bg-concrete text-ink"
     >
-      <ParallaxContourField className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Scrubbed word-by-word thesis + Neo-Brutalist metadata stamp */}
-        <div className="border-b-[3px] border-ink pb-14">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <span className="border-2 border-ink bg-cobalt px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
-              [02] · The Digital Ecosystem
+      <div
+        ref={pinStageRef}
+        className={`mx-auto max-w-[92rem] px-5 pt-20 pb-10 sm:px-8 lg:px-12 ${
+          reducedMotion
+            ? "lg:py-20"
+            : "lg:flex lg:h-[100dvh] lg:max-h-[100dvh] lg:flex-col lg:justify-between lg:overflow-hidden lg:pt-[clamp(4.85rem,8.5dvh,5.75rem)] lg:pb-[clamp(0.75rem,2.2dvh,1.75rem)]"
+        }`}
+      >
+        {/* Top subtle bar framing the 2-column Neo-Brutalist composition */}
+        <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3 lg:mb-[clamp(0.5rem,1.4dvh,1.25rem)] lg:pb-[clamp(0.35rem,1dvh,0.85rem)]">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="border-2 border-ink bg-cobalt px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
+              [02] · Interactive 3D Showcase
             </span>
-            <span className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[11px] font-bold tracking-[0.08em] text-ink uppercase">
-              + Connected Systems Over Fragmented Vendors +
+            <span className="font-mono text-[11px] font-bold tracking-[0.08em] text-ink uppercase">
+              + Scroll To Orbit Hardware &amp; Explore Six Capabilities +
             </span>
           </div>
 
-          <ScrubbedStatement
-            text="Most growing businesses stitch together separate vendors for local SEO, websites, custom software, social feeds, and support. We align every touchpoint under one engineering team."
-            accentWord="one"
-            className="mt-8 max-w-5xl font-display text-3xl leading-[1.1] font-extrabold tracking-[-0.03em] text-ink sm:text-5xl lg:text-[3.4rem]"
-          />
+          <span className="border-2 border-ink bg-ink px-3 py-1 font-mono text-xs font-bold text-acid uppercase">
+            Stage {stage.number} / 06
+          </span>
         </div>
 
-        {/* Interactive Node Topology + Synchronized Deep Ink Block */}
-        <div className="mt-14 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-          {/* Interactive SVG Network Diagram on Warm Ivory grid */}
-          <div className="lg:col-span-7">
-            <div className="mb-5 flex items-center justify-between gap-4">
-              <HighlighterReveal
-                as="h2"
-                id="ecosystem-heading"
-                lines={["Select a node to trace", "how the system connects."]}
-                className="font-display text-2xl leading-tight font-extrabold tracking-tight text-ink uppercase sm:text-3xl"
-                barClassName="bg-cobalt"
-              />
-              <span className="hidden border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] font-bold text-acid uppercase sm:inline">
-                6 Active Nodes
-              </span>
-            </div>
-
+        {/* Full-width 2-Column Showcase: Left ~58% 3D Laptop, Right ~42% Animated Editorial Stage */}
+        <div className="grid grid-cols-1 items-stretch gap-6 lg:my-auto lg:min-h-0 lg:max-h-[680px] lg:flex-1 lg:grid-cols-12 lg:gap-[clamp(1.25rem,2.2vw,2.5rem)]">
+          {/* LEFT (~58%): Interactive 3D Laptop Stage */}
+          <div className="lg:col-span-7 lg:min-h-0">
             <div
-              data-cursor="INSPECT"
-              className="wg-grid-pattern relative overflow-hidden border-[3px] border-ink bg-ivory p-4 shadow-[8px_8px_0px_#151515] sm:p-6"
+              data-cursor="SCROLL 360°"
+              className="wg-grid-pattern relative flex h-[300px] flex-col justify-between overflow-hidden border-[3px] border-ink bg-ivory shadow-[8px_8px_0px_#151515] sm:h-[360px] lg:h-full lg:min-h-0"
             >
-              <svg
-                viewBox="0 0 500 380"
-                className="mx-auto block w-full max-w-[540px]"
-                role="img"
-                aria-label="Interactive Web Guru digital ecosystem node diagram connecting all six services"
-              >
-                {/* Signal connector lines from core hub (250, 190) */}
-                {NODE_POSITIONS.map((coords, index) => {
-                  const isActive = index === selectedIndex;
-                  return (
-                    <line
-                      key={`edge-${index}`}
-                      x1={250}
-                      y1={190}
-                      x2={coords.x}
-                      y2={coords.y}
-                      stroke={isActive ? "#F0522B" : "#151515"}
-                      strokeOpacity={isActive ? 1 : 0.25}
-                      strokeWidth={isActive ? 3 : 1.5}
-                      className={isActive ? "wg-flow-line" : ""}
-                    />
-                  );
-                })}
+              {/* Top left / right calibration annotations */}
+              <div className="pointer-events-none relative z-10 flex items-center justify-between px-4 pt-3.5 font-mono text-[10px] font-bold tracking-[0.12em] text-ink uppercase">
+                <span className="border border-ink bg-acid px-2 py-0.5">
+                  {"+ CAM // ORBIT SYNC"}
+                </span>
+                <span className="border border-ink bg-concrete px-2 py-0.5">
+                  STAGE {stage.number} PERSPECTIVE
+                </span>
+              </div>
 
-                {/* Geometric octagonal structural ring */}
-                <rect
-                  x={64}
-                  y={64}
-                  width={372}
-                  height={252}
-                  fill="none"
-                  stroke="#151515"
-                  strokeOpacity={0.18}
-                  strokeDasharray="6 6"
-                  strokeWidth={1.5}
+              {/* Three.js Canvas Mounted Cleanly Inside Stage */}
+              <div className="absolute inset-0">
+                <Laptop3DStage
+                  progressRef={laptopProgressRef}
+                  activeStage={activeStage}
+                  reducedMotion={reducedMotion}
                 />
+              </div>
 
-                {/* Central Electric Cobalt hub with black brutalist offset */}
-                <rect
-                  x={203}
-                  y={145}
-                  width={102}
-                  height={98}
-                  fill="#151515"
-                />
-                <rect
-                  x={198}
-                  y={140}
-                  width={102}
-                  height={98}
-                  fill="#3155F5"
-                  stroke="#151515"
-                  strokeWidth={2.5}
-                />
-                <text
-                  x={249}
-                  y={184}
-                  textAnchor="middle"
-                  fill="#F5F0E6"
-                  fontSize="12"
-                  fontWeight="800"
-                  letterSpacing="0.08em"
-                >
-                  WEB GURU
-                </text>
-                <text
-                  x={249}
-                  y={202}
-                  textAnchor="middle"
-                  fill="#E9FF45"
-                  fontSize="9"
-                  fontWeight="700"
-                  letterSpacing="0.1em"
-                >
-                  CORE ENGINE
-                </text>
-
-                {/* Sharp rectangular interactive service nodes */}
-                {SERVICE_CATEGORIES.map((service, index) => {
-                  const pos = NODE_POSITIONS[index];
-                  const isSelected = index === selectedIndex;
-                  return (
-                    <g
-                      key={service.id}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`Inspect ${service.title}`}
-                      aria-pressed={isSelected}
-                      onClick={() => setSelectedIndex(index)}
-                      onMouseEnter={() => setSelectedIndex(index)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setSelectedIndex(index);
-                        }
-                      }}
-                      className="cursor-pointer outline-none"
-                    >
-                      {/* Hard black offset shadow beneath node */}
-                      <rect
-                        x={pos.x - 55}
-                        y={pos.y - 21}
-                        width={118}
-                        height={48}
-                        fill="#151515"
-                      />
-                      <rect
-                        x={pos.x - 59}
-                        y={pos.y - 25}
-                        width={118}
-                        height={48}
-                        fill={isSelected ? "#E9FF45" : "#F5F0E6"}
-                        stroke="#151515"
-                        strokeWidth={2.5}
-                      />
-                      <text
-                        x={pos.x}
-                        y={pos.y - 6}
-                        textAnchor="middle"
-                        fill={isSelected ? "#3155F5" : "#F0522B"}
-                        fontSize="9"
-                        fontWeight="800"
-                        letterSpacing="0.1em"
-                      >
-                        NODE {service.number}
-                      </text>
-                      <text
-                        x={pos.x}
-                        y={pos.y + 11}
-                        textAnchor="middle"
-                        fill="#151515"
-                        fontSize="10"
-                        fontWeight="700"
-                      >
-                        {service.shortTitle}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
-
-              {/* Accessible brutalist pill tabs */}
-              <div className="mt-4 flex flex-wrap gap-2 border-t-2 border-ink pt-4">
-                {SERVICE_CATEGORIES.map((service, index) => {
-                  const active = index === selectedIndex;
-                  return (
-                    <button
-                      key={service.id}
-                      type="button"
-                      onClick={() => setSelectedIndex(index)}
-                      className={`border-2 border-ink px-3 py-1.5 font-mono text-[10px] font-bold uppercase transition-colors ${
-                        active
-                          ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
-                          : "bg-concrete text-ink hover:bg-acid"
-                      }`}
-                    >
-                      {service.number} · {service.shortTitle}
-                    </button>
-                  );
-                })}
+              {/* Bottom corner hardware specs strip */}
+              <div className="pointer-events-none relative z-10 flex items-center justify-between border-t-2 border-ink bg-ink px-4 py-2 font-mono text-[10px] font-bold tracking-[0.1em] text-ivory uppercase">
+                <span>One Partner · Full Digital Stack</span>
+                <span className="text-acid">
+                  {`Stage ${stage.number} // ${stage.label}`}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Synchronized right specification card */}
-          <div className="border-[3px] border-ink bg-ink p-7 text-ivory shadow-[8px_8px_0px_#3155F5] sm:p-9 lg:col-span-5">
-            <div className="flex items-center justify-between border-b-2 border-ivory/25 pb-4">
-              <span className="bg-acid px-2.5 py-1 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">
-                Discipline [{selectedService.number}]
-              </span>
-              <span className="font-mono text-[11px] font-bold text-acid uppercase">
-                {selectedService.deliverables.length} Deliverables
-              </span>
+          {/* RIGHT (~42%): Six-Stage Animated Service Story + Progress Indicator */}
+          <div className="flex flex-col justify-between border-[3px] border-ink bg-ivory p-5 shadow-[8px_8px_0px_#3155F5] sm:p-6 lg:col-span-5 lg:h-full lg:min-h-0 lg:p-[clamp(1rem,2.1dvh,1.75rem)]">
+            {/* Integrated Stage Progress Indicator */}
+            <div className="shrink-0 border-b-2 border-ink pb-[clamp(0.5rem,1.3dvh,1rem)]">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-mono text-xs font-extrabold tracking-[0.1em] text-ink uppercase">
+                  {stage.number} / 06
+                </span>
+
+                <div
+                  role="tablist"
+                  aria-label="3D service showcase stages"
+                  className="flex items-center gap-1.5"
+                >
+                  {LAPTOP_SERVICE_STAGES.map((item, idx) => {
+                    const active = idx === activeStage;
+                    return (
+                      <button
+                        key={item.number}
+                        type="button"
+                        role="tab"
+                        aria-selected={active}
+                        aria-label={`View stage ${item.number}: ${item.label}`}
+                        onClick={() => jumpToStage(idx)}
+                        className={`border-2 border-ink px-2 py-0.5 font-mono text-[10px] font-bold transition-colors ${
+                          active
+                            ? "bg-cobalt text-ivory shadow-[2px_2px_0px_#151515]"
+                            : "bg-concrete text-ink hover:bg-acid"
+                        }`}
+                      >
+                        {item.number}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Clean progress bar synced to active stage progression */}
+              <div className="mt-2.5 h-2 w-full border border-ink bg-concrete p-[1px]">
+                <div
+                  className="h-full bg-orange transition-all duration-300"
+                  style={{
+                    width: `${((activeStage + 1) / LAPTOP_SERVICE_STAGES.length) * 100}%`,
+                  }}
+                />
+              </div>
             </div>
 
-            <h3 className="mt-5 font-display text-2xl leading-tight font-extrabold text-ivory uppercase sm:text-3xl">
-              {selectedService.title}
-            </h3>
+            {/* Transitioning Service Stage Content Container */}
+            <div className="relative my-[clamp(0.5rem,1.4dvh,1.25rem)] flex min-h-0 flex-1 flex-col justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={stage.number}
+                  initial={
+                    reducedMotion
+                      ? false
+                      : {
+                          opacity: 0,
+                          y: 16,
+                          filter: "blur(4px)",
+                          clipPath: "inset(0% 0% 18% 0%)",
+                        }
+                  }
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    clipPath: "inset(0% 0% 0% 0%)",
+                  }}
+                  exit={
+                    reducedMotion
+                      ? undefined
+                      : {
+                          opacity: 0,
+                          y: -12,
+                          filter: "blur(3px)",
+                        }
+                  }
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="space-y-[clamp(0.45rem,1.15dvh,0.9rem)]"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className={`inline-block border-2 border-ink px-2.5 py-0.5 font-mono text-[10px] font-extrabold tracking-[0.1em] uppercase shadow-[2px_2px_0px_#151515] ${stage.accentBg}`}
+                    >
+                      STAGE {stage.number} — {stage.label}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="font-display text-[clamp(1.65rem,2.8dvh,2.25rem)] leading-none font-extrabold text-ink/15"
+                    >
+                      {stage.number}
+                    </span>
+                  </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-ivory/85 sm:text-base">
-              {selectedService.summary}
-            </p>
+                  <motion.h2
+                    id="laptop-showcase-heading"
+                    initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28, delay: 0.04 }}
+                    className="font-display text-[clamp(1.2rem,2.05vw,1.875rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-ink uppercase"
+                  >
+                    {stage.headline}
+                  </motion.h2>
 
-            <div className="mt-6 border-2 border-acid bg-cobalt/35 p-4">
-              <span className="font-mono text-[10px] font-bold tracking-[0.12em] text-acid uppercase">
-                Real Business Impact
-              </span>
-              <p className="mt-1.5 text-sm leading-relaxed text-ivory">
-                {selectedService.businessOutcome}
-              </p>
+                  <motion.p
+                    initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28, delay: 0.08 }}
+                    className="text-[clamp(0.8125rem,1.3dvh,0.95rem)] leading-snug text-slate"
+                  >
+                    {stage.description}
+                  </motion.p>
+
+                  {/* Progressive deliverable checklist */}
+                  <ul className="space-y-[clamp(0.22rem,0.75dvh,0.5rem)] border-t-2 border-ink pt-[clamp(0.45rem,1.15dvh,0.9rem)]">
+                    {stage.deliverables.map((item, itemIdx) => (
+                      <motion.li
+                        key={item}
+                        initial={reducedMotion ? false : { opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.22,
+                          delay: reducedMotion ? 0 : 0.1 + itemIdx * 0.032,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="flex items-start gap-2 text-[clamp(0.75rem,1.25dvh,0.875rem)] leading-snug font-semibold text-ink"
+                      >
+                        <Check
+                          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cobalt"
+                          aria-hidden="true"
+                        />
+                        <span>{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <ul className="mt-6 grid grid-cols-1 gap-2.5 border-t-2 border-ivory/20 pt-5 text-xs text-ivory/90">
-              {selectedService.deliverables.slice(0, 4).map((item) => (
-                <li key={item} className="flex items-center gap-2.5">
-                  <span
-                    className="h-2.5 w-2.5 shrink-0 border border-ivory bg-orange"
-                    aria-hidden="true"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ivory/20 pt-5">
+            {/* Bottom consistent action bar */}
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t-2 border-ink pt-[clamp(0.5rem,1.3dvh,1.1rem)]">
               <Link
-                href={`/services#${selectedService.id}`}
-                data-cursor="DETAILS"
-                className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-acid px-5 py-2.5 font-mono text-xs font-bold tracking-[0.06em] text-ink uppercase shadow-[4px_4px_0px_#F0522B]"
+                href={stage.serviceAnchor}
+                data-cursor="SCOPE"
+                className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-extrabold text-ink uppercase hover:bg-cobalt hover:text-ivory"
               >
                 Explore Discipline
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </Link>
+
               <Link
-                href={`/contact?service=${encodeURIComponent(selectedService.title)}`}
-                className="font-mono text-xs font-bold text-acid underline decoration-2 underline-offset-4 hover:text-orange"
+                href={`/contact?service=${encodeURIComponent(stage.serviceTitle)}`}
+                className="font-mono text-xs font-bold text-cobalt underline decoration-2 underline-offset-4 hover:text-orange"
               >
-                Enquire Directly &rarr;
+                Enquire Stage {stage.number} &rarr;
               </Link>
             </div>
           </div>
         </div>
-      </ParallaxContourField>
+      </div>
     </section>
   );
 }

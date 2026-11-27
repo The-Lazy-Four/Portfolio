@@ -72,7 +72,7 @@ export function PortfolioCinemaScene() {
       id="scene-work"
       ref={sectionRef}
       aria-labelledby="portfolio-cinema-heading"
-      className="border-y-[3px] border-ink bg-ivory py-20 sm:py-28 xl:pl-12"
+      className="border-y-[3px] border-ink bg-ivory py-20 sm:py-28"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
         {/* Bold Neo-Brutalist section banner */}

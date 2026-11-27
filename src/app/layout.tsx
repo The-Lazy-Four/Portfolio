@@ -7,7 +7,6 @@ import {
 } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { SceneSpineRail } from "@/components/layout/SceneSpineRail";
 import { CinemaEngineProvider } from "@/components/motion/CinemaEngineProvider";
 import { MotionProvider } from "@/components/motion/Reveal";
 import { StudioCursor } from "@/components/motion/StudioCursor";
@@ -96,7 +95,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <MotionProvider>
             <StudioCursor />
             <Navbar />
-            <SceneSpineRail />
             <main id="main-content" className="flex-1 overflow-x-clip pt-18">
               {children}
             </main>

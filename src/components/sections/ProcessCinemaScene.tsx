@@ -88,7 +88,7 @@ export function ProcessCinemaScene() {
       id="scene-process"
       ref={sectionRef}
       aria-labelledby="process-cinema-heading"
-      className="bg-cobalt text-ivory xl:pl-12"
+      className="bg-cobalt text-ivory"
     >
       <div
         ref={pinWrapperRef}

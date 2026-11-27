@@ -102,7 +102,7 @@ export function HeroCinemaScene() {
       id="scene-opening"
       ref={sectionRef}
       aria-labelledby="hero-cinema-heading"
-      className="bg-ivory pt-4 pb-12 sm:px-5 sm:pt-6 lg:px-10 lg:pb-16 xl:pl-18"
+      className="bg-ivory pt-4 pb-12 sm:px-5 sm:pt-6 lg:px-10 lg:pb-16"
     >
       <div className="mx-auto max-w-[90rem]">
         {/* Top Neo-Brutalist calibration bar */}

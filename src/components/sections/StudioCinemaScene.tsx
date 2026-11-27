@@ -65,7 +65,7 @@ export function StudioCinemaScene() {
       id="scene-studio"
       ref={sectionRef}
       aria-labelledby="studio-cinema-heading"
-      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28 xl:pl-12"
+      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
         {/* Studio Manifesto Header */}

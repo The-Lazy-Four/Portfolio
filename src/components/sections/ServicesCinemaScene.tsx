@@ -155,6 +155,13 @@ export function ServicesCinemaScene() {
             anticipatePin: 1,
             start: "top top",
             end: () => `+=${Math.max(track.scrollWidth - window.innerWidth, 1600)}`,
+            invalidateOnRefresh: true,
+            snap: {
+              snapTo: 1 / (panelCount - 1),
+              duration: { min: 0.2, max: 0.4 },
+              delay: 0.05,
+              ease: "power2.out",
+            },
             onUpdate: (self) => {
               const nextIdx = Math.min(
                 panelCount - 1,
@@ -213,14 +220,14 @@ export function ServicesCinemaScene() {
         className={`flex flex-col justify-between pt-20 pb-12 ${
           reducedMotion
             ? "lg:pt-24 lg:pb-16"
-            : "lg:min-h-screen lg:overflow-hidden lg:pt-28"
+            : "lg:h-[100dvh] lg:max-h-[100dvh] lg:overflow-hidden lg:pt-[clamp(4.75rem,8dvh,5.5rem)] lg:pb-[clamp(0.65rem,1.6dvh,1.25rem)]"
         }`}
       >
         {/* Top stage header & brutalist chapter jump bar */}
-        <div className="mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-12 xl:pl-18">
-          <div className="flex flex-col justify-between gap-5 border-b-2 border-ivory/25 pb-6 lg:flex-row lg:items-end">
-            <div>
-              <span className="inline-block border-2 border-ivory bg-orange px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#E9FF45]">
+        <div className="mx-auto w-full max-w-[90rem] shrink-0 px-5 sm:px-8 lg:px-12">
+          <div className="flex flex-col justify-between gap-3 border-b-2 border-ivory/25 pb-4 lg:flex-row lg:items-end lg:gap-4 lg:pb-[clamp(0.45rem,1.2dvh,1rem)]">
+            <div className="min-w-0">
+              <span className="inline-block border-2 border-ivory bg-orange px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#E9FF45]">
                 [03] · Services Experience
               </span>
               <HighlighterReveal
@@ -228,14 +235,14 @@ export function ServicesCinemaScene() {
                 id="services-cinema-heading"
                 lines={["Six connected capabilities.", "Interactive proof on every panel."]}
                 barClassName="bg-acid"
-                className="mt-3 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ivory uppercase sm:text-4xl lg:text-5xl"
+                className="mt-2 font-display text-[clamp(1.35rem,2.1vw,2.25rem)] leading-[1.04] font-extrabold tracking-[-0.03em] text-ivory uppercase"
               />
             </div>
 
             <div
               role="tablist"
               aria-label="Service discipline stages"
-              className="flex flex-wrap gap-2"
+              className="flex flex-wrap gap-1.5"
             >
               {SERVICE_CATEGORIES.map((service, index) => {
                 const active = index === activeDisciplineIndex;
@@ -246,7 +253,7 @@ export function ServicesCinemaScene() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => jumpToDiscipline(index)}
-                    className={`inline-flex items-center gap-1.5 border-2 px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.06em] uppercase transition-colors ${
+                    className={`inline-flex items-center gap-1.5 border-2 px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.06em] uppercase transition-colors ${
                       active
                         ? "border-ink bg-acid text-ink shadow-[3px_3px_0px_#3155F5]"
                         : "border-ivory/35 bg-ink text-ivory/80 hover:border-acid hover:text-acid"
@@ -266,8 +273,8 @@ export function ServicesCinemaScene() {
           ref={trackRef}
           className={
             reducedMotion
-              ? "mt-8 flex flex-col gap-12 px-5 sm:px-8 lg:px-12 xl:pl-18"
-              : "mt-8 flex flex-col gap-12 px-5 sm:px-8 lg:mt-6 lg:w-[600%] lg:flex-row lg:gap-0 lg:px-0"
+              ? "mt-8 flex flex-col gap-12 px-5 sm:px-8 lg:px-12"
+              : "mt-6 flex flex-col gap-10 px-5 sm:px-8 lg:mt-0 lg:min-h-0 lg:flex-1 lg:w-[600%] lg:flex-row lg:items-center lg:gap-0 lg:px-0"
           }
         >
           {SERVICE_CATEGORIES.map((service, index) => {
@@ -281,19 +288,19 @@ export function ServicesCinemaScene() {
                 className={
                   reducedMotion
                     ? "scroll-mt-24 w-full"
-                    : "scroll-mt-24 w-full lg:w-[16.666667%] lg:px-12 xl:pl-20"
+                    : "scroll-mt-24 w-full lg:w-[16.666667%] lg:px-8 xl:px-12"
                 }
               >
                 <div
-                  className={`mx-auto grid max-w-[84rem] grid-cols-1 items-center gap-7 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10 ${theme.cardClass}`}
+                  className={`mx-auto grid w-full max-w-[84rem] grid-cols-1 items-center gap-5 p-5 sm:p-6 lg:grid-cols-12 lg:gap-[clamp(1rem,1.8vw,2.25rem)] lg:p-[clamp(0.9rem,1.8dvh,1.75rem)] ${theme.cardClass}`}
                 >
                   {/* Editorial specification column (alternates order asymmetrically across panels) */}
                   <div
-                    className={`space-y-4 lg:col-span-5 ${
+                    className={`space-y-[clamp(0.35rem,0.9dvh,0.85rem)] lg:col-span-5 ${
                       theme.swapMediaFirst ? "lg:order-2" : "lg:order-1"
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-4 border-b-2 border-current/25 pb-3 font-mono text-xs font-bold uppercase">
+                    <div className="flex items-center justify-between gap-4 border-b-2 border-current/25 pb-2 font-mono text-xs font-bold uppercase">
                       <span
                         className={`shrink-0 px-2.5 py-0.5 whitespace-nowrap ${theme.numberBadgeClass}`}
                       >
@@ -304,34 +311,34 @@ export function ServicesCinemaScene() {
                       </span>
                     </div>
 
-                    <div className="flex items-baseline gap-4">
+                    <div className="flex items-baseline gap-3">
                       <span
                         aria-hidden="true"
-                        className="font-display text-5xl leading-none font-extrabold opacity-25 sm:text-6xl"
+                        className="font-display text-[clamp(2rem,3.4dvh,3.25rem)] leading-none font-extrabold opacity-25"
                       >
                         {service.number}
                       </span>
                       <h3
-                        className={`font-display text-2xl leading-tight font-extrabold tracking-tight uppercase sm:text-3xl ${theme.titleClass}`}
+                        className={`font-display text-[clamp(1.15rem,1.75vw,1.75rem)] leading-tight font-extrabold tracking-tight uppercase ${theme.titleClass}`}
                       >
                         {service.title}
                       </h3>
                     </div>
 
                     <p
-                      className={`text-sm leading-relaxed sm:text-base ${theme.summaryClass}`}
+                      className={`text-[clamp(0.78rem,1.25dvh,0.9375rem)] leading-snug ${theme.summaryClass}`}
                     >
                       {service.summary}
                     </p>
 
-                    <ul className="space-y-2 border-y-2 border-current/20 py-4 text-xs">
+                    <ul className="space-y-[clamp(0.18rem,0.55dvh,0.45rem)] border-y-2 border-current/20 py-[clamp(0.35rem,0.9dvh,0.75rem)] text-[clamp(0.72rem,1.1dvh,0.8rem)]">
                       {service.deliverables.slice(0, 5).map((deliverable) => (
                         <li
                           key={deliverable}
-                          className={`flex items-start gap-2.5 ${theme.deliverableTextClass}`}
+                          className={`flex items-start gap-2 ${theme.deliverableTextClass}`}
                         >
                           <Check
-                            className={`mt-0.5 h-4 w-4 shrink-0 ${theme.bulletClass}`}
+                            className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${theme.bulletClass}`}
                             aria-hidden="true"
                           />
                           <span>{deliverable}</span>
@@ -339,11 +346,11 @@ export function ServicesCinemaScene() {
                       ))}
                     </ul>
 
-                    <div className="flex flex-wrap items-center gap-4 pt-1">
+                    <div className="flex flex-wrap items-center gap-4 pt-0.5">
                       <Link
                         href={`/services#${service.id}`}
                         data-cursor="SCOPE"
-                        className={`wg-brutal-btn inline-flex items-center gap-2 px-5 py-2.5 font-mono text-xs font-bold tracking-[0.04em] uppercase transition-colors ${theme.buttonClass}`}
+                        className={`wg-brutal-btn inline-flex items-center gap-2 px-4 py-2 font-mono text-xs font-bold tracking-[0.04em] uppercase transition-colors ${theme.buttonClass}`}
                       >
                         View Full Deliverables
                         <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -361,7 +368,7 @@ export function ServicesCinemaScene() {
                   {/* Interactive Service Demonstration framed cleanly on crisp Warm Ivory */}
                   <div
                     data-cursor="INTERACT"
-                    className={`border-[3px] border-ink bg-ivory p-4 text-ink shadow-[6px_6px_0px_#151515] sm:p-5 lg:col-span-7 ${
+                    className={`border-[3px] border-ink bg-ivory p-3.5 text-ink shadow-[6px_6px_0px_#151515] lg:col-span-7 lg:p-[clamp(0.65rem,1.4dvh,1.25rem)] ${
                       theme.swapMediaFirst ? "lg:order-1" : "lg:order-2"
                     }`}
                   >
@@ -374,7 +381,7 @@ export function ServicesCinemaScene() {
         </div>
 
         {/* Bottom horizontal track meter on desktop */}
-        <div className="mx-auto mt-6 hidden w-full max-w-[90rem] items-center justify-between px-12 font-mono text-[10px] font-bold tracking-[0.12em] text-ivory/80 uppercase lg:flex xl:pl-18">
+        <div className="mx-auto mt-[clamp(0.35rem,0.9dvh,0.85rem)] hidden w-full max-w-[90rem] shrink-0 items-center justify-between px-12 font-mono text-[10px] font-bold tracking-[0.12em] text-ivory/80 uppercase lg:flex">
           <span className="bg-cobalt px-2.5 py-1 text-ivory">
             Active Panel: {SERVICE_CATEGORIES[activeDisciplineIndex]?.number} —{" "}
             {SERVICE_CATEGORIES[activeDisciplineIndex]?.title}

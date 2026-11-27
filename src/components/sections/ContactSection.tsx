@@ -194,7 +194,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
       id="contact"
       ref={sectionRef}
       aria-labelledby="contact-heading"
-      className="wg-grid-pattern-dark bg-ink py-20 text-ivory sm:py-28 xl:pl-12"
+      className="wg-grid-pattern-dark bg-ink py-20 text-ivory sm:py-28"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
         {/* Dramatic Neo-Brutalist closing banner */}

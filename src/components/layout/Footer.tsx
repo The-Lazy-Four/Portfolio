@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t-4 border-ink bg-ink text-ivory">
-      <div className="mx-auto max-w-[92rem] px-5 pt-16 pb-10 sm:px-8 lg:px-12 lg:pt-20 xl:pl-20">
+      <div className="mx-auto max-w-[92rem] px-5 pt-16 pb-10 sm:px-8 lg:px-12 lg:pt-20">
         {/* Bold top brand block */}
         <div className="flex flex-col justify-between gap-8 border-b-2 border-ivory/25 pb-12 lg:flex-row lg:items-end">
           <div className="max-w-xl space-y-5">
