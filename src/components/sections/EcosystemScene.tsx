@@ -244,82 +244,66 @@ export function EcosystemScene() {
       id="scene-ecosystem"
       ref={sectionRef}
       aria-labelledby="laptop-showcase-heading"
-      className="border-y-[3px] border-ink bg-concrete text-ink"
+      className="relative overflow-hidden border-t border-ivory/10 bg-[#05091B]/25 text-ivory"
     >
+
       <div
         ref={pinStageRef}
-        className={`mx-auto max-w-[92rem] px-5 pt-20 pb-10 sm:px-8 lg:px-12 ${
+        className={`relative z-10 mx-auto max-w-[92rem] px-6 pt-20 pb-10 sm:px-10 lg:px-14 ${
           reducedMotion
             ? "lg:py-20"
             : "lg:flex lg:h-[100dvh] lg:max-h-[100dvh] lg:flex-col lg:justify-between lg:overflow-hidden lg:pt-[clamp(4.85rem,8.5dvh,5.75rem)] lg:pb-[clamp(0.75rem,2.2dvh,1.75rem)]"
         }`}
       >
-        {/* Top subtle bar framing the 2-column Neo-Brutalist composition */}
-        <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3 lg:mb-[clamp(0.5rem,1.4dvh,1.25rem)] lg:pb-[clamp(0.35rem,1dvh,0.85rem)]">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="border-2 border-ink bg-cobalt px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
-              [02] · Interactive 3D Showcase
-            </span>
-            <span className="font-mono text-[11px] font-bold tracking-[0.08em] text-ink uppercase">
-              + Scroll To Orbit Hardware &amp; Explore Six Capabilities +
-            </span>
-          </div>
+        {/* Minimal editorial chapter header */}
+        <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-ivory/10 pb-3 lg:mb-[clamp(0.5rem,1.4dvh,1.25rem)] lg:pb-[clamp(0.35rem,1dvh,0.85rem)]">
+          <span className="font-sans text-xs font-medium tracking-[0.06em] text-ivory/70">
+            Capabilities in motion
+          </span>
 
-          <span className="border-2 border-ink bg-ink px-3 py-1 font-mono text-xs font-bold text-acid uppercase">
-            Stage {stage.number} / 06
+          <span className="font-mono text-xs tracking-[0.12em] text-ivory/60">
+            {stage.number} / 06
           </span>
         </div>
 
-        {/* Full-width 2-Column Showcase: Left ~58% 3D Laptop, Right ~42% Animated Editorial Stage */}
-        <div className="grid grid-cols-1 items-stretch gap-6 lg:my-auto lg:min-h-0 lg:max-h-[680px] lg:flex-1 lg:grid-cols-12 lg:gap-[clamp(1.25rem,2.2vw,2.5rem)]">
-          {/* LEFT (~58%): Interactive 3D Laptop Stage */}
+        {/* Open 2-Column Composition: Left ~58% Floating 3D Laptop, Right ~42% Editorial Narrative */}
+        <div className="grid grid-cols-1 items-stretch gap-8 lg:my-auto lg:min-h-0 lg:max-h-[680px] lg:flex-1 lg:grid-cols-12 lg:gap-[clamp(1.5rem,3vw,3.5rem)]">
+          {/* LEFT (~58%): Open Atmospheric 3D Laptop Stage */}
           <div className="lg:col-span-7 lg:min-h-0">
             <div
               data-cursor="SCROLL 360°"
-              className="wg-grid-pattern relative flex h-[300px] flex-col justify-between overflow-hidden border-[3px] border-ink bg-ivory shadow-[8px_8px_0px_#151515] sm:h-[360px] lg:h-full lg:min-h-0"
+              className="relative flex h-[300px] flex-col justify-between overflow-hidden sm:h-[360px] lg:h-full lg:min-h-0"
             >
-              {/* Top left / right calibration annotations */}
-              <div className="pointer-events-none relative z-10 flex items-center justify-between px-4 pt-3.5 font-mono text-[10px] font-bold tracking-[0.12em] text-ink uppercase">
-                <span className="border border-ink bg-acid px-2 py-0.5">
-                  {"+ CAM // ORBIT SYNC"}
-                </span>
-                <span className="border border-ink bg-concrete px-2 py-0.5">
-                  STAGE {stage.number} PERSPECTIVE
-                </span>
-              </div>
+              {/* Subtle radial cobalt studio glow behind floating hardware */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(49,85,245,0.22),transparent_68%)]"
+              />
 
-              {/* Three.js Canvas Mounted Cleanly Inside Stage */}
-              <div className="absolute inset-0">
+              {/* Three.js Canvas Mounted Cleanly Inside Open Stage */}
+              <div className="relative h-full w-full">
                 <Laptop3DStage
                   progressRef={laptopProgressRef}
                   activeStage={activeStage}
                   reducedMotion={reducedMotion}
                 />
               </div>
-
-              {/* Bottom corner hardware specs strip */}
-              <div className="pointer-events-none relative z-10 flex items-center justify-between border-t-2 border-ink bg-ink px-4 py-2 font-mono text-[10px] font-bold tracking-[0.1em] text-ivory uppercase">
-                <span>One Partner · Full Digital Stack</span>
-                <span className="text-acid">
-                  {`Stage ${stage.number} // ${stage.label}`}
-                </span>
-              </div>
             </div>
           </div>
 
-          {/* RIGHT (~42%): Six-Stage Animated Service Story + Progress Indicator */}
-          <div className="flex flex-col justify-between border-[3px] border-ink bg-ivory p-5 shadow-[8px_8px_0px_#3155F5] sm:p-6 lg:col-span-5 lg:h-full lg:min-h-0 lg:p-[clamp(1rem,2.1dvh,1.75rem)]">
+          {/* RIGHT (~42%): Open Editorial Narrative + Minimal Progress Indicator */}
+          <div className="flex flex-col justify-between py-2 lg:col-span-5 lg:h-full lg:min-h-0 lg:py-4">
             {/* Integrated Stage Progress Indicator */}
-            <div className="shrink-0 border-b-2 border-ink pb-[clamp(0.5rem,1.3dvh,1rem)]">
+            <div className="shrink-0 border-b border-ivory/10 pb-[clamp(0.5rem,1.3dvh,1rem)]">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-xs font-extrabold tracking-[0.1em] text-ink uppercase">
+                <span className="font-mono text-xs tracking-[0.14em] text-ivory/70 uppercase">
                   {stage.number} / 06
                 </span>
 
                 <div
                   role="tablist"
                   aria-label="3D service showcase stages"
-                  className="flex items-center gap-1.5"
+                  className="flex items-center gap-2"
                 >
                   {LAPTOP_SERVICE_STAGES.map((item, idx) => {
                     const active = idx === activeStage;
@@ -331,10 +315,10 @@ export function EcosystemScene() {
                         aria-selected={active}
                         aria-label={`View stage ${item.number}: ${item.label}`}
                         onClick={() => jumpToStage(idx)}
-                        className={`border-2 border-ink px-2 py-0.5 font-mono text-[10px] font-bold transition-colors ${
+                        className={`px-1.5 py-0.5 font-mono text-[11px] transition-colors ${
                           active
-                            ? "bg-cobalt text-ivory shadow-[2px_2px_0px_#151515]"
-                            : "bg-concrete text-ink hover:bg-acid"
+                            ? "border-b border-acid font-bold text-acid"
+                            : "text-ivory/45 hover:text-ivory"
                         }`}
                       >
                         {item.number}
@@ -344,10 +328,10 @@ export function EcosystemScene() {
                 </div>
               </div>
 
-              {/* Clean progress bar synced to active stage progression */}
-              <div className="mt-2.5 h-2 w-full border border-ink bg-concrete p-[1px]">
+              {/* Hairline progress bar synced to active stage progression */}
+              <div className="mt-3 h-[2px] w-full bg-ivory/10">
                 <div
-                  className="h-full bg-orange transition-all duration-300"
+                  className="h-full bg-acid transition-all duration-300"
                   style={{
                     width: `${((activeStage + 1) / LAPTOP_SERVICE_STAGES.length) * 100}%`,
                   }}
@@ -389,14 +373,12 @@ export function EcosystemScene() {
                   className="space-y-[clamp(0.45rem,1.15dvh,0.9rem)]"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span
-                      className={`inline-block border-2 border-ink px-2.5 py-0.5 font-mono text-[10px] font-extrabold tracking-[0.1em] uppercase shadow-[2px_2px_0px_#151515] ${stage.accentBg}`}
-                    >
-                      STAGE {stage.number} — {stage.label}
+                    <span className="font-mono text-[11px] font-semibold tracking-[0.16em] text-acid uppercase">
+                      Stage {stage.number} — {stage.label}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="font-display text-[clamp(1.65rem,2.8dvh,2.25rem)] leading-none font-extrabold text-ink/15"
+                      className="font-display text-[clamp(1.65rem,2.8dvh,2.25rem)] leading-none font-extrabold text-ivory/10"
                     >
                       {stage.number}
                     </span>
@@ -407,7 +389,7 @@ export function EcosystemScene() {
                     initial={reducedMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.28, delay: 0.04 }}
-                    className="font-display text-[clamp(1.2rem,2.05vw,1.875rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-ink uppercase"
+                    className="font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-ivory uppercase"
                   >
                     {stage.headline}
                   </motion.h2>
@@ -416,13 +398,13 @@ export function EcosystemScene() {
                     initial={reducedMotion ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.28, delay: 0.08 }}
-                    className="text-[clamp(0.8125rem,1.3dvh,0.95rem)] leading-snug text-slate"
+                    className="text-[clamp(0.85rem,1.35dvh,1rem)] leading-relaxed text-ivory/75"
                   >
                     {stage.description}
                   </motion.p>
 
                   {/* Progressive deliverable checklist */}
-                  <ul className="space-y-[clamp(0.22rem,0.75dvh,0.5rem)] border-t-2 border-ink pt-[clamp(0.45rem,1.15dvh,0.9rem)]">
+                  <ul className="space-y-[clamp(0.25rem,0.75dvh,0.5rem)] border-t border-ivory/10 pt-[clamp(0.5rem,1.2dvh,0.9rem)]">
                     {stage.deliverables.map((item, itemIdx) => (
                       <motion.li
                         key={item}
@@ -433,10 +415,10 @@ export function EcosystemScene() {
                           delay: reducedMotion ? 0 : 0.1 + itemIdx * 0.032,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="flex items-start gap-2 text-[clamp(0.75rem,1.25dvh,0.875rem)] leading-snug font-semibold text-ink"
+                        className="flex items-start gap-2.5 text-[clamp(0.78rem,1.25dvh,0.875rem)] leading-snug text-ivory/85"
                       >
                         <Check
-                          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cobalt"
+                          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-acid"
                           aria-hidden="true"
                         />
                         <span>{item}</span>
@@ -448,11 +430,11 @@ export function EcosystemScene() {
             </div>
 
             {/* Bottom consistent action bar */}
-            <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t-2 border-ink pt-[clamp(0.5rem,1.3dvh,1.1rem)]">
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-ivory/10 pt-[clamp(0.6rem,1.3dvh,1.1rem)]">
               <Link
                 href={stage.serviceAnchor}
                 data-cursor="SCOPE"
-                className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-extrabold text-ink uppercase hover:bg-cobalt hover:text-ivory"
+                className="inline-flex items-center gap-2 rounded-full bg-acid px-5 py-2 font-mono text-xs font-bold text-ink uppercase transition-colors hover:bg-orange hover:text-ivory"
               >
                 Explore Discipline
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -460,7 +442,7 @@ export function EcosystemScene() {
 
               <Link
                 href={`/contact?service=${encodeURIComponent(stage.serviceTitle)}`}
-                className="font-mono text-xs font-bold text-cobalt underline decoration-2 underline-offset-4 hover:text-orange"
+                className="font-mono text-xs font-semibold text-ivory/80 underline decoration-acid/50 underline-offset-4 transition-colors hover:text-acid"
               >
                 Enquire Stage {stage.number} &rarr;
               </Link>

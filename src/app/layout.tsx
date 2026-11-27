@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import LiquidEther from "@/components/visuals/LiquidEther";
 import { CinemaEngineProvider } from "@/components/motion/CinemaEngineProvider";
 import { MotionProvider } from "@/components/motion/Reveal";
 import { StudioCursor } from "@/components/motion/StudioCursor";
@@ -90,12 +91,38 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${bricolage.variable} ${instrumentSerif.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="flex min-h-screen flex-col bg-paper text-ink selection:bg-accent selection:text-paper">
+      <body className="flex min-h-screen flex-col bg-[#100B18] text-[#F5F1FA] selection:bg-[#5227FF] selection:text-[#F5F1FA]">
+        {/* Persistent global LiquidEther fluid simulation across all routes */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-0 h-[100dvh] w-full"
+        >
+          <LiquidEther
+            colors={["#5227FF", "#FF9FFC", "#B497CF"]}
+            intensity={1}
+            mouseForce={20}
+            cursorSize={100}
+            persistence={0.75}
+            viscosity={0.08}
+            resolution={0.5}
+            autoDemo={true}
+            autoSpeed={0.5}
+            autoIntensity={1.8}
+            autoResumeDelay={1000}
+            clickBurst={true}
+            bounceEdges={false}
+            intro={true}
+            lightMode={false}
+            backgroundColor="#100B18"
+            maxDevicePixelRatio={1.5}
+          />
+        </div>
+
         <CinemaEngineProvider>
           <MotionProvider>
             <StudioCursor />
             <Navbar />
-            <main id="main-content" className="flex-1 overflow-x-clip pt-18">
+            <main id="main-content" className="relative z-10 flex-1 overflow-x-clip">
               {children}
             </main>
             <Footer />

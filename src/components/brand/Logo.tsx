@@ -25,41 +25,31 @@ export function Logo({ inverted = false, size = "md" }: LogoProps) {
       aria-label="Web Guru Home"
       className="group inline-flex items-center gap-3 focus-visible:outline-acid"
     >
-      {/* Sharp Neo-Brutalist monogram block with Signal Orange dot */}
+      {/* Refined W monogram with electric violet & lavender accent */}
       <svg
         viewBox="0 0 36 36"
         fill="none"
         aria-hidden="true"
-        className={`${markSizes[size]} shrink-0 border-2 ${
-          inverted
-            ? "border-acid bg-cobalt shadow-[3px_3px_0px_#E9FF45]"
-            : "border-ink bg-ink shadow-[3px_3px_0px_#3155F5]"
-        } transition-transform duration-150 group-hover:translate-x-0.5 group-hover:translate-y-0.5`}
+        className={`${markSizes[size]} shrink-0 rounded-lg border border-white/15 bg-[#171027] transition-transform duration-150 group-hover:scale-105`}
       >
         <path
           d="M7.5 11.5L12 24.5L16.5 14L21 24.5L25.5 11.5"
-          stroke="#F5F0E6"
+          stroke="#F5F1FA"
           strokeWidth="2.4"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
-        <rect x="26" y="21" width="5.5" height="5.5" fill="#E9FF45" />
+        <circle cx="28.5" cy="23.5" r="2.5" fill="#FF9FFC" />
       </svg>
 
       <span className="flex flex-col leading-none">
         <span
-          className={`font-display font-extrabold tracking-[-0.03em] uppercase ${textSizes[size]} ${
-            inverted ? "text-ivory" : "text-ink"
-          }`}
+          className={`font-display font-bold tracking-[-0.02em] ${textSizes[size]} text-[#F5F1FA]`}
         >
           Web Guru
-          <span className={inverted ? "text-acid" : "text-orange"}>.</span>
+          <span className="text-[#FF9FFC]">.</span>
         </span>
-        <span
-          className={`mt-0.5 font-mono text-[10px] font-medium tracking-[0.14em] uppercase ${
-            inverted ? "text-acid/85" : "text-ink/70"
-          }`}
-        >
+        <span className="mt-0.5 font-sans text-[10px] font-medium tracking-[0.14em] text-[#B8ADC9] uppercase">
           Digital Studio
         </span>
       </span>

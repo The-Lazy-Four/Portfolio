@@ -15,159 +15,119 @@ export const metadata: Metadata = {
   },
 };
 
-const SERVICE_ACCENTS = [
-  "bg-cobalt text-ivory border-ink shadow-[6px_6px_0px_#151515]",
-  "bg-ivory text-ink border-ink shadow-[6px_6px_0px_#F0522B]",
-  "bg-ink text-ivory border-ink shadow-[6px_6px_0px_#3155F5]",
-  "bg-acid text-ink border-ink shadow-[6px_6px_0px_#151515]",
-  "bg-ivory text-ink border-ink shadow-[6px_6px_0px_#3155F5]",
-  "bg-orange text-ivory border-ink shadow-[6px_6px_0px_#151515]",
-];
-
-/** Renders the Neo-Brutalist Services directory page showcasing all six service pillars with preserved demonstrations. */
+/** Renders the dark purple editorial Services experience over the global LiquidEther background. */
 export default function ServicesPage() {
   return (
     <>
-      <section className="border-b-[3px] border-ink bg-ivory">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-          <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-            Services Directory · 01 — 06
-          </span>
-          <h1 className="mt-5 max-w-4xl font-display text-4xl leading-[1.02] font-extrabold tracking-[-0.035em] text-ink uppercase sm:text-6xl">
+      <section className="relative overflow-hidden bg-transparent pt-32 pb-20 text-[#F5F1FA] sm:pt-40 sm:pb-28">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(16,11,24,0.65),transparent_65%)]"
+        />
+
+        <div className="relative z-10 mx-auto max-w-[92rem] px-6 sm:px-10 lg:px-14">
+          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,5.4vw,4.75rem)] leading-[1.03] font-bold tracking-[-0.03em] text-[#F5F1FA]">
             Six connected disciplines built to{" "}
-            <span className="font-serif font-normal lowercase italic text-cobalt underline decoration-orange decoration-4 underline-offset-4">
+            <span className="font-serif font-normal italic text-[#FF9FFC]">
               simplify
             </span>{" "}
             your online growth.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate sm:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#B8ADC9] sm:text-lg">
             Whether you need to fix your Google Maps presence, redesign a dated
             website, automate workflows with a custom app, or put NFC review
             cards on your counter, every piece works smoothly under one partner.
           </p>
 
+          {/* Clean editorial service directory */}
           <nav
             aria-label="Service category anchors"
-            className="mt-8 flex flex-wrap gap-2.5"
+            className="mt-16 grid grid-cols-1 divide-y divide-white/10 border-y border-white/10 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3"
           >
             {SERVICE_CATEGORIES.map((service) => (
               <a
                 key={service.id}
                 href={`#${service.id}`}
-                className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-concrete px-3.5 py-2 font-mono text-xs font-bold text-ink uppercase hover:bg-acid"
+                className="group flex items-baseline justify-between gap-4 py-5 pr-6 transition-colors sm:border-b sm:border-white/10"
               >
-                <span className="bg-ink px-1.5 py-0.5 text-acid">
-                  {service.number}
-                </span>
-                <span>{service.shortTitle}</span>
+                <div className="flex items-baseline gap-4">
+                  <span className="font-sans text-xs font-medium text-[#B8ADC9]/60 transition-colors group-hover:text-[#FF9FFC]">
+                    {service.number}
+                  </span>
+                  <span className="font-display text-lg font-semibold text-[#F5F1FA] transition-colors group-hover:text-[#FF9FFC]">
+                    {service.shortTitle}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  className="h-4 w-4 shrink-0 text-[#B8ADC9]/50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#FF9FFC]"
+                  aria-hidden="true"
+                />
               </a>
             ))}
           </nav>
         </div>
       </section>
 
-      <section className="border-b-[3px] border-ink bg-concrete">
-        <div className="mx-auto max-w-7xl divide-y-[3px] divide-ink px-5 sm:px-8 lg:px-10">
-          {SERVICE_CATEGORIES.map((service, index) => {
-            const boxStyle = SERVICE_ACCENTS[index % SERVICE_ACCENTS.length];
-            const isDarkBox = index === 0 || index === 2 || index === 5;
+      <section className="bg-[#100B18]/45 text-[#F5F1FA]">
+        <div className="mx-auto max-w-[92rem] divide-y divide-white/10 px-6 sm:px-10 lg:px-14">
+          {SERVICE_CATEGORIES.map((service) => (
+            <Reveal key={service.id} delay={0.04}>
+              <article
+                id={service.id}
+                className="scroll-mt-24 grid grid-cols-1 items-start gap-12 py-16 lg:grid-cols-12 lg:gap-16 lg:py-24"
+              >
+                <div className="lg:col-span-5">
+                  <div className="flex items-center gap-2.5 text-xs font-medium text-[#B497CF]">
+                    <span>{service.number}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{service.shortTitle}</span>
+                  </div>
 
-            return (
-              <Reveal key={service.id} delay={0.04}>
-                <article
-                  id={service.id}
-                  className="scroll-mt-24 grid grid-cols-1 gap-10 py-14 lg:grid-cols-12 lg:py-20"
-                >
-                  <div className="lg:col-span-5">
-                    <div className="flex items-center justify-between border-b-2 border-ink pb-3">
-                      <span className="bg-ink px-2.5 py-0.5 font-mono text-xs font-bold tracking-[0.1em] text-acid uppercase">
-                        Service {service.number}
-                      </span>
-                      <span className="font-mono text-xs font-bold text-ink uppercase">
-                        {service.shortTitle}
-                      </span>
-                    </div>
+                  <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#F5F1FA] sm:text-4xl">
+                    {service.title}
+                  </h2>
 
-                    <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-ink uppercase">
-                      {service.title}
-                    </h2>
+                  <p className="mt-4 text-base leading-relaxed text-[#B8ADC9]">
+                    {service.summary}
+                  </p>
 
-                    <p className="mt-3 text-base leading-relaxed text-ink/85">
-                      {service.summary}
+                  <div className="mt-8 border-t border-white/10 pt-6">
+                    <p className="text-xs font-medium tracking-[0.06em] text-[#B8ADC9]/75 uppercase">
+                      What&apos;s included
                     </p>
-
-                    <div className="mt-6">
-                      <ServiceDemonstration kind={service.diagramKind} />
-                    </div>
-                  </div>
-
-                  <div
-                    className={`flex flex-col justify-between border-[3px] p-6 sm:p-8 lg:col-span-7 ${boxStyle}`}
-                  >
-                    <div>
-                      <div
-                        className={`border-2 p-4 ${
-                          isDarkBox
-                            ? "border-ivory bg-ink/85 text-ivory"
-                            : "border-ink bg-concrete text-ink"
-                        }`}
-                      >
-                        <p
-                          className={`font-mono text-[11px] font-bold tracking-[0.08em] uppercase ${
-                            isDarkBox ? "text-acid" : "text-cobalt"
-                          }`}
+                    <ul className="mt-4 space-y-3">
+                      {service.deliverables.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-3 text-sm text-[#F5F1FA]/90"
                         >
-                          Practical Business Value
-                        </p>
-                        <p className="mt-1 text-sm font-semibold sm:text-base">
-                          {service.businessOutcome}
-                        </p>
-                      </div>
-
-                      <p className="mt-7 mb-4 font-mono text-xs font-bold tracking-[0.08em] uppercase opacity-85">
-                        What Is Included ({index + 1} of 6)
-                      </p>
-                      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        {service.deliverables.map((item) => (
-                          <li
-                            key={item}
-                            className="flex items-start gap-2.5 text-sm leading-relaxed"
-                          >
-                            <Check
-                              className={`mt-0.5 h-4 w-4 shrink-0 ${
-                                isDarkBox ? "text-acid" : "text-orange"
-                              }`}
-                              aria-hidden="true"
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t-2 border-current/25 pt-5">
-                      <p className="max-w-sm text-xs opacity-90">
-                        <strong className="font-bold">Best suited for: </strong>
-                        {service.idealFor}
-                      </p>
-
-                      <Link
-                        href={`/contact?service=${encodeURIComponent(service.title)}`}
-                        className={`wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink px-5 py-2.5 font-mono text-xs font-bold uppercase ${
-                          isDarkBox
-                            ? "bg-acid text-ink"
-                            : "bg-ink text-ivory hover:bg-cobalt"
-                        }`}
-                      >
-                        Request This Service
-                        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                      </Link>
-                    </div>
+                          <Check
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[#B497CF]"
+                            aria-hidden="true"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </article>
-              </Reveal>
-            );
-          })}
+
+                  <div className="mt-8 flex flex-wrap items-center gap-6">
+                    <Link
+                      href={`/contact?service=${encodeURIComponent(service.title)}`}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#5227FF] px-6 py-2.5 font-sans text-xs font-semibold text-[#F5F1FA] transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18]"
+                    >
+                      Enquire About {service.shortTitle}
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-[#171027]/75 p-4 text-ink shadow-2xl backdrop-blur-md sm:p-6 lg:col-span-7">
+                  <ServiceDemonstration kind={service.diagramKind} />
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
 

@@ -64,8 +64,8 @@ html {
 }
 
 body {
-  background-color: var(--wg-ivory);
-  color: var(--wg-ink);
+  background-color: #100b18;
+  color: #f5f1fa;
   font-family: var(--font-sans);
 }
 

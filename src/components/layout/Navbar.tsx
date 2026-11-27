@@ -6,10 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Sparkles, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import {
-  HOMEPAGE_SCENES,
-  useCinemaEngine,
-} from "@/components/motion/CinemaEngineProvider";
+import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
 import { ScrollProgressBar } from "@/components/motion/ScrollProgressBar";
 import { SITE_CONFIG } from "@/config/site";
 
@@ -73,13 +70,12 @@ const OVERLAY_PREVIEWS: OverlayRoutePreview[] = [
 /** Renders Neo-Brutalist bordered fixed header chrome paired with the preserved full-screen split editorial studio menu overlay. */
 export function Navbar() {
   const pathname = usePathname();
-  const { activeSceneIndex, reducedMotion } = useCinemaEngine();
+  const { reducedMotion } = useCinemaEngine();
   const [overlayPathname, setOverlayPathname] = useState<string | null>(null);
   const [hoveredRouteHref, setHoveredRouteHref] = useState<string>(pathname);
   const [hasScrolled, setHasScrolled] = useState(false);
 
   const menuOpen = overlayPathname === pathname;
-  const activeScene = HOMEPAGE_SCENES[activeSceneIndex] || HOMEPAGE_SCENES[0];
   const activePreview =
     OVERLAY_PREVIEWS.find((item) => item.href === hoveredRouteHref) ||
     OVERLAY_PREVIEWS[0];
@@ -135,34 +131,30 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b-2 border-ink transition-colors duration-150 ${
-          hasScrolled ? "bg-ivory" : "bg-ivory/95"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          hasScrolled || pathname !== "/"
+            ? "border-b border-white/10 bg-[#100B18]/80 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
         {/* Keyboard accessibility skip link */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:border-2 focus:border-ink focus:bg-acid focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:font-bold focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-[#5227FF] focus:px-4 focus:py-2 focus:font-sans focus:text-xs focus:font-semibold focus:text-[#F5F1FA]"
         >
           Skip to main content
         </a>
 
-        <div className="mx-auto flex h-18 max-w-[92rem] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
-          {/* Left Neo-Brutalist logo + scene stamp */}
-          <div className="flex items-center gap-4">
-            <Logo size="md" />
-            {pathname === "/" && (
-              <span className="hidden items-center gap-2 border-2 border-ink bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.1em] text-ink uppercase shadow-[2px_2px_0px_#151515] 2xl:inline-flex">
-                <span className="h-2 w-2 bg-cobalt" aria-hidden="true" />
-                Scene {activeScene.number} · {activeScene.title}
-              </span>
-            )}
+        <div className="mx-auto flex h-18 max-w-[92rem] items-center justify-between gap-6 px-6 sm:px-10 lg:px-14">
+          {/* Minimal brand mark */}
+          <div className="flex items-center">
+            <Logo inverted size="md" />
           </div>
 
-          {/* Center structured brutalist navigation strip */}
+          {/* Clean editorial navigation links */}
           <nav
             aria-label="Primary site navigation"
-            className="hidden items-stretch divide-x-2 divide-ink border-2 border-ink bg-concrete shadow-[4px_4px_0px_#151515] lg:flex"
+            className="hidden items-center gap-8 lg:flex"
           >
             {SITE_CONFIG.navigation.map((item) => {
               const active = isActiveRoute(item.href);
@@ -171,16 +163,16 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative inline-flex items-center gap-2 px-4 py-1.5 font-mono text-xs font-bold tracking-[0.06em] uppercase transition-colors ${
+                  className={`relative py-1 font-sans text-xs font-medium tracking-[0.08em] uppercase transition-colors ${
                     active
-                      ? "bg-cobalt text-ivory"
-                      : "bg-ivory text-ink hover:bg-acid"
+                      ? "text-[#F5F1FA]"
+                      : "text-[#B8ADC9] hover:text-[#F5F1FA]"
                   }`}
                 >
                   <span>{item.label}</span>
                   {active && (
                     <span
-                      className="h-2 w-2 border border-ink bg-acid"
+                      className="absolute inset-x-0 -bottom-0.5 h-[2px] bg-[#5227FF]"
                       aria-hidden="true"
                     />
                   )}
@@ -189,15 +181,15 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right brutalist action cluster */}
-          <div className="flex items-center gap-3">
+          {/* Restrained contact link + mobile menu trigger */}
+          <div className="flex items-center gap-5">
             <Link
               href="/contact"
               data-cursor="ENQUIRE"
-              className="wg-brutal-btn hidden items-center gap-2 border-2 border-ink bg-orange px-4 py-2 font-mono text-xs font-bold tracking-[0.08em] text-ivory uppercase sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 font-sans text-xs font-medium text-[#F5F1FA] transition-colors hover:border-[#B497CF]/50 hover:bg-[#5227FF]/25 sm:inline-flex"
             >
-              Let&apos;s Talk
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              Start a Project
+              <ArrowUpRight className="h-3.5 w-3.5 text-[#FF9FFC]" aria-hidden="true" />
             </Link>
 
             <button
@@ -207,23 +199,10 @@ export function Navbar() {
               aria-controls="studio-navigation-overlay"
               aria-label={menuOpen ? "Close studio menu" : "Open studio menu"}
               data-cursor={menuOpen ? "CLOSE" : "MENU"}
-              className={`wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink px-4 py-2 font-mono text-xs font-bold tracking-[0.1em] uppercase ${
-                menuOpen
-                  ? "bg-acid text-ink"
-                  : "bg-ink text-ivory hover:bg-cobalt"
-              }`}
+              className="inline-flex items-center gap-2 font-sans text-xs font-medium tracking-[0.08em] text-[#F5F1FA] uppercase transition-colors hover:text-[#FF9FFC] lg:hidden"
             >
               <span>{menuOpen ? "Close" : "Menu"}</span>
-              {menuOpen ? (
-                <X className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <span className="grid grid-cols-2 gap-0.5" aria-hidden="true">
-                  <span className="h-1.5 w-1.5 bg-acid" />
-                  <span className="h-1.5 w-1.5 bg-ivory" />
-                  <span className="h-1.5 w-1.5 bg-ivory" />
-                  <span className="h-1.5 w-1.5 bg-orange" />
-                </span>
-              )}
+              {menuOpen ? <X className="h-4 w-4" aria-hidden="true" /> : null}
             </button>
           </div>
         </div>

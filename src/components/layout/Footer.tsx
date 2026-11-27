@@ -9,13 +9,13 @@ export function Footer() {
   const whatsAppUrl = getWhatsAppUrl();
 
   return (
-    <footer className="relative overflow-hidden border-t-4 border-ink bg-ink text-ivory">
-      <div className="mx-auto max-w-[92rem] px-5 pt-16 pb-10 sm:px-8 lg:px-12 lg:pt-20">
-        {/* Bold top brand block */}
-        <div className="flex flex-col justify-between gap-8 border-b-2 border-ivory/25 pb-12 lg:flex-row lg:items-end">
+    <footer className="relative z-10 overflow-hidden border-t border-ivory/10 bg-[#05091B]/75 backdrop-blur-sm text-ivory">
+      <div className="mx-auto max-w-[92rem] px-6 pt-16 pb-10 sm:px-10 lg:px-14 lg:pt-20">
+        {/* Top brand block */}
+        <div className="flex flex-col justify-between gap-8 border-b border-ivory/15 pb-12 lg:flex-row lg:items-end">
           <div className="max-w-xl space-y-5">
             <Logo inverted size="lg" />
-            <p className="text-base leading-relaxed text-ivory/85">
+            <p className="text-base leading-relaxed text-ivory/75">
               {SITE_CONFIG.tagline} Four specialists designing, building, and
               maintaining cohesive digital ecosystems for growing businesses.
             </p>
@@ -24,7 +24,7 @@ export function Footer() {
           <Link
             href="/contact"
             data-cursor="BOOK"
-            className="inline-flex w-fit items-center gap-2 border-2 border-ivory bg-acid px-7 py-3.5 font-mono text-xs font-bold tracking-[0.08em] text-ink uppercase shadow-[5px_5px_0px_#3155F5] transition-transform hover:translate-x-0.5 hover:translate-y-0.5"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-acid px-7 py-3.5 font-mono text-xs font-bold tracking-[0.08em] text-ink uppercase transition-colors hover:bg-orange hover:text-ivory"
           >
             Book a Consultation
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

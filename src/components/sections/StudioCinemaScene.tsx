@@ -79,7 +79,7 @@ export function StudioCinemaScene() {
               id="studio-cinema-heading"
               lines={["Four builders.", "Direct access. Zero bloat."]}
               barClassName="bg-cobalt"
-              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ink uppercase sm:text-5xl"
+              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-[#F5F1FA] uppercase sm:text-5xl"
             />
             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {TRUST_PILLARS.map((pillar) => (
@@ -87,10 +87,10 @@ export function StudioCinemaScene() {
                   key={pillar.code}
                   className="border-2 border-ink bg-ivory p-3 shadow-[3px_3px_0px_#151515]"
                 >
-                  <span className="inline-block bg-acid px-1.5 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+                  <span className="inline-block bg-acid px-1.5 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
                     [{pillar.code}]
                   </span>
-                  <span className="mt-1.5 block font-display text-xs font-extrabold text-ink">
+                  <span className="mt-1.5 block font-display text-xs font-extrabold text-[#F5F1FA]">
                     {pillar.title}
                   </span>
                 </div>
@@ -98,16 +98,13 @@ export function StudioCinemaScene() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 lg:col-span-7">
+          <div className="grid grid-cols-1 gap-8 border-t border-ink/15 pt-8 sm:grid-cols-3 lg:col-span-7">
             {ABOUT_VALUES.map((item) => (
-              <div
-                key={item.label}
-                className="border-2 border-ink bg-ivory p-5 shadow-[5px_5px_0px_#151515]"
-              >
-                <p className="inline-block bg-cobalt px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.1em] text-ivory uppercase">
+              <div key={item.label}>
+                <p className="font-mono text-[11px] font-bold tracking-[0.14em] text-cobalt uppercase">
                   {item.label}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink">
+                <p className="mt-2.5 text-sm leading-relaxed text-[#C2B9D0]">
                   {item.body}
                 </p>
               </div>
@@ -115,51 +112,36 @@ export function StudioCinemaScene() {
           </div>
         </div>
 
-        {/* Archivio-inspired 4-Column Structural Bay Strip rendered with stark black borders */}
-        <div className="mt-12 overflow-hidden border-[3px] border-ink bg-ivory shadow-[8px_8px_0px_#151515]">
-          <div className="flex">
-            <div
-              aria-hidden="true"
-              className="hidden w-10 shrink-0 items-center justify-center border-r-[3px] border-ink bg-orange text-ivory sm:flex"
-            >
-              <span className="-rotate-90 whitespace-nowrap font-mono text-[10px] font-extrabold tracking-[0.2em] uppercase">
-                WG STUDIO 01–04
-              </span>
-            </div>
+        {/* Open 4-column editorial team roster without heavy card borders */}
+        <div className="mt-16 border-y border-ink/15 py-10">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {TEAM_SLOTS.map((slot, index) => (
+              <article
+                key={slot.slotNumber}
+                className="flex flex-col justify-between"
+              >
+                <div className="flex items-center justify-between font-mono text-[11px] text-[#C2B9D0] uppercase">
+                  <span className="font-bold text-[#F5F1FA]">{slot.slotNumber}</span>
+                  <span>{slot.statusNote}</span>
+                </div>
 
-            <div className="grid flex-1 grid-cols-1 divide-y-2 divide-ink sm:grid-cols-2 sm:divide-x-2 lg:grid-cols-4 lg:divide-y-0">
-              {TEAM_SLOTS.map((slot, index) => (
-                <article
-                  key={slot.slotNumber}
-                  className="wg-grid-pattern flex min-h-[268px] flex-col justify-between p-6 transition-colors hover:bg-acid/45"
-                >
-                  <div className="flex items-center justify-between font-mono text-xs font-bold uppercase">
-                    <span className="bg-ink px-2 py-0.5 text-acid">
-                      ( N&deg; {slot.slotNumber} )
-                    </span>
-                    <span className="border border-ink bg-concrete px-2 py-0.5 text-[9px] text-ink">
-                      {slot.statusNote}
-                    </span>
-                  </div>
+                <div className="my-6">
+                  <StudioSeatMarker slotIndex={index} />
+                </div>
 
-                  <div className="my-6">
-                    <StudioSeatMarker slotIndex={index} />
-                  </div>
-
-                  <div className="border-t-2 border-ink pt-4">
-                    <h3 className="font-display text-lg font-extrabold tracking-tight text-ink uppercase">
-                      {slot.placeholderName}
-                    </h3>
-                    <p className="mt-0.5 font-mono text-[11px] font-bold text-cobalt">
-                      {slot.rolePlaceholder}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-slate">
-                      {slot.focusPlaceholder}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+                <div className="border-t border-ink/15 pt-4">
+                  <h3 className="font-display text-lg font-extrabold tracking-tight text-[#F5F1FA] uppercase">
+                    {slot.placeholderName}
+                  </h3>
+                  <p className="mt-0.5 font-mono text-[11px] font-semibold text-cobalt">
+                    {slot.rolePlaceholder}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-[#C2B9D0]">
+                    {slot.focusPlaceholder}
+                  </p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
 
@@ -173,13 +155,13 @@ export function StudioCinemaScene() {
                   index === WHY_WEB_GURU_POINTS.length - 1 ? "sm:col-span-2" : ""
                 }`}
               >
-                <span className="inline-block bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+                <span className="inline-block bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
                   0{index + 1} · Value Principle
                 </span>
-                <h3 className="mt-2 font-display text-base font-extrabold text-ink uppercase">
+                <h3 className="mt-2 font-display text-base font-extrabold text-[#F5F1FA] uppercase">
                   {point.title}
                 </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate">
+                <p className="mt-1.5 text-xs leading-relaxed text-[#C2B9D0]">
                   {point.detail}
                 </p>
               </div>
@@ -188,7 +170,7 @@ export function StudioCinemaScene() {
 
           <div className="flex flex-col justify-between border-[3px] border-ink bg-ink p-6 text-ivory shadow-[8px_8px_0px_#F0522B] lg:col-span-4">
             <div>
-              <span className="inline-block bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-ink uppercase">
+              <span className="inline-block bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-[#F5F1FA] uppercase">
                 Client Verification Policy
               </span>
               {VERIFIED_TESTIMONIALS.length > 0 ? (
@@ -211,7 +193,7 @@ export function StudioCinemaScene() {
             <Link
               href="/about"
               data-cursor="STUDIO"
-              className="wg-brutal-btn mt-6 inline-flex w-fit items-center gap-2 border-2 border-ivory bg-cobalt px-4 py-2 font-mono text-xs font-bold text-ivory uppercase shadow-[4px_4px_0px_#E9FF45] hover:bg-acid hover:text-ink"
+              className="wg-brutal-btn mt-6 inline-flex w-fit items-center gap-2 border-2 border-ivory bg-cobalt px-4 py-2 font-mono text-xs font-bold text-ivory uppercase shadow-[4px_4px_0px_#E9FF45] hover:bg-acid hover:text-[#F5F1FA]"
             >
               Read Full Studio Philosophy
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

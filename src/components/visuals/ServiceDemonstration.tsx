@@ -31,20 +31,20 @@ function LocalSeoDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Conceptual Simulation · Not a live Google interface
         </span>
         <div
           role="group"
           aria-label="Toggle listing state"
-          className="inline-flex border-2 border-ink bg-ivory p-0.5 text-[11px]"
+          className="inline-flex border border-white/15 rounded-lg bg-[#171027]/90 p-0.5 text-[11px]"
         >
           <button
             type="button"
             onClick={() => setOptimized(false)}
             aria-pressed={!optimized}
             className={`px-3 py-1 font-mono font-bold uppercase transition-colors ${
-              !optimized ? "bg-ink text-acid" : "text-ink hover:bg-concrete"
+              !optimized ? "bg-ink text-acid" : "text-[#F5F1FA] hover:bg-[#241542]/70"
             }`}
           >
             Unoptimized
@@ -54,7 +54,7 @@ function LocalSeoDemo() {
             onClick={() => setOptimized(true)}
             aria-pressed={optimized}
             className={`px-3 py-1 font-mono font-bold uppercase transition-colors ${
-              optimized ? "bg-cobalt text-ivory" : "text-ink hover:bg-concrete"
+              optimized ? "bg-cobalt text-ivory" : "text-[#F5F1FA] hover:bg-[#241542]/70"
             }`}
           >
             With Web Guru
@@ -63,29 +63,29 @@ function LocalSeoDemo() {
       </div>
 
       {/* Simulated search bar */}
-      <div className="flex items-center justify-between border-2 border-ink bg-ivory px-4 py-2 text-xs text-ink shadow-[3px_3px_0px_#151515]">
+      <div className="flex items-center justify-between border border-white/15 rounded-lg bg-[#171027]/90 px-4 py-2 text-xs text-[#F5F1FA] shadow-sm">
         <span className="flex items-center gap-2">
           <MapPin className="h-4 w-4 text-orange" aria-hidden="true" />
           <span className="font-semibold">&ldquo;local bakery &amp; cafe near me&rdquo;</span>
         </span>
-        <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+        <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
           Local Pack Demo
         </span>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
         {/* Stylized local discovery map */}
-        <div className="wg-grid-pattern relative flex min-h-[116px] items-center justify-center overflow-hidden border-2 border-ink bg-ivory sm:col-span-5">
+        <div className="wg-grid-pattern relative flex min-h-[116px] items-center justify-center overflow-hidden border border-white/15 rounded-lg bg-[#171027]/90 sm:col-span-5">
           {optimized && (
             <>
               <span className="absolute h-28 w-28 border-2 border-dashed border-cobalt" />
-              <span className="absolute h-16 w-16 border-2 border-ink bg-acid/60" />
+              <span className="absolute h-16 w-16 border border-white/15 rounded-lg bg-acid/60" />
             </>
           )}
           <div className="relative z-10 flex flex-col items-center">
             <span
-              className={`flex h-9 w-9 items-center justify-center border-2 border-ink shadow-[3px_3px_0px_#151515] transition-colors ${
-                optimized ? "bg-orange text-ivory" : "bg-concrete text-ink"
+              className={`flex h-9 w-9 items-center justify-center border border-white/15 rounded-lg shadow-sm transition-colors ${
+                optimized ? "bg-orange text-ivory" : "bg-[#241542]/70 text-[#F5F1FA]"
               }`}
             >
               <MapPin className="h-4 w-4" aria-hidden="true" />
@@ -97,10 +97,10 @@ function LocalSeoDemo() {
         </div>
 
         {/* Simulated listing card */}
-        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-7">
+        <div className="border border-white/15 rounded-lg bg-[#171027]/90 p-4 shadow-sm sm:col-span-7">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-display text-sm font-extrabold text-ink uppercase">
+              <p className="font-display text-sm font-extrabold text-[#F5F1FA] uppercase">
                 Sample Local Business
               </p>
               <p className="text-[11px] font-medium text-slate">
@@ -110,8 +110,8 @@ function LocalSeoDemo() {
               </p>
             </div>
             <span
-              className={`border-2 border-ink px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${
-                optimized ? "bg-acid text-ink" : "bg-concrete text-ink"
+              className={`border border-white/15 rounded-lg px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${
+                optimized ? "bg-[#5227FF] text-[#F5F1FA]" : "bg-[#241542]/70 text-[#F5F1FA]"
               }`}
             >
               {optimized ? "Verified" : "Incomplete"}
@@ -129,12 +129,12 @@ function LocalSeoDemo() {
                 />
               ))}
             </div>
-            <span className="font-mono text-[11px] font-bold text-ink">
+            <span className="font-mono text-[11px] font-bold text-[#F5F1FA]">
               {optimized ? "Active review responses" : "No reply workflow"}
             </span>
           </div>
 
-          <ul className="mt-3 space-y-1.5 border-t-2 border-ink pt-3 text-[11px] text-ink">
+          <ul className="mt-3 space-y-1.5 border-t-2 border-ink pt-3 text-[11px] text-[#F5F1FA]">
             <li className="flex items-center gap-2">
               <Clock className="h-3.5 w-3.5 text-cobalt" aria-hidden="true" />
               <span>
@@ -165,10 +165,10 @@ function WebDevDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Interactive Storefront Preview · Concept UI
         </span>
-        <div className="inline-flex border-2 border-ink bg-ivory p-0.5 text-[11px]">
+        <div className="inline-flex border border-white/15 rounded-lg bg-[#171027]/90 p-0.5 text-[11px]">
           <button
             type="button"
             onClick={() => setViewport("desktop")}
@@ -176,7 +176,7 @@ function WebDevDemo() {
             className={`inline-flex items-center gap-1.5 px-3 py-1 font-mono font-bold uppercase transition-colors ${
               viewport === "desktop"
                 ? "bg-cobalt text-ivory"
-                : "text-ink hover:bg-concrete"
+                : "text-[#F5F1FA] hover:bg-[#241542]/70"
             }`}
           >
             <Monitor className="h-3 w-3" aria-hidden="true" />
@@ -189,7 +189,7 @@ function WebDevDemo() {
             className={`inline-flex items-center gap-1.5 px-3 py-1 font-mono font-bold uppercase transition-colors ${
               viewport === "mobile"
                 ? "bg-cobalt text-ivory"
-                : "text-ink hover:bg-concrete"
+                : "text-[#F5F1FA] hover:bg-[#241542]/70"
             }`}
           >
             <Smartphone className="h-3 w-3" aria-hidden="true" />
@@ -199,19 +199,19 @@ function WebDevDemo() {
       </div>
 
       {/* Simulated browser container */}
-      <div className="wg-grid-pattern flex justify-center border-2 border-ink bg-concrete p-3">
+      <div className="wg-grid-pattern flex justify-center border border-white/15 rounded-lg bg-[#241542]/70 p-3">
         <div
-          className={`overflow-hidden border-2 border-ink bg-ivory shadow-[5px_5px_0px_#151515] transition-all duration-300 ${
+          className={`overflow-hidden border border-white/15 rounded-lg bg-[#171027]/90 shadow-[5px_5px_0px_#151515] transition-all duration-300 ${
             viewport === "desktop" ? "w-full" : "w-[230px]"
           }`}
         >
           <div className="flex items-center justify-between border-b-2 border-ink bg-acid px-3 py-2">
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 border border-ink bg-orange" />
-              <span className="h-2.5 w-2.5 border border-ink bg-ivory" />
+              <span className="h-2.5 w-2.5 border border-ink bg-[#171027]/90" />
               <span className="h-2.5 w-2.5 border border-ink bg-cobalt" />
             </div>
-            <span className="font-mono text-[10px] font-bold text-ink">
+            <span className="font-mono text-[10px] font-bold text-[#F5F1FA]">
               yourbusiness.example
             </span>
           </div>
@@ -226,20 +226,20 @@ function WebDevDemo() {
                 <span className="bg-ink px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wider text-acid uppercase">
                   Custom Architecture
                 </span>
-                <p className="mt-2 font-display text-base leading-tight font-extrabold text-ink uppercase">
+                <p className="mt-2 font-display text-base leading-tight font-extrabold text-[#F5F1FA] uppercase">
                   Clear offer above the fold. Fast on every screen.
                 </p>
                 <div className="mt-3 flex items-center gap-2">
-                  <span className="border-2 border-ink bg-orange px-3 py-1 font-mono text-[10px] font-bold text-ivory uppercase">
+                  <span className="border border-white/15 rounded-lg bg-orange px-3 py-1 font-mono text-[10px] font-bold text-ivory uppercase">
                     Book Now
                   </span>
-                  <span className="border-2 border-ink bg-concrete px-3 py-1 font-mono text-[10px] font-bold text-ink uppercase">
+                  <span className="border border-white/15 rounded-lg bg-[#241542]/70 px-3 py-1 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
                     Services
                   </span>
                 </div>
               </div>
               <div
-                className={`border-2 border-ink bg-cobalt p-3 text-ivory ${
+                className={`border border-white/15 rounded-lg bg-cobalt p-3 text-ivory ${
                   viewport === "desktop" ? "col-span-5" : ""
                 }`}
               >
@@ -280,7 +280,7 @@ function AppDevDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Workflow App Simulation · Sample Operations UI
         </span>
         <span className="inline-flex items-center gap-1.5 bg-ink px-2 py-0.5 font-mono text-[10px] font-bold text-acid uppercase">
@@ -304,10 +304,10 @@ function AppDevDemo() {
               type="button"
               onClick={() => setTab(statusTab.key)}
               aria-pressed={active}
-              className={`border-2 border-ink px-3 py-2 font-mono text-xs font-bold uppercase transition-colors ${
+              className={`border border-white/15 rounded-lg px-3 py-2 font-mono text-xs font-bold uppercase transition-colors ${
                 active
-                  ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
-                  : "bg-ivory text-ink hover:bg-acid"
+                  ? "bg-cobalt text-ivory shadow-sm"
+                  : "bg-[#171027]/90 text-[#F5F1FA] hover:bg-acid"
               }`}
             >
               {statusTab.label}
@@ -320,15 +320,15 @@ function AppDevDemo() {
         {itemsByTab[tab].map((row) => (
           <div
             key={row.id}
-            className="flex items-center justify-between border-2 border-ink bg-ivory px-4 py-3 shadow-[3px_3px_0px_#151515]"
+            className="flex items-center justify-between border border-white/15 rounded-lg bg-[#171027]/90 px-4 py-3 shadow-sm"
           >
             <div>
               <span className="font-mono text-[10px] font-bold text-orange">
                 {row.id}
               </span>
-              <p className="text-xs font-bold text-ink">{row.title}</p>
+              <p className="text-xs font-bold text-[#F5F1FA]">{row.title}</p>
             </div>
-            <span className="border-2 border-ink bg-acid px-2.5 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+            <span className="border border-white/15 rounded-lg bg-acid px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
               {row.tag}
             </span>
           </div>
@@ -367,10 +367,10 @@ function SocialMediaDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Editorial Calendar &amp; Brand Post System
         </span>
-        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
           <Calendar className="h-3 w-3" aria-hidden="true" />
           Consistent Cadence
         </span>
@@ -385,16 +385,16 @@ function SocialMediaDemo() {
               type="button"
               onClick={() => setSelectedDay(index)}
               aria-pressed={isSelected}
-              className={`border-2 border-ink p-2.5 text-left transition-colors ${
+              className={`border border-white/15 rounded-lg p-2.5 text-left transition-colors ${
                 isSelected
-                  ? "bg-acid text-ink shadow-[3px_3px_0px_#151515]"
-                  : "bg-ivory text-ink hover:bg-concrete"
+                  ? "bg-[#5227FF] text-[#F5F1FA] shadow-sm"
+                  : "bg-[#171027]/90 text-[#F5F1FA] hover:bg-[#241542]/70"
               }`}
             >
               <span className="font-mono text-[10px] font-extrabold text-orange">
                 {slot.day}
               </span>
-              <span className="mt-0.5 block truncate text-xs font-bold text-ink">
+              <span className="mt-0.5 block truncate text-xs font-bold text-[#F5F1FA]">
                 {slot.format}
               </span>
             </button>
@@ -404,7 +404,7 @@ function SocialMediaDemo() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
         <div
-          className={`flex flex-col justify-between border-2 border-ink p-4 shadow-[4px_4px_0px_#151515] sm:col-span-6 ${activePost.tone}`}
+          className={`flex flex-col justify-between border border-white/15 rounded-lg p-4 shadow-sm sm:col-span-6 ${activePost.tone}`}
         >
           <span className="font-mono text-[10px] font-bold uppercase opacity-85">
             {activePost.day} · Branded Frame
@@ -416,14 +416,14 @@ function SocialMediaDemo() {
             1080 × 1350 Ready
           </span>
         </div>
-        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-6">
+        <div className="border border-white/15 rounded-lg bg-[#171027]/90 p-4 shadow-sm sm:col-span-6">
           <p className="font-mono text-[10px] font-bold text-cobalt uppercase">
             Planned Copy &amp; Schedule
           </p>
-          <p className="mt-2 text-xs leading-relaxed font-medium text-ink">
+          <p className="mt-2 text-xs leading-relaxed font-medium text-[#F5F1FA]">
             {activePost.headline}
           </p>
-          <div className="mt-4 flex items-center gap-2 font-mono text-[10px] font-bold text-ink">
+          <div className="mt-4 flex items-center gap-2 font-mono text-[10px] font-bold text-[#F5F1FA]">
             <Check className="h-4 w-4 text-orange" aria-hidden="true" />
             Approved &amp; queued for publishing
           </div>
@@ -440,13 +440,13 @@ function NfcQrDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Physical-to-Digital Review Flow Simulation
         </span>
         <button
           type="button"
           onClick={() => setScanned((prev) => !prev)}
-          className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-orange px-3.5 py-1 font-mono text-[11px] font-bold text-ivory uppercase hover:bg-cobalt"
+          className="wg-brutal-btn inline-flex items-center gap-1.5 border border-white/15 rounded-lg bg-orange px-3.5 py-1 font-mono text-[11px] font-bold text-ivory uppercase hover:bg-cobalt"
         >
           <Wifi className="h-3 w-3 rotate-90" aria-hidden="true" />
           {scanned ? "Reset Demo" : "Simulate Tap / Scan"}
@@ -454,7 +454,7 @@ function NfcQrDemo() {
       </div>
 
       <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-12">
-        <div className="relative overflow-hidden border-2 border-ink bg-ink p-5 text-ivory shadow-[5px_5px_0px_#3155F5] sm:col-span-7">
+        <div className="relative overflow-hidden border border-white/15 rounded-lg bg-ink p-5 text-ivory shadow-[5px_5px_0px_#3155F5] sm:col-span-7">
           <div className="flex items-center justify-between">
             <span className="font-display text-xs font-extrabold tracking-wider uppercase">
               Your Business<span className="text-acid">.</span>
@@ -472,10 +472,10 @@ function NfcQrDemo() {
           </p>
 
           <div className="mt-4 flex items-center justify-between">
-            <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+            <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
               NFC + Direct QR Link
             </span>
-            <div className="grid grid-cols-3 gap-1 border border-ivory bg-ivory p-1.5">
+            <div className="grid grid-cols-3 gap-1 border border-ivory bg-[#171027]/90 p-1.5">
               {[1, 1, 0, 1, 0, 1, 0, 1, 1].map((filled, idx) => (
                 <span
                   key={idx}
@@ -488,14 +488,14 @@ function NfcQrDemo() {
           </div>
         </div>
 
-        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-5">
+        <div className="border border-white/15 rounded-lg bg-[#171027]/90 p-4 shadow-sm sm:col-span-5">
           <div className="mb-2 flex items-center justify-between border-b-2 border-ink pb-2">
-            <span className="font-mono text-[9px] font-bold text-ink uppercase">
+            <span className="font-mono text-[9px] font-bold text-[#F5F1FA] uppercase">
               Customer Phone
             </span>
             <span
               className={`h-2.5 w-2.5 border border-ink ${
-                scanned ? "bg-acid" : "bg-concrete"
+                scanned ? "bg-acid" : "bg-[#241542]/70"
               }`}
             />
           </div>
@@ -506,13 +506,13 @@ function NfcQrDemo() {
                 <CheckCircle2 className="h-4 w-4 text-orange" aria-hidden="true" />
                 Review link opened
               </div>
-              <p className="text-[11px] leading-relaxed font-medium text-ink">
+              <p className="text-[11px] leading-relaxed font-medium text-[#F5F1FA]">
                 Customer lands straight on your verified review screen in one tap.
               </p>
             </div>
           ) : (
             <div className="space-y-2 py-1">
-              <p className="text-xs font-bold text-ink">Ready at counter</p>
+              <p className="text-xs font-bold text-[#F5F1FA]">Ready at counter</p>
               <p className="text-[11px] leading-relaxed text-slate">
                 Click &ldquo;Simulate Tap / Scan&rdquo; above to preview the flow.
               </p>
@@ -555,10 +555,10 @@ function TechSupportDemo() {
   return (
     <div className="space-y-2.5 lg:space-y-[clamp(0.45rem,1.1dvh,0.85rem)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-2">
-        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
+        <span className="bg-[#241542]/70 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-[#F5F1FA] uppercase">
           Connected Digital Infrastructure Care
         </span>
-        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
+        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
           <Lock className="h-3 w-3" aria-hidden="true" />
           Single Support Contact
         </span>
@@ -574,10 +574,10 @@ function TechSupportDemo() {
               type="button"
               onClick={() => setActiveLayer(index)}
               aria-pressed={active}
-              className={`flex items-center gap-2.5 border-2 border-ink p-3 text-left font-mono text-xs font-bold uppercase transition-colors ${
+              className={`flex items-center gap-2.5 border border-white/15 rounded-lg p-3 text-left font-mono text-xs font-bold uppercase transition-colors ${
                 active
-                  ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
-                  : "bg-ivory text-ink hover:bg-acid"
+                  ? "bg-cobalt text-ivory shadow-sm"
+                  : "bg-[#171027]/90 text-[#F5F1FA] hover:bg-acid"
               }`}
             >
               <Icon
@@ -592,11 +592,11 @@ function TechSupportDemo() {
         })}
       </div>
 
-      <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515]">
+      <div className="border border-white/15 rounded-lg bg-[#171027]/90 p-4 shadow-sm">
         <p className="font-mono text-[10px] font-bold text-orange uppercase">
           Supported Layer · {selected.name}
         </p>
-        <p className="mt-1.5 text-xs leading-relaxed font-semibold text-ink">
+        <p className="mt-1.5 text-xs leading-relaxed font-semibold text-[#F5F1FA]">
           {selected.detail}
         </p>
       </div>
@@ -609,7 +609,7 @@ export function ServiceDemonstration({ kind }: ServiceDemonstrationProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="border-2 border-ink bg-concrete p-4 sm:p-5">
+    <div className="border border-white/15 rounded-lg bg-[#241542]/70 p-4 sm:p-5">
       <AnimatePresence mode="wait">
         <motion.div
           key={kind}

@@ -114,9 +114,9 @@ export function ProcessCinemaScene() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
-          {/* Left brutalist milestone buttons */}
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+        <div className="mt-12 grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+          {/* Left clean editorial milestone list */}
+          <div className="divide-y divide-ivory/15 border-y border-ivory/15 lg:col-span-5">
             {PROCESS_STAGES.map((stage, index) => {
               const active = index === stageIndex;
               return (
@@ -125,30 +125,22 @@ export function ProcessCinemaScene() {
                   type="button"
                   onClick={() => selectStage(index)}
                   aria-pressed={active}
-                  className={`group flex items-start justify-between border-2 px-5 py-4 text-left transition-all ${
-                    active
-                      ? "border-ink bg-acid text-ink shadow-[6px_6px_0px_#151515]"
-                      : "border-ivory/50 bg-ink/85 text-ivory hover:border-acid hover:bg-ink"
+                  className={`group flex w-full items-start justify-between py-5 text-left transition-colors ${
+                    active ? "text-acid" : "text-ivory/75 hover:text-ivory"
                   }`}
                 >
                   <div>
                     <div className="flex items-center gap-3">
-                      <span
-                        className={`border px-2 py-0.5 font-mono text-xs font-bold ${
-                          active
-                            ? "border-ink bg-ink text-acid"
-                            : "border-ivory/30 bg-cobalt text-ivory"
-                        }`}
-                      >
-                        [{stage.number}]
+                      <span className="font-mono text-xs tracking-[0.12em] uppercase">
+                        {stage.number}
                       </span>
                       <span className="font-display text-xl font-extrabold tracking-tight uppercase">
                         {stage.title}
                       </span>
                     </div>
                     <p
-                      className={`mt-1.5 font-mono text-[11px] uppercase ${
-                        active ? "text-ink/80" : "text-ivory/65"
+                      className={`mt-1 font-mono text-[11px] uppercase ${
+                        active ? "text-ivory/90" : "text-ivory/50"
                       }`}
                     >
                       {stage.focusLabel}
@@ -156,8 +148,8 @@ export function ProcessCinemaScene() {
                   </div>
 
                   <span
-                    className={`mt-2 h-3 w-3 border border-ink ${
-                      active ? "bg-orange" : "bg-ivory/25"
+                    className={`mt-2 h-2 w-2 rounded-full transition-colors ${
+                      active ? "bg-acid" : "bg-ivory/20"
                     }`}
                   />
                 </button>
@@ -165,36 +157,36 @@ export function ProcessCinemaScene() {
             })}
           </div>
 
-          {/* Right active architectural blueprint panel */}
-          <div className="border-[3px] border-ink bg-ink p-7 text-ivory shadow-[8px_8px_0px_#E9FF45] sm:p-9 lg:col-span-7">
-            <div className="flex items-center justify-between border-b-2 border-ivory/25 pb-4">
-              <span className="bg-orange px-2.5 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ivory uppercase">
+          {/* Right active open editorial stage view */}
+          <div className="py-2 text-ivory lg:col-span-7">
+            <div className="flex items-center justify-between border-b border-ivory/15 pb-4">
+              <span className="font-mono text-xs font-semibold tracking-[0.14em] text-acid uppercase">
                 Stage {activeStage.number} — {activeStage.focusLabel}
               </span>
-              <span className="font-mono text-xs font-bold text-acid uppercase">
+              <span className="font-mono text-xs text-ivory/60 uppercase">
                 Step {stageIndex + 1} of {PROCESS_STAGES.length}
               </span>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 items-center gap-7 sm:grid-cols-12">
+            <div className="mt-8 grid grid-cols-1 items-center gap-8 sm:grid-cols-12">
               <div className="space-y-4 sm:col-span-7">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-display text-4xl font-extrabold text-acid/45">
+                  <span className="font-display text-4xl font-extrabold text-acid/40">
                     {activeStage.number}
                   </span>
                   <h3 className="font-display text-3xl font-extrabold tracking-tight text-ivory uppercase">
                     {activeStage.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-relaxed text-ivory/90 sm:text-base">
+                <p className="text-sm leading-relaxed text-ivory/85 sm:text-base">
                   {activeStage.summary}
                 </p>
 
-                <ul className="space-y-2.5 border-t-2 border-ivory/20 pt-4 text-xs text-ivory/90">
+                <ul className="space-y-2.5 border-t border-ivory/15 pt-4 text-xs text-ivory/85">
                   {activeStage.clientReceives.map((item) => (
                     <li key={item} className="flex items-start gap-2.5">
                       <span
-                        className="mt-1 h-2.5 w-2.5 shrink-0 border border-ivory bg-acid"
+                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-acid"
                         aria-hidden="true"
                       />
                       <span>{item}</span>
@@ -203,7 +195,7 @@ export function ProcessCinemaScene() {
                 </ul>
               </div>
 
-              <div className="border-2 border-ivory bg-cobalt/40 p-2 sm:col-span-5">
+              <div className="rounded-xl bg-[#070E24]/70 p-3 sm:col-span-5">
                 <ProcessStageVisual stageIndex={stageIndex} />
               </div>
             </div>

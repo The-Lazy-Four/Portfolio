@@ -78,7 +78,7 @@ export function PortfolioCinemaScene() {
         {/* Bold Neo-Brutalist section banner */}
         <div className="flex flex-col justify-between gap-6 border-b-[3px] border-ink pb-10 lg:flex-row lg:items-end">
           <div>
-            <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
+            <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-[#F5F1FA] uppercase shadow-[3px_3px_0px_#151515]">
               [04] · Selected Work &amp; Blueprints
             </span>
             <HighlighterReveal
@@ -89,16 +89,16 @@ export function PortfolioCinemaScene() {
                 "engineered for real growth.",
               ]}
               barClassName="bg-cobalt"
-              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ink uppercase sm:text-5xl"
+              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-[#F5F1FA] uppercase sm:text-5xl"
             />
           </div>
 
-          <div className="max-w-md border-2 border-ink bg-concrete p-4 shadow-[5px_5px_0px_#151515]">
+          <div className="max-w-md border-2 border-ink bg-[#171027]/75 p-4 shadow-[5px_5px_0px_#151515]">
             <span className="inline-flex items-center gap-2 bg-ink px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-acid uppercase">
               <span className="h-2 w-2 bg-orange" />
               Concept Demo Showcase · Client Slots Ready
             </span>
-            <p className="mt-2.5 text-sm leading-relaxed text-ink">
+            <p className="mt-2.5 text-sm leading-relaxed text-[#F5F1FA]">
               Interactive case blueprints demonstrating how we unite local
               discovery, web systems, workflows, and NFC touchpoints. Verified
               client engagements drop directly into these slots.
@@ -119,7 +119,7 @@ export function PortfolioCinemaScene() {
                 <div className="relative">
                   <div
                     ref={archPortalRef}
-                    className="overflow-hidden border-[3px] border-ink bg-ink shadow-[9px_9px_0px_#3155F5] transition-shadow duration-300"
+                    className="overflow-hidden rounded-xl bg-ink transition-transform duration-500"
                   >
                     <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                       <ProjectPreviewArt
@@ -129,36 +129,27 @@ export function PortfolioCinemaScene() {
                       />
                     </div>
                   </div>
-                  <span className="absolute -top-4 left-4 border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-extrabold text-ink uppercase shadow-[3px_3px_0px_#151515]">
-                    CASE // 01
-                  </span>
                 </div>
 
-                {/* Hard-edged metadata specification footer */}
+                {/* Editorial metadata specification footer */}
                 <div className="mt-6">
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-2xl leading-tight font-extrabold tracking-tight text-ink uppercase group-hover:text-cobalt sm:text-3xl">
+                    <h3 className="font-display text-2xl leading-tight font-extrabold tracking-tight text-[#F5F1FA] uppercase group-hover:text-cobalt sm:text-3xl">
                       {flagshipProject.name}
                     </h3>
-                    <span className="wg-brutal-btn mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center border-2 border-ink bg-orange text-ivory group-hover:bg-acid group-hover:text-ink">
-                      <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
-                    </span>
+                    <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[#F5F1FA] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cobalt" aria-hidden="true" />
                   </div>
 
-                  <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-slate">
+                  <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#C2B9D0]">
                     {flagshipProject.shortDescription}
                   </p>
 
-                  <div className="mt-4 grid grid-cols-3 divide-x-2 divide-ink border-2 border-ink bg-concrete font-mono text-[10px] font-bold text-ink uppercase shadow-[4px_4px_0px_#151515]">
-                    <span className="truncate px-3 py-2.5">
-                      &bull; {flagshipProject.industry}
-                    </span>
-                    <span className="truncate px-3 py-2.5 text-center">
-                      &bull; {flagshipProject.servicesDelivered[0]}
-                    </span>
-                    <span className="truncate bg-ink px-3 py-2.5 text-right text-acid">
-                      &bull; Concept Demo 01
-                    </span>
+                  <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-ink/15 pt-3 font-mono text-[11px] text-[#C2B9D0] uppercase">
+                    <span>{flagshipProject.industry}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{flagshipProject.servicesDelivered[0]}</span>
+                    <span aria-hidden="true">·</span>
+                    <span className="text-cobalt">Concept Demo 01</span>
                   </div>
                 </div>
               </Link>
@@ -174,7 +165,7 @@ export function PortfolioCinemaScene() {
                 className="group block"
               >
                 <div className="relative">
-                  <div className="overflow-hidden border-[3px] border-ink bg-concrete shadow-[9px_9px_0px_#151515]">
+                  <div className="overflow-hidden rounded-xl bg-[#171027]/75">
                     <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                       <ProjectPreviewArt
                         theme={secondaryLeft.visualTheme}
@@ -183,32 +174,26 @@ export function PortfolioCinemaScene() {
                       />
                     </div>
                   </div>
-                  <span className="absolute -top-4 right-4 border-2 border-ink bg-orange px-3 py-1 font-mono text-xs font-extrabold text-ivory uppercase shadow-[3px_3px_0px_#151515]">
-                    CASE // 02
-                  </span>
                 </div>
 
                 <div className="mt-6">
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-xl leading-tight font-extrabold tracking-tight text-ink uppercase group-hover:text-cobalt sm:text-2xl">
+                    <h3 className="font-display text-xl leading-tight font-extrabold tracking-tight text-[#F5F1FA] uppercase group-hover:text-cobalt sm:text-2xl">
                       {secondaryLeft.name}
                     </h3>
                     <ArrowUpRight
-                      className="mt-1 h-5 w-5 shrink-0 text-ink transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange"
+                      className="mt-1 h-5 w-5 shrink-0 text-[#F5F1FA] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange"
                       aria-hidden="true"
                     />
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-slate">
+                  <p className="mt-2 text-sm leading-relaxed text-[#C2B9D0]">
                     {secondaryLeft.shortDescription}
                   </p>
 
-                  <div className="mt-4 grid grid-cols-2 divide-x-2 divide-ink border-2 border-ink bg-concrete font-mono text-[10px] font-bold text-ink uppercase shadow-[4px_4px_0px_#151515]">
-                    <span className="truncate px-3 py-2.5">
-                      &bull; {secondaryLeft.industry}
-                    </span>
-                    <span className="truncate bg-cobalt px-3 py-2.5 text-right text-ivory">
-                      &bull; Concept Demo 02
-                    </span>
+                  <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-ink/15 pt-3 font-mono text-[11px] text-[#C2B9D0] uppercase">
+                    <span>{secondaryLeft.industry}</span>
+                    <span aria-hidden="true">·</span>
+                    <span className="text-cobalt">Concept Demo 02</span>
                   </div>
                 </div>
               </Link>
@@ -225,21 +210,21 @@ export function PortfolioCinemaScene() {
             <Link
               href="/work"
               data-cursor="ARCHIVE"
-              className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-bold text-ink uppercase"
+              className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-bold text-[#F5F1FA] uppercase"
             >
               View Full Archive
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="divide-y-2 divide-ink border-2 border-ink bg-concrete shadow-[6px_6px_0px_#151515]">
+          <div className="divide-y-2 divide-ink border-2 border-ink bg-[#171027]/75 shadow-[6px_6px_0px_#151515]">
             {archiveRows.map((project, rowIdx) => {
               const isOpen = expandedSlug === project.slug;
               return (
                 <div
                   key={project.slug}
                   className={`p-5 transition-colors sm:p-6 ${
-                    isOpen ? "bg-ivory" : "bg-concrete hover:bg-ivory/70"
+                    isOpen ? "bg-ivory" : "bg-[#171027]/75 hover:bg-ivory/70"
                   }`}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-4">
@@ -251,16 +236,16 @@ export function PortfolioCinemaScene() {
                       aria-expanded={isOpen}
                       className="flex flex-1 items-center gap-4 text-left sm:gap-7"
                     >
-                      <span className="border-2 border-ink bg-acid px-2.5 py-1 font-mono text-xs font-extrabold text-ink">
+                      <span className="border-2 border-ink bg-acid px-2.5 py-1 font-mono text-xs font-extrabold text-[#F5F1FA]">
                         0{rowIdx + 3}
                       </span>
-                      <span className="font-display text-xl font-extrabold tracking-tight text-ink uppercase transition-colors hover:text-cobalt sm:text-2xl">
+                      <span className="font-display text-xl font-extrabold tracking-tight text-[#F5F1FA] uppercase transition-colors hover:text-cobalt sm:text-2xl">
                         {project.name}
                       </span>
                     </button>
 
                     <div className="flex items-center gap-3">
-                      <span className="hidden border border-ink bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase md:inline">
+                      <span className="hidden border border-ink bg-[#171027]/75 px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase md:inline">
                         {project.demoLabel}
                       </span>
                       <Link
@@ -284,14 +269,14 @@ export function PortfolioCinemaScene() {
                         />
                       </div>
                       <div className="space-y-4 lg:col-span-7">
-                        <p className="text-sm leading-relaxed text-ink sm:text-base">
+                        <p className="text-sm leading-relaxed text-[#F5F1FA] sm:text-base">
                           {project.overview}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {project.deliverables.map((d) => (
                             <span
                               key={d}
-                              className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[10px] font-bold text-ink"
+                              className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[10px] font-bold text-[#F5F1FA]"
                             >
                               {d}
                             </span>

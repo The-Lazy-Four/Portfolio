@@ -443,14 +443,16 @@ export function Laptop3DStage({
       resizeObserver.observe(container);
 
       let smoothProgress = progressRef.current || 0;
-      const clock = new THREE.Clock();
+      const timer = new THREE.Timer();
+      timer.connect(document);
 
       /** Synchronizes laptop 3D rotation, subtle tilt, and framing to continuous scroll progress with delta-time damping. */
-      function renderFrame() {
+      function renderFrame(timestamp?: number) {
         rafId = window.requestAnimationFrame(renderFrame);
         if (!isInViewport || !renderer) return;
 
-        const delta = Math.min(clock.getDelta(), 0.05);
+        timer.update(timestamp);
+        const delta = Math.min(timer.getDelta(), 0.05);
         const targetProgress = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1);
 
         if (reducedMotion) {
@@ -478,6 +480,7 @@ export function Laptop3DStage({
       return () => {
         disposed = true;
         window.cancelAnimationFrame(rafId);
+        timer.dispose();
         resizeObserver?.disconnect();
         intersectionObserver?.disconnect();
 

@@ -194,13 +194,13 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
       id="contact"
       ref={sectionRef}
       aria-labelledby="contact-heading"
-      className="wg-grid-pattern-dark bg-ink py-20 text-ivory sm:py-28"
+      className="border-t border-ivory/10 bg-[#05091B]/45 py-24 text-ivory sm:py-32"
     >
-      <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Dramatic Neo-Brutalist closing banner */}
-        <div className="border-b-[3px] border-ivory/30 pb-12">
-          <span className="inline-block border-2 border-ivory bg-orange px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#E9FF45]">
-            [07] · Start Your Project
+      <div className="mx-auto max-w-[92rem] px-6 sm:px-10 lg:px-14">
+        {/* Dramatic cinematic closing banner */}
+        <div className="border-b border-ivory/15 pb-12">
+          <span className="font-mono text-xs tracking-[0.2em] text-acid/90 uppercase">
+            07 · Start Your Project
           </span>
           <HighlighterReveal
             as="h2"

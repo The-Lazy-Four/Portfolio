@@ -153,20 +153,23 @@ export function WebGLTopographicStage({
       });
       observer.observe(container);
 
-      const clock = new THREE.Clock();
+      const timer = new THREE.Timer();
+      timer.connect(document);
 
       /** Advances shader time and mouse interpolation cleanly per frame. */
-      function animate() {
-        uniforms.uTime.value = clock.getElapsedTime();
+      function animate(timestamp?: number) {
+        timer.update(timestamp);
+        uniforms.uTime.value = timer.getElapsed();
         uniforms.uMouse.value.lerp(targetMouse, 0.06);
         renderer?.render(scene, camera);
         rafId = window.requestAnimationFrame(animate);
       }
 
-      animate();
+      rafId = window.requestAnimationFrame(animate);
 
       return () => {
         window.cancelAnimationFrame(rafId);
+        timer.dispose();
         window.removeEventListener("pointermove", handlePointerMove);
         observer?.disconnect();
         if (renderer?.domElement.parentNode === container) {
