@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
+import DepthCarousel from "@/components/visuals/DepthCarousel";
 import { VERIFIED_TEAM_MEMBERS } from "@/data/team";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,6 +15,11 @@ gsap.registerPlugin(ScrollTrigger);
 interface StudioCinemaSceneProps {
   showAboutLink?: boolean;
 }
+
+const TEAM_ITEMS = VERIFIED_TEAM_MEMBERS.map((member) => ({
+  image: member.image,
+  alt: `${member.name} — ${member.role}`,
+}));
 
 /** Renders a clean geometric LinkedIn mark for external team member links. */
 function LinkedInGlyph() {
@@ -30,12 +35,16 @@ function LinkedInGlyph() {
   );
 }
 
-/** Renders Section 04 (The People Behind Web Guru) with staggered editorial portraits, roles, short bios, and LinkedIn profiles. */
+/** Renders Section 04 (The People Behind Web Guru) with the 3D DepthCarousel and synchronized member profile details. */
 export function StudioCinemaScene({
   showAboutLink = true,
 }: StudioCinemaSceneProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { reducedMotion, setActiveSceneIndex } = useCinemaEngine();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const activeMember =
+    VERIFIED_TEAM_MEMBERS[activeIndex] || VERIFIED_TEAM_MEMBERS[0];
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -59,17 +68,11 @@ export function StudioCinemaScene({
       id="scene-studio"
       ref={sectionRef}
       aria-labelledby="studio-cinema-heading"
-      className="relative border-t border-white/10 bg-[#100B18]/45 py-16 text-[#F5F1FA] sm:py-24 lg:py-28"
+      className="relative overflow-hidden border-t border-white/10 bg-[#100B18]/45 py-16 text-[#F5F1FA] sm:py-24 lg:py-28"
     >
       <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
         {/* Section header */}
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="grid grid-cols-1 gap-5 border-b border-white/10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-14"
-        >
+        <div className="grid grid-cols-1 gap-5 border-b border-white/10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-14">
           <div className="lg:col-span-7">
             <h2
               id="studio-cinema-heading"
@@ -84,80 +87,82 @@ export function StudioCinemaScene({
 
           <div className="lg:col-span-5">
             <p className="text-base leading-relaxed text-[#C7BDD5] sm:text-lg">
-              Four minds, different strengths, one shared vision.
+              Four people. Different strengths. One shared vision.
             </p>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Editorial 4-member portrait grid (staggered vertically on desktop, open typography) */}
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:mt-14 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-12 lg:mt-16 lg:grid-cols-4 lg:gap-7">
-          {VERIFIED_TEAM_MEMBERS.map((member, index) => {
-            const staggered = index % 2 === 1;
+        {/* Two-column desktop / stacked mobile DepthCarousel + Synchronized Profile */}
+        <div className="mt-10 grid grid-cols-1 items-center gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-7">
+            <div className="h-[400px] w-full sm:h-[440px] lg:h-[480px]">
+              <DepthCarousel
+                items={TEAM_ITEMS}
+                cardWidth={300}
+                cardHeight={390}
+                radius={12}
+                tint="#100B18"
+                depth={150}
+                spread={65}
+                tilt={16}
+                tiltDirection="right"
+                perspective={1400}
+                visibleCards={3}
+                falloff={0.14}
+                blur={2}
+                duration={700}
+                ease="power3.out"
+                autoplay={false}
+                loop={true}
+                showControls={true}
+                showIndicators={false}
+                onChange={(index: number) => setActiveIndex(index)}
+              />
+            </div>
+          </div>
 
-            return (
-              <motion.article
-                key={member.slotNumber}
-                initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{
-                  duration: 0.55,
-                  delay: reducedMotion ? 0 : index * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`group flex flex-col ${
-                  staggered ? "lg:mt-12" : ""
-                }`}
+          {/* Synchronized active member details */}
+          <div className="lg:col-span-5">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeMember.slotNumber}
+                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reducedMotion ? undefined : { opacity: 0, y: -12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="space-y-4 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:border-white/10 lg:pt-0 lg:pl-10"
               >
-                {/* Prominent portrait frame (non-clickable image so LinkedIn stays explicit) */}
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#171027]/60">
-                  <div className="relative h-full w-full transition-transform duration-700 ease-out md:group-hover:scale-[1.04]">
-                    <Image
-                      src={member.image}
-                      alt={`${member.name} — ${member.role}`}
-                      fill
-                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
-                      className={member.imageClassName}
-                    />
-                  </div>
+                <p className="text-xs font-medium tabular-nums text-[#A78BFA]">
+                  {activeMember.slotNumber} / 04
+                </p>
 
-                  {/* Subtle dark-purple studio atmosphere vignette integrating bright backgrounds */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#100B18]/75 via-[#100B18]/10 to-transparent transition-opacity duration-500 md:group-hover:opacity-65"
-                  />
+                <h3 className="font-display text-2xl font-semibold tracking-tight text-[#F5F1FA] sm:text-3xl">
+                  {activeMember.name}
+                </h3>
+
+                <p className="text-sm font-medium text-[#FF9FFC] sm:text-base">
+                  {activeMember.role}
+                </p>
+
+                <p className="max-w-md text-base leading-relaxed text-[#C7BDD5]">
+                  {activeMember.focus}
+                </p>
+
+                <div className="pt-2">
+                  <a
+                    href={activeMember.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${activeMember.name} on LinkedIn`}
+                    className="wg-link-underline inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[#D8C5F2] transition-colors hover:text-[#FF9FFC]"
+                  >
+                    <LinkedInGlyph />
+                    <span>Connect on LinkedIn</span>
+                  </a>
                 </div>
-
-                {/* Editorial member caption */}
-                <div className="mt-4 space-y-1.5 sm:mt-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="font-display text-xl font-semibold tracking-tight text-[#F5F1FA] transition-colors duration-300 md:group-hover:text-[#FF9FFC]">
-                      {member.name}
-                    </h3>
-
-                    <a
-                      href={member.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${member.name} on LinkedIn`}
-                      className="inline-flex min-h-[40px] shrink-0 items-center gap-1.5 px-1 text-xs font-medium text-[#B497CF] transition-colors hover:text-[#FF9FFC]"
-                    >
-                      <LinkedInGlyph />
-                      <span>LinkedIn</span>
-                    </a>
-                  </div>
-
-                  <p className="text-sm font-medium text-[#A78BFA]">
-                    {member.role}
-                  </p>
-
-                  <p className="pt-1 text-sm leading-relaxed text-[#C7BDD5]">
-                    {member.focus}
-                  </p>
-                </div>
-              </motion.article>
-            );
-          })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
         {showAboutLink && (
