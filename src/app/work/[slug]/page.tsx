@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, Check, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { ProjectPreviewArt } from "@/components/visuals/ProjectPreviewArt";
 import { PORTFOLIO_PROJECTS, getProjectBySlug } from "@/data/projects";
 
-/** Pre-generates static routes for all configured portfolio and demo case study slugs. */
+/** Pre-generates static routes for all configured portfolio project slugs. */
 export async function generateStaticParams() {
   return PORTFOLIO_PROJECTS.map((project) => ({
     slug: project.slug,
   }));
 }
 
-/** Builds per-case-study SEO metadata dynamically from the matching project entry. */
+/** Builds per-project SEO metadata dynamically from the matching project entry. */
 export async function generateMetadata({
   params,
 }: {
@@ -23,9 +23,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return {
-      title: "Case Study Not Found",
-    };
+    return { title: "Project Not Found" };
   }
 
   return {
@@ -37,7 +35,7 @@ export async function generateMetadata({
   };
 }
 
-/** Renders the complete Neo-Brutalist 8-part case study layout for a selected demo or verified client project. */
+/** Renders the concise editorial project case study view over the global LiquidEther environment. */
 export default async function CaseStudyPage({
   params,
 }: {
@@ -52,112 +50,96 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <article className="border-b-[3px] border-ink bg-ivory">
-        <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-18 lg:px-10">
+      <article className="bg-[#100B18]/40 pt-28 pb-20 text-[#F5F1FA] sm:pt-36 sm:pb-24">
+        <div className="mx-auto max-w-5xl px-6 sm:px-10">
           <Link
             href="/work"
-            className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-concrete px-4 py-2 font-mono text-xs font-bold tracking-[0.08em] text-ink uppercase hover:bg-acid"
+            className="inline-flex min-h-[40px] items-center gap-2 text-xs font-medium text-[#C7BDD5] transition-colors hover:text-[#FF9FFC]"
           >
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Back to Selected Work
           </Link>
 
-          <div className="mt-7 border-b-[3px] border-ink pb-8">
-            <span className="inline-flex items-center gap-2 border-2 border-ink bg-acid px-3 py-1 font-mono text-[11px] font-bold tracking-[0.08em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-              <Info className="h-3.5 w-3.5 text-orange" aria-hidden="true" />
-              {project.demoLabel}
-            </span>
-            <h1 className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ink uppercase sm:text-5xl">
+          <header className="mt-6 border-b border-white/12 pb-8">
+            <p className="text-xs font-medium text-[#A78BFA]">
+              {project.industry}
+            </p>
+            <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3.75rem)] leading-[1.06] font-bold tracking-[-0.025em] text-[#F5F1FA]">
               {project.name}
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate">
+            <p className="mt-3 font-serif text-xl italic text-[#D8C5F2] sm:text-2xl">
+              {project.headline}
+            </p>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#C7BDD5]">
               {project.shortDescription}
             </p>
+
+            <div className="mt-7">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#5227FF] px-6 py-3 text-xs font-semibold text-[#F5F1FA] transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18]"
+              >
+                View Live Website
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+          </header>
+
+          {/* Desktop + Mobile real screenshots */}
+          <div className="my-12 grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+            <div className="overflow-hidden rounded-2xl bg-[#171027]/60 ring-1 ring-white/10 lg:col-span-8">
+              <Image
+                src={project.desktopImage}
+                alt={`${project.name} desktop preview`}
+                width={1440}
+                height={1000}
+                className="h-auto w-full object-cover"
+              />
+            </div>
+            <div className="mx-auto w-full max-w-[260px] overflow-hidden rounded-2xl bg-[#171027]/60 ring-1 ring-white/10 lg:col-span-4">
+              <Image
+                src={project.mobileImage}
+                alt={`${project.name} mobile preview`}
+                width={390}
+                height={844}
+                className="h-auto w-full object-cover"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 divide-y-2 divide-ink border-2 border-ink bg-concrete shadow-[6px_6px_0px_#151515] sm:grid-cols-3 sm:divide-x-2 sm:divide-y-0">
-            <div className="p-5">
-              <p className="font-mono text-[10px] font-bold tracking-[0.08em] text-cobalt uppercase">
-                Client &amp; Status
-              </p>
-              <p className="mt-1.5 text-sm font-bold text-ink">
-                {project.clientLabel}
-              </p>
-            </div>
-            <div className="p-5">
-              <p className="font-mono text-[10px] font-bold tracking-[0.08em] text-cobalt uppercase">
-                Industry
-              </p>
-              <p className="mt-1.5 text-sm font-bold text-ink">
-                {project.industry}
-              </p>
-            </div>
-            <div className="bg-acid p-5">
-              <p className="font-mono text-[10px] font-bold tracking-[0.08em] text-ink uppercase">
-                Services Delivered
-              </p>
-              <p className="mt-1.5 text-sm font-bold text-ink">
-                {project.servicesDelivered.join(" · ")}
-              </p>
-            </div>
-          </div>
-
-          <div className="my-10 shadow-[8px_8px_0px_#3155F5]">
-            <ProjectPreviewArt
-              theme={project.visualTheme}
-              label={project.name}
-            />
-          </div>
-
-          <div className="space-y-8">
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                01 — Project Overview
+          <div className="divide-y divide-white/12 border-t border-white/12">
+            <section className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12">
+              <h2 className="text-sm font-medium text-[#A78BFA] md:col-span-4">
+                Overview
               </h2>
-              <p className="text-base leading-relaxed text-ink md:col-span-8">
+              <p className="text-base leading-relaxed text-[#C7BDD5] md:col-span-8">
                 {project.overview}
               </p>
             </section>
 
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                02 — Challenge
+            <section className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12">
+              <h2 className="text-sm font-medium text-[#A78BFA] md:col-span-4">
+                What Web Guru created
               </h2>
-              <p className="text-base leading-relaxed text-ink md:col-span-8">
-                {project.challenge}
-              </p>
-            </section>
-
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                03 — Strategy
-              </h2>
-              <p className="text-base leading-relaxed text-ink md:col-span-8">
-                {project.strategy}
-              </p>
-            </section>
-
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                04 — Solution
-              </h2>
-              <p className="text-base leading-relaxed text-ink md:col-span-8">
+              <p className="text-base leading-relaxed text-[#C7BDD5] md:col-span-8">
                 {project.solution}
               </p>
             </section>
 
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                05 — Deliverables
+            <section className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12">
+              <h2 className="text-sm font-medium text-[#A78BFA] md:col-span-4">
+                Key highlights
               </h2>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:col-span-8">
                 {project.deliverables.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-2.5 border-2 border-ink bg-concrete px-4 py-3 text-sm font-semibold text-ink shadow-[3px_3px_0px_#151515]"
+                    className="flex items-start gap-2.5 text-sm text-[#F5F1FA]/90"
                   >
                     <Check
-                      className="mt-0.5 h-4 w-4 shrink-0 text-cobalt"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-[#B497CF]"
                       aria-hidden="true"
                     />
                     <span>{item}</span>
@@ -165,65 +147,11 @@ export default async function CaseStudyPage({
                 ))}
               </ul>
             </section>
-
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                06 — Visual Gallery Slots
-              </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-8">
-                {project.galleryNotes.map((frame, index) => (
-                  <div
-                    key={frame.title}
-                    className="border-2 border-ink bg-concrete p-5 shadow-[4px_4px_0px_#151515]"
-                  >
-                    <span className="bg-ink px-2 py-0.5 font-mono text-[10px] font-bold text-acid">
-                      FRAME 0{index + 1} · RESERVED VISUAL
-                    </span>
-                    <h3 className="mt-3 font-display text-lg font-extrabold text-ink uppercase">
-                      {frame.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm text-slate">{frame.caption}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="grid grid-cols-1 gap-4 border-t-2 border-ink pt-8 md:grid-cols-12">
-              <h2 className="font-mono text-xs font-extrabold tracking-[0.08em] text-orange uppercase md:col-span-4">
-                07 — Results &amp; Outcomes
-              </h2>
-              <div className="border-2 border-ink bg-ink p-6 text-ivory shadow-[6px_6px_0px_#3155F5] md:col-span-8">
-                <p className="font-mono text-xs font-bold text-acid uppercase">
-                  Verification Status: Pending Real Client Data
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-ivory/85">
-                  {project.verifiedResultsNote}
-                </p>
-              </div>
-            </section>
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-8">
-            <Link
-              href="/work"
-              className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-concrete px-5 py-2.5 font-mono text-xs font-bold text-ink uppercase hover:bg-acid"
-            >
-              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              All Case Studies
-            </Link>
-
-            <Link
-              href={`/contact?service=${encodeURIComponent(project.servicesDelivered[0] || "")}`}
-              className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-orange px-6 py-3 font-mono text-xs font-bold text-ivory uppercase hover:bg-cobalt"
-            >
-              Discuss a Similar Project
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
           </div>
         </div>
       </article>
 
-      <ContactSection initialService={project.servicesDelivered[0]} />
+      <ContactSection />
     </>
   );
 }

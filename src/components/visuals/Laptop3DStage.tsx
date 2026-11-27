@@ -551,26 +551,26 @@ export function Laptop3DStage({
         className="h-full w-full"
       />
 
-      {/* Crisp Neo-Brutalist loading progress state */}
+      {/* Clean dark-purple loading progress state */}
       {loadStatus === "loading" && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
-          <div className="border-2 border-ink bg-acid px-5 py-3 text-center shadow-[4px_4px_0px_#151515]">
-            <span className="block font-mono text-xs font-extrabold tracking-[0.12em] text-ink uppercase">
-              Loading 3D Laptop Asset
-              {loadPercent !== null ? ` // ${loadPercent}%` : "..."}
+          <div className="rounded-full border border-white/15 bg-[#171027]/90 px-5 py-2.5 text-center backdrop-blur-md">
+            <span className="block text-xs font-medium text-[#C7BDD5]">
+              Loading 3D Preview
+              {loadPercent !== null ? ` · ${loadPercent}%` : "..."}
             </span>
           </div>
         </div>
       )}
 
-      {/* Honest explicit failure state (no fake fallback stock image) */}
+      {/* Honest explicit failure state */}
       {loadStatus === "error" && (
         <div className="absolute inset-0 flex items-center justify-center p-6">
-          <div className="max-w-sm border-2 border-ink bg-orange p-5 text-ivory shadow-[5px_5px_0px_#151515]">
-            <p className="font-mono text-xs font-bold uppercase">
+          <div className="max-w-sm rounded-xl border border-[#FF9FFC]/25 bg-[#171027]/95 p-5 text-[#F5F1FA]">
+            <p className="text-xs font-medium text-[#FF9FFC]">
               3D Render Unavailable
             </p>
-            <p className="mt-2 text-sm leading-relaxed">
+            <p className="mt-2 text-sm leading-relaxed text-[#C7BDD5]">
               {errorMessage ||
                 "Unable to initialize the 3D laptop model in this environment."}
             </p>

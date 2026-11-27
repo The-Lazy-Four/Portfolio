@@ -36,13 +36,9 @@ export const SITE_CONFIG = {
   // Configure real contact endpoints here or via NEXT_PUBLIC_* environment variables.
   contact: {
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
-    emailPlaceholder: "hello@your-webguru-domain.example",
     phoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE || "",
-    phonePlaceholder: "[Add agency phone number in src/config/site.ts]",
     whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
-    whatsappDisplayPlaceholder: "[Configure WhatsApp Business link]",
     businessHours: "Mon – Fri · 09:30 – 18:30",
-    locationLabel: "[Add city / service region in src/config/site.ts]",
   },
 
   socialLinks: [

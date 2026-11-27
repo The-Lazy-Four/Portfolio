@@ -5,17 +5,17 @@ import { WorkDirectory } from "@/components/work/WorkDirectory";
 export const metadata: Metadata = {
   title: "Our Work",
   description:
-    "Browse Web Guru's demonstration case studies and reusable client project blueprints across hospitality, retail, professional services, and workflow software.",
+    "Explore real websites built by Web Guru across restaurants, pharmacy healthcare, and homemade bakery storefronts.",
   alternates: {
     canonical: "/work",
   },
 };
 
-/** Renders the Selected Work page containing filterable case study blueprints and an enquiry section. */
+/** Renders the Selected Work route over the global LiquidEther background. */
 export default function WorkPage() {
   return (
     <>
-      <section className="border-b border-rule bg-paper">
+      <section className="bg-[#100B18]/35 text-[#F5F1FA]">
         <WorkDirectory />
       </section>
       <ContactSection />

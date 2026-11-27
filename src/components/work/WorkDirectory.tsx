@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Info } from "lucide-react";
-import { ProjectPreviewArt } from "@/components/visuals/ProjectPreviewArt";
+import { ArrowUpRight, Monitor, Smartphone } from "lucide-react";
 import { PORTFOLIO_PROJECTS } from "@/data/projects";
 
-/** Renders the Neo-Brutalist filterable archive of Web Guru's clearly labeled demo case studies. */
+/** Renders Web Guru's visual-first Selected Work directory with genuine screenshots and industry filtering. */
 export function WorkDirectory() {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("All");
+  const [previewModes, setPreviewModes] = useState<
+    Record<string, "desktop" | "mobile">
+  >({});
 
   const industries = [
     "All",
@@ -22,135 +25,159 @@ export function WorkDirectory() {
           (item) => item.industry === selectedIndustry
         );
 
+  /** Toggles between desktop and mobile previews for an individual project. */
+  function setMode(slug: string, mode: "desktop" | "mobile") {
+    setPreviewModes((prev) => ({ ...prev, [slug]: mode }));
+  }
+
   return (
-    <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-      <div className="border-b-[3px] border-ink pb-8">
-        <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-          Selected Work · Case Study Blueprints
-        </span>
-        <h1 className="mt-5 max-w-4xl font-display text-4xl leading-[1.02] font-extrabold tracking-[-0.035em] text-ink uppercase sm:text-6xl">
-          How our services fit together for{" "}
-          <span className="font-serif font-normal lowercase italic text-cobalt underline decoration-orange decoration-4 underline-offset-4">
-            real business goals.
+    <div className="mx-auto max-w-[92rem] px-6 pt-32 pb-20 sm:px-10 sm:pt-40 sm:pb-28 lg:px-14">
+      <div className="border-b border-white/12 pb-10">
+        <p className="text-xs font-medium text-[#A78BFA]">Selected Work</p>
+        <h1 className="mt-3 max-w-4xl font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.04] font-bold tracking-[-0.03em] text-[#F5F1FA]">
+          Digital experiences built for{" "}
+          <span className="font-serif font-normal italic text-[#FF9FFC]">
+            real businesses.
           </span>
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate sm:text-lg">
-          Explore structured demonstration case studies illustrating how Web
-          Guru approaches local hospitality, retail, professional practices,
-          and internal operations apps.
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#C7BDD5] sm:text-lg">
+          Explore live websites we designed and launched across hospitality,
+          healthcare, and retail.
         </p>
+
+        {/* Clean pill industry filters */}
+        <div
+          role="group"
+          aria-label="Filter projects by industry"
+          className="mt-8 flex flex-wrap gap-2"
+        >
+          {industries.map((industry) => {
+            const active = selectedIndustry === industry;
+            return (
+              <button
+                key={industry}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setSelectedIndustry(industry)}
+                className={`min-h-[40px] rounded-full border px-4 py-1.5 text-xs font-medium transition-colors ${
+                  active
+                    ? "border-[#A78BFA] bg-[#5227FF] text-[#F5F1FA]"
+                    : "border-white/12 bg-white/5 text-[#C7BDD5] hover:border-white/25 hover:text-[#F5F1FA]"
+                }`}
+              >
+                {industry}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Honest demo disclosure */}
-      <div className="mt-8 flex items-start gap-3 border-2 border-ink bg-cobalt px-5 py-4 text-sm text-ivory shadow-[5px_5px_0px_#151515]">
-        <Info
-          className="mt-0.5 h-4 w-4 shrink-0 text-acid"
-          aria-hidden="true"
-        />
-        <p>
-          <strong className="bg-ink px-1.5 py-0.5 font-mono text-xs text-acid uppercase">
-            Demo Notice:
-          </strong>{" "}
-          All items currently shown are sample concepts and reserved client
-          slots (no fictional clients or made-up numbers). Replace or expand
-          entries in{" "}
-          <code className="bg-ink px-1.5 py-0.5 font-mono text-xs text-ivory">
-            src/data/projects.ts
-          </code>
-          .
-        </p>
-      </div>
+      {/* Editorial alternating showcase list */}
+      <div className="mt-16 space-y-24 sm:space-y-32">
+        {visibleProjects.map((project, index) => {
+          const mode = previewModes[project.slug] || "desktop";
+          const reverse = index % 2 === 1;
 
-      {/* Interactive rectangular industry filters */}
-      <div
-        role="group"
-        aria-label="Filter case studies by industry"
-        className="mt-8 flex flex-wrap gap-2.5"
-      >
-        {industries.map((industry) => {
-          const active = selectedIndustry === industry;
           return (
-            <button
-              key={industry}
-              type="button"
-              aria-pressed={active}
-              onClick={() => setSelectedIndustry(industry)}
-              className={`border-2 border-ink px-4 py-2 font-mono text-xs font-bold uppercase transition-colors ${
-                active
-                  ? "bg-acid text-ink shadow-[3px_3px_0px_#151515]"
-                  : "bg-concrete text-ink hover:bg-ivory"
-              }`}
+            <article
+              key={project.slug}
+              className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14"
             >
-              {industry}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Hard-edged Case study grid */}
-      <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-        {visibleProjects.map((project, index) => (
-          <article
-            key={project.slug}
-            className="group flex flex-col border-[3px] border-ink bg-concrete shadow-[7px_7px_0px_#151515]"
-          >
-            <Link href={`/work/${project.slug}`} className="block overflow-hidden">
-              <div className="transition-transform duration-300 ease-out group-hover:scale-[1.02]">
-                <ProjectPreviewArt
-                  theme={project.visualTheme}
-                  label={project.name}
-                />
-              </div>
-            </Link>
-
-            <div className="flex flex-1 flex-col justify-between bg-ivory p-6 sm:p-7">
-              <div>
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="bg-ink px-2 py-0.5 font-mono text-[10px] font-bold text-acid uppercase">
-                    0{index + 1} · {project.demoLabel}
+              <div
+                className={`lg:col-span-7 ${
+                  reverse ? "lg:order-2" : "lg:order-1"
+                }`}
+              >
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                  <span className="text-xs font-medium text-[#B497CF]">
+                    0{index + 1} · {project.industry}
                   </span>
-                  <span className="border border-ink bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
-                    {project.industry}
-                  </span>
+                  <div className="flex items-center gap-4 text-xs font-medium">
+                    <button
+                      type="button"
+                      onClick={() => setMode(project.slug, "desktop")}
+                      className={`inline-flex items-center gap-1.5 pb-0.5 transition-colors ${
+                        mode === "desktop"
+                          ? "border-b border-[#5227FF] text-[#F5F1FA]"
+                          : "text-[#91869F] hover:text-[#F5F1FA]"
+                      }`}
+                    >
+                      <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
+                      Desktop
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMode(project.slug, "mobile")}
+                      className={`inline-flex items-center gap-1.5 pb-0.5 transition-colors ${
+                        mode === "mobile"
+                          ? "border-b border-[#5227FF] text-[#F5F1FA]"
+                          : "text-[#91869F] hover:text-[#F5F1FA]"
+                      }`}
+                    >
+                      <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
+                      Mobile
+                    </button>
+                  </div>
                 </div>
-                <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-ink uppercase">
-                  <Link
-                    href={`/work/${project.slug}`}
-                    className="transition-colors hover:text-cobalt"
-                  >
-                    {project.name}
-                  </Link>
+
+                <div className="flex justify-center overflow-hidden rounded-2xl bg-[#171027]/50 ring-1 ring-white/10">
+                  {mode === "desktop" ? (
+                    <Image
+                      src={project.desktopImage}
+                      alt={`${project.name} desktop website preview`}
+                      width={1440}
+                      height={1000}
+                      className="h-auto w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                    />
+                  ) : (
+                    <Image
+                      src={project.mobileImage}
+                      alt={`${project.name} mobile website preview`}
+                      width={390}
+                      height={844}
+                      className="my-4 h-auto w-full max-w-[280px] rounded-xl object-cover shadow-2xl"
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div
+                className={`lg:col-span-5 ${
+                  reverse ? "lg:order-1" : "lg:order-2"
+                }`}
+              >
+                <h2 className="font-display text-2xl font-semibold tracking-tight text-[#F5F1FA] sm:text-3xl">
+                  {project.name}
                 </h2>
-                <p className="mt-2.5 text-sm leading-relaxed text-slate sm:text-base">
+                <p className="mt-2 font-serif text-xl italic text-[#D8C5F2]">
+                  {project.headline}
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-[#C7BDD5]">
                   {project.shortDescription}
                 </p>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {project.servicesDelivered.map((item) => (
-                    <li
-                      key={item}
-                      className="border-2 border-ink bg-concrete px-2.5 py-1 font-mono text-[10px] font-bold text-ink uppercase"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
-              <div className="mt-6 flex items-center justify-between border-t-2 border-ink pt-4">
-                <span className="font-mono text-xs font-bold text-slate">
-                  {project.clientLabel}
-                </span>
-                <Link
-                  href={`/work/${project.slug}`}
-                  className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-4 py-1.5 font-mono text-xs font-bold text-ink uppercase hover:bg-cobalt hover:text-ivory"
-                >
-                  Open Case Study
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
+                <div className="mt-8 flex flex-wrap items-center gap-6">
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#5227FF] px-6 py-3 text-xs font-semibold text-[#F5F1FA] transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18]"
+                  >
+                    View Live Website
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+
+                  <Link
+                    href={`/work/${project.slug}`}
+                    className="text-xs font-semibold text-[#F5F1FA] underline decoration-[#B497CF]/60 underline-offset-8 transition-colors hover:text-[#FF9FFC]"
+                  >
+                    Explore Project &rarr;
+                  </Link>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </div>
   );

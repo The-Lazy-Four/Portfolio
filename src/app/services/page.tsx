@@ -122,7 +122,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-[#171027]/75 p-4 text-ink shadow-2xl backdrop-blur-md sm:p-6 lg:col-span-7">
+                <div className="lg:col-span-7">
                   <ServiceDemonstration kind={service.diagramKind} />
                 </div>
               </article>

@@ -1,7 +1,5 @@
 /**
- * Selected Work / Case Study structure for Web Guru.
- * Note: All entries currently represent DEMO CONCEPTS / RESERVED SLOTS until
- * verified Web Guru client engagements and assets are supplied.
+ * Selected Work / Real Client Projects for Web Guru.
  */
 
 export type ProjectVisualTheme = "hospitality" | "retail" | "services" | "workflow";
@@ -11,8 +9,12 @@ export interface CaseStudyProject {
   isDemo: boolean;
   demoLabel: string;
   name: string;
+  headline: string;
   clientLabel: string;
   industry: string;
+  liveUrl: string;
+  desktopImage: string;
+  mobileImage: string;
   servicesDelivered: string[];
   shortDescription: string;
   visualTheme: ProjectVisualTheme;
@@ -27,179 +29,146 @@ export interface CaseStudyProject {
 
 export const PORTFOLIO_PROJECTS: CaseStudyProject[] = [
   {
-    slug: "demo-neighborhood-bistro-local-presence",
-    isDemo: true,
-    demoLabel: "Demo Concept · Reserved Client Slot 01",
-    name: "Neighborhood Bistro — Local Discovery & Review Flow",
-    clientLabel: "Sample Concept (Hospitality)",
-    industry: "Restaurants & Local Hospitality",
+    slug: "food-n-feel",
+    isDemo: false,
+    demoLabel: "01 · Restaurant Website",
+    name: "FOOD N FEEL",
+    headline: "Bringing the restaurant experience online.",
+    clientLabel: "FOOD N FEEL — Panchberya, Goura",
+    industry: "Restaurant & Hospitality",
+    liveUrl: "https://foodnfeel.vercel.app/",
+    desktopImage: "/images/projects/food-n-feel-desktop.png",
+    mobileImage: "/images/projects/food-n-feel-mobile.png",
     servicesDelivered: [
-      "Google Business Profile & Local SEO",
       "Website Design & Development",
-      "NFC & QR Review Solutions",
+      "Interactive Menu & Ordering",
+      "Google Maps & Reviews",
     ],
     shortDescription:
-      "A demonstration case study showing how a neighborhood restaurant can unify mobile-first menu browsing, accurate Google Maps discovery, and counter NFC review cards.",
+      "A complete restaurant website with food discovery, digital menu browsing, and WhatsApp ordering.",
     visualTheme: "hospitality",
     overview:
-      "This demo case study illustrates how Web Guru connects a restaurant's street-level guest experience with clear online discovery—replacing PDF-only menus and neglected map listings with one cohesive presence.",
+      "Web Guru created a complete digital presence for FOOD N FEEL—connecting its dining atmosphere and food photography with category-based menu browsing, a shopping cart, and direct WhatsApp ordering.",
     challenge:
-      "Independent restaurants often lose hungry local searchers due to outdated opening hours, uncategorized Google profiles, slow mobile pages, and friction when asking happy diners for reviews.",
+      "Diners searching on their phones needed an inviting way to browse dishes, check the restaurant's location, and place orders without friction.",
     strategy:
-      "Combine structured Google Business Profile optimization with a lightweight, scannable website and physical NFC + QR review table cards placed at checkout.",
+      "Lead with rich restaurant photography, organize the menu by category, and connect the cart directly to WhatsApp with customer details and location.",
     solution:
-      "Designed a mobile-friendly digital storefront featuring clear dining hours, table-booking links, updated location categories, and branded tap-to-review cards linking directly to the restaurant's Google review form.",
+      "Built a responsive restaurant website with a food photography marquee, category-based menu browsing, cart quantity controls, browser-based delivery location detection, Google Maps directions, and a Google Reviews showcase.",
     deliverables: [
-      "Fast responsive restaurant website",
-      "Google Business Profile category, menu & photo setup",
-      "Custom-branded NFC & QR table review cards",
-      "Ongoing seasonal hour and menu support",
+      "Cinematic hero and food photography showcase",
+      "Category-based menu with cart management",
+      "WhatsApp ordering with order summary",
+      "Google Maps directions and reviews section",
     ],
     galleryNotes: [
       {
-        title: "Mobile Menu & Direct Booking Layout",
-        caption: "Conceptual presentation showing clear above-the-fold hours and reservation actions.",
+        title: "Restaurant Hero & Food Showcase",
+        caption: "Full-screen dining presentation with animated food marquee.",
       },
       {
-        title: "Google Maps & Profile Architecture",
-        caption: "Structured local categories, high-clarity imagery slots, and direct review link flow.",
-      },
-      {
-        title: "Countertop NFC & QR Card Mockup",
-        caption: "Physical-to-digital review card concept ready for custom client branding.",
+        title: "Mobile Menu & WhatsApp Ordering",
+        caption: "Category browsing, cart controls, and direct WhatsApp order flow.",
       },
     ],
     verifiedResultsNote:
-      "Demo concept slot — verified metrics and live customer outcomes will be published here once real client project data is supplied.",
+      "Live deployed website showcasing FOOD N FEEL's menu, dining identity, and WhatsApp ordering experience.",
   },
   {
-    slug: "demo-artisan-retail-storefront-social",
-    isDemo: true,
-    demoLabel: "Demo Concept · Reserved Client Slot 02",
-    name: "Specialty Goods Shop — E-Commerce & Social Cadence",
-    clientLabel: "Sample Concept (Local Retail)",
-    industry: "Retail & Specialty Shops",
+    slug: "medicine-world",
+    isDemo: false,
+    demoLabel: "02 · Pharmacy Website",
+    name: "MEDICINE WORLD",
+    headline: "A neighbourhood pharmacy, digitally connected.",
+    clientLabel: "Medicine World — Kolkata",
+    industry: "Healthcare & Pharmacy",
+    liveUrl: "https://medicine-blue.vercel.app/",
+    desktopImage: "/images/projects/medicine-world-desktop.png",
+    mobileImage: "/images/projects/medicine-world-mobile.png",
     servicesDelivered: [
       "Website Design & Development",
-      "Social Media Management",
-      "Complete Technical Support",
+      "Product Catalogue",
+      "Healthcare Discovery",
     ],
     shortDescription:
-      "A sample blueprint pairing a streamlined online store and consistent social visual system with worry-free domain, hosting, and email management.",
-    visualTheme: "retail",
-    overview:
-      "Designed as an example for independent retail stores moving online without wanting to manage separate web developers, social freelancers, and hosting providers.",
-    challenge:
-      "Shop owners frequently struggle with disjointed branding across Instagram and their storefront, slow checkout pages, and confusing domain or email configurations.",
-    strategy:
-      "Establish one clean visual identity across web and social channels while centralizing technical infrastructure under Web Guru's ongoing care.",
-    solution:
-      "Built a structured catalog storefront concept with crisp product hierarchy, paired with reusable social media post templates, scheduled publishing workflows, and reliable business email setup.",
-    deliverables: [
-      "E-commerce storefront and product templates",
-      "Cohesive social media profile setup and post design system",
-      "Domain, DNS, SSL, and business email configuration",
-      "Monthly maintenance and troubleshooting support",
-    ],
-    galleryNotes: [
-      {
-        title: "Editorial Storefront Grid",
-        caption: "Clean catalog hierarchy designed to keep product details readable on phones.",
-      },
-      {
-        title: "Cohesive Social Feed Templates",
-        caption: "Consistent visual framing for seasonal launches and store announcements.",
-      },
-    ],
-    verifiedResultsNote:
-      "Demo concept slot — replace with verified store photography, live URL, and documented outcomes when available.",
-  },
-  {
-    slug: "demo-advisory-practice-modernization",
-    isDemo: true,
-    demoLabel: "Demo Concept · Reserved Client Slot 03",
-    name: "Independent Advisory Practice — Redesign & Local Trust",
-    clientLabel: "Sample Concept (Professional Services)",
-    industry: "Consultancies & Service Providers",
-    servicesDelivered: [
-      "Website Design & Development",
-      "Google Business Profile & Local SEO",
-      "Complete Technical Support",
-    ],
-    shortDescription:
-      "An architectural website redesign concept built to help service professionals explain complex offerings clearly and convert consultations.",
+      "A professional digital storefront for a neighbourhood pharmacy, making healthcare products easier to explore.",
     visualTheme: "services",
     overview:
-      "Demonstrates how Web Guru elevates service providers—clinics, legal advisors, consultants, and trades—with authoritative typography, clear service navigation, and local search precision.",
+      "Medicine World brings a trusted neighbourhood pharmacy online with clear product discovery, organized medicine and wellness categories, doctor information, and prescription enquiry.",
     challenge:
-      "Outdated brochure sites undermine trust before a prospective client even books a call, especially when competitors display clearer credentials and structured enquiry pathways.",
+      "Local customers needed a clear, trustworthy way to browse healthcare products, medical equipment, and pharmacy contact details from home.",
     strategy:
-      "Prioritize readability, structured service explanations, accessible consultation forms, and accurate Google Business service listings.",
+      "Design a clean, approachable healthcare storefront with structured category browsing, search, and straightforward prescription enquiry.",
     solution:
-      "Crafted a calm editorial layout separating core services from process transparency, supported by fast page loads, technical SEO metadata, and continuous site maintenance.",
+      "Delivered a responsive pharmacy website featuring custom branding, medicine and wellness product catalogues, category browsing, product detail views, a health tracker interface, and prescription enquiry.",
     deliverables: [
-      "Website redesign and mobile modernization",
-      "On-page SEO structure and metadata",
-      "Google Business service listing alignment",
-      "Ongoing security updates and hosting support",
+      "Custom pharmacy branding and layout",
+      "Medicine and wellness product catalogue",
+      "Category browsing and search discovery",
+      "Prescription enquiry and doctor information",
     ],
     galleryNotes: [
       {
-        title: "Service Clarity & Consultation Flow",
-        caption: "Structured navigation guiding non-technical visitors straight to the right service.",
+        title: "Pharmacy Identity & Catalogue",
+        caption: "Organized medicine, wellness, and medical equipment categories.",
       },
       {
-        title: "Accessible Form & Lead Routing",
-        caption: "Clean, validated enquiry form connected to dedicated business email.",
+        title: "Mobile Product Discovery",
+        caption: "Clean mobile browsing for everyday healthcare needs.",
       },
     ],
     verifiedResultsNote:
-      "Demo concept slot — reserved for a verified professional services case study upon client approval.",
+      "Live deployed website presenting Medicine World's product catalogue and pharmacy services.",
   },
   {
-    slug: "demo-operations-booking-portal",
-    isDemo: true,
-    demoLabel: "Demo Concept · Reserved Client Slot 04",
-    name: "Service Team Portal — Custom Workflow Application",
-    clientLabel: "Sample Concept (Workflow Software)",
-    industry: "Growing Operations & Field Services",
+    slug: "prachiti-homemade-cakes",
+    isDemo: false,
+    demoLabel: "03 · Bakery Website",
+    name: "PRACHITI HOMEMADE CAKES",
+    headline: "Making a bakery's digital presence as memorable as its creations.",
+    clientLabel: "Prachiti Homemade Cakes",
+    industry: "Bakery & Food Business",
+    liveUrl: "https://praciti-bakery.vercel.app/",
+    desktopImage: "/images/projects/prachiti-homemade-cakes-desktop.png",
+    mobileImage: "/images/projects/prachiti-homemade-cakes-mobile.png",
     servicesDelivered: [
-      "Application Development & Management",
-      "Complete Technical Support",
+      "Website Design & Development",
+      "Product Showcase",
+      "Responsive Storefront",
     ],
     shortDescription:
-      "A demonstration architecture showing how growing teams replace scattered spreadsheets with a focused custom web application and continuous maintenance.",
-    visualTheme: "workflow",
+      "A dedicated digital storefront showcasing a homemade cake and bakery brand.",
+    visualTheme: "retail",
     overview:
-      "Illustrates Web Guru's Application Development & Management tier for businesses whose operations have outgrown standard informational websites.",
+      "Web Guru crafted a dedicated digital storefront for Prachiti Homemade Cakes, putting its homemade cakes and bakery photography front and center across desktop and mobile.",
     challenge:
-      "Growing teams often piece together spreadsheets, chat threads, and manual PDFs—leading to missed appointments, duplicate data entry, and zero visibility.",
+      "A homemade bakery needed a dedicated online home where customers could explore cake varieties and reach out easily.",
     strategy:
-      "Build only the focused workflow screens the team truly needs, backed by clean code and a continuous maintenance retainer for upgrades and troubleshooting.",
+      "Highlight genuine cake photography with clean typography and a simple, mobile-friendly browsing experience.",
     solution:
-      "Architected a custom web application concept featuring structured intake queues, status tracking, mobile-friendly staff views, and ongoing application stewardship.",
+      "Built a responsive bakery website featuring Prachiti Homemade Cakes' brand identity, product photography, category presentation, and clear contact details.",
     deliverables: [
-      "Custom business workflow web application",
-      "Role-appropriate mobile & desktop interfaces",
-      "Technical documentation and team onboarding",
-      "Ongoing application upgrades and troubleshooting",
+      "Dedicated bakery brand presentation",
+      "Cake and product photography showcase",
+      "Responsive mobile and desktop layout",
+      "Clear business and contact information",
     ],
     galleryNotes: [
       {
-        title: "Workflow Queue & Request Overview",
-        caption: "Clean, readable status tracking designed for daily staff usability.",
+        title: "Bakery Storefront Hero",
+        caption: "Warm presentation highlighting homemade cakes and creations.",
       },
       {
-        title: "Long-Term Upgrade Lifecycle",
-        caption: "Modular architecture enabling steady improvements without full rewrites.",
+        title: "Mobile Cake Showcase",
+        caption: "Easy-to-browse product presentation on mobile screens.",
       },
     ],
     verifiedResultsNote:
-      "Demo concept slot — ready to showcase verified custom application architecture once live client details are supplied.",
+      "Live deployed website showcasing Prachiti Homemade Cakes' products and bakery identity.",
   },
 ];
 
-/** Returns a single demo/case-study project matching the provided slug, or undefined. */
+/** Returns a single project record by URL slug, or undefined when not found. */
 export function getProjectBySlug(slug: string): CaseStudyProject | undefined {
   return PORTFOLIO_PROJECTS.find((project) => project.slug === slug);
 }

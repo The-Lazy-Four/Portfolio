@@ -1,47 +1,41 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import { HighlighterReveal } from "@/components/motion/KineticTypography";
-import { ABOUT_VALUES, TEAM_SLOTS } from "@/data/team";
-import { VERIFIED_TESTIMONIALS } from "@/data/testimonials";
-import { TRUST_PILLARS, WHY_WEB_GURU_POINTS } from "@/data/whyWebGuru";
+import { VERIFIED_TEAM_MEMBERS } from "@/data/team";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Renders a sharp Neo-Brutalist 2x2 partner seat badge highlighting each specialist desk cleanly. */
-function StudioSeatMarker({ slotIndex }: { slotIndex: number }) {
+interface StudioCinemaSceneProps {
+  showAboutLink?: boolean;
+}
+
+/** Renders a clean geometric LinkedIn mark for external team member links. */
+function LinkedInGlyph() {
   return (
-    <svg viewBox="0 0 64 64" fill="none" className="h-14 w-14" aria-hidden="true">
-      {[0, 1, 2, 3].map((idx) => {
-        const x = idx % 2 === 0 ? 4 : 34;
-        const y = idx < 2 ? 4 : 34;
-        const active = idx === slotIndex;
-        return (
-          <rect
-            key={idx}
-            x={x}
-            y={y}
-            width={26}
-            height={26}
-            fill={active ? "#3155F5" : "#F5F0E6"}
-            stroke="#151515"
-            strokeWidth={2.5}
-          />
-        );
-      })}
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="h-4 w-4"
+      aria-hidden="true"
+    >
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
     </svg>
   );
 }
 
-/** Renders Scene 06 (The Studio) in stark Neo-Brutalist concrete & ivory blocks while preserving all team slots and verification honesty. */
-export function StudioCinemaScene() {
+/** Renders Section 04 (The People Behind Web Guru) with staggered editorial portraits, roles, short bios, and LinkedIn profiles. */
+export function StudioCinemaScene({
+  showAboutLink = true,
+}: StudioCinemaSceneProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { setActiveSceneIndex } = useCinemaEngine();
+  const { reducedMotion, setActiveSceneIndex } = useCinemaEngine();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -52,8 +46,8 @@ export function StudioCinemaScene() {
         trigger: section,
         start: "top center",
         end: "bottom center",
-        onEnter: () => setActiveSceneIndex(5),
-        onEnterBack: () => setActiveSceneIndex(5),
+        onEnter: () => setActiveSceneIndex(3),
+        onEnterBack: () => setActiveSceneIndex(3),
       });
     }, section);
 
@@ -65,141 +59,118 @@ export function StudioCinemaScene() {
       id="scene-studio"
       ref={sectionRef}
       aria-labelledby="studio-cinema-heading"
-      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28"
+      className="relative border-t border-white/10 bg-[#100B18]/45 py-16 text-[#F5F1FA] sm:py-24 lg:py-28"
     >
-      <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Studio Manifesto Header */}
-        <div className="grid grid-cols-1 gap-10 border-b-[3px] border-ink pb-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <span className="inline-block border-2 border-ink bg-orange px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
-              [06] · The Four-Member Studio
-            </span>
-            <HighlighterReveal
-              as="h2"
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
+        {/* Section header */}
+        <motion.div
+          initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="grid grid-cols-1 gap-5 border-b border-white/10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-14"
+        >
+          <div className="lg:col-span-7">
+            <h2
               id="studio-cinema-heading"
-              lines={["Four builders.", "Direct access. Zero bloat."]}
-              barClassName="bg-cobalt"
-              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-[#F5F1FA] uppercase sm:text-5xl"
-            />
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {TRUST_PILLARS.map((pillar) => (
-                <div
-                  key={pillar.code}
-                  className="border-2 border-ink bg-ivory p-3 shadow-[3px_3px_0px_#151515]"
-                >
-                  <span className="inline-block bg-acid px-1.5 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
-                    [{pillar.code}]
-                  </span>
-                  <span className="mt-1.5 block font-display text-xs font-extrabold text-[#F5F1FA]">
-                    {pillar.title}
-                  </span>
-                </div>
-              ))}
-            </div>
+              className="font-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.06] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
+            >
+              The people behind the{" "}
+              <span className="font-serif font-normal italic text-[#FF9FFC]">
+                work.
+              </span>
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 border-t border-ink/15 pt-8 sm:grid-cols-3 lg:col-span-7">
-            {ABOUT_VALUES.map((item) => (
-              <div key={item.label}>
-                <p className="font-mono text-[11px] font-bold tracking-[0.14em] text-cobalt uppercase">
-                  {item.label}
-                </p>
-                <p className="mt-2.5 text-sm leading-relaxed text-[#C2B9D0]">
-                  {item.body}
-                </p>
-              </div>
-            ))}
+          <div className="lg:col-span-5">
+            <p className="text-base leading-relaxed text-[#C7BDD5] sm:text-lg">
+              Four minds, different strengths, one shared vision.
+            </p>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Open 4-column editorial team roster without heavy card borders */}
-        <div className="mt-16 border-y border-ink/15 py-10">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {TEAM_SLOTS.map((slot, index) => (
-              <article
-                key={slot.slotNumber}
-                className="flex flex-col justify-between"
-              >
-                <div className="flex items-center justify-between font-mono text-[11px] text-[#C2B9D0] uppercase">
-                  <span className="font-bold text-[#F5F1FA]">{slot.slotNumber}</span>
-                  <span>{slot.statusNote}</span>
-                </div>
+        {/* Editorial 4-member portrait grid (staggered vertically on desktop, open typography) */}
+        <div className="mt-12 grid grid-cols-1 gap-10 sm:mt-14 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-12 lg:mt-16 lg:grid-cols-4 lg:gap-7">
+          {VERIFIED_TEAM_MEMBERS.map((member, index) => {
+            const staggered = index % 2 === 1;
 
-                <div className="my-6">
-                  <StudioSeatMarker slotIndex={index} />
-                </div>
-
-                <div className="border-t border-ink/15 pt-4">
-                  <h3 className="font-display text-lg font-extrabold tracking-tight text-[#F5F1FA] uppercase">
-                    {slot.placeholderName}
-                  </h3>
-                  <p className="mt-0.5 font-mono text-[11px] font-semibold text-cobalt">
-                    {slot.rolePlaceholder}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#C2B9D0]">
-                    {slot.focusPlaceholder}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {/* Why Web Guru grid + Electric Cobalt Proof Verification Vault */}
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8">
-            {WHY_WEB_GURU_POINTS.map((point, index) => (
-              <div
-                key={point.title}
-                className={`border-2 border-ink bg-ivory p-5 shadow-[4px_4px_0px_#151515] ${
-                  index === WHY_WEB_GURU_POINTS.length - 1 ? "sm:col-span-2" : ""
+            return (
+              <motion.article
+                key={member.slotNumber}
+                initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.55,
+                  delay: reducedMotion ? 0 : index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={`group flex flex-col ${
+                  staggered ? "lg:mt-12" : ""
                 }`}
               >
-                <span className="inline-block bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase">
-                  0{index + 1} · Value Principle
-                </span>
-                <h3 className="mt-2 font-display text-base font-extrabold text-[#F5F1FA] uppercase">
-                  {point.title}
-                </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-[#C2B9D0]">
-                  {point.detail}
-                </p>
-              </div>
-            ))}
-          </div>
+                {/* Prominent portrait frame (non-clickable image so LinkedIn stays explicit) */}
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#171027]/60">
+                  <div className="relative h-full w-full transition-transform duration-700 ease-out md:group-hover:scale-[1.04]">
+                    <Image
+                      src={member.image}
+                      alt={`${member.name} — ${member.role}`}
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                      className={member.imageClassName}
+                    />
+                  </div>
 
-          <div className="flex flex-col justify-between border-[3px] border-ink bg-ink p-6 text-ivory shadow-[8px_8px_0px_#F0522B] lg:col-span-4">
-            <div>
-              <span className="inline-block bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-[#F5F1FA] uppercase">
-                Client Verification Policy
-              </span>
-              {VERIFIED_TESTIMONIALS.length > 0 ? (
-                <p className="mt-4 text-sm leading-relaxed text-ivory/90">
-                  {VERIFIED_TESTIMONIALS[0].quote}
-                </p>
-              ) : (
-                <p className="mt-4 text-sm leading-relaxed text-ivory/85">
-                  We publish verified client feedback strictly with documented
-                  permission—never invented ratings or anonymous quotes. This
-                  slot activates automatically in{" "}
-                  <code className="bg-cobalt px-1.5 py-0.5 font-mono text-xs text-ivory">
-                    src/data/testimonials.ts
-                  </code>
-                  .
-                </p>
-              )}
-            </div>
+                  {/* Subtle dark-purple studio atmosphere vignette integrating bright backgrounds */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#100B18]/75 via-[#100B18]/10 to-transparent transition-opacity duration-500 md:group-hover:opacity-65"
+                  />
+                </div>
 
+                {/* Editorial member caption */}
+                <div className="mt-4 space-y-1.5 sm:mt-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-display text-xl font-semibold tracking-tight text-[#F5F1FA] transition-colors duration-300 md:group-hover:text-[#FF9FFC]">
+                      {member.name}
+                    </h3>
+
+                    <a
+                      href={member.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${member.name} on LinkedIn`}
+                      className="inline-flex min-h-[40px] shrink-0 items-center gap-1.5 px-1 text-xs font-medium text-[#B497CF] transition-colors hover:text-[#FF9FFC]"
+                    >
+                      <LinkedInGlyph />
+                      <span>LinkedIn</span>
+                    </a>
+                  </div>
+
+                  <p className="text-sm font-medium text-[#A78BFA]">
+                    {member.role}
+                  </p>
+
+                  <p className="pt-1 text-sm leading-relaxed text-[#C7BDD5]">
+                    {member.focus}
+                  </p>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+
+        {showAboutLink && (
+          <div className="mt-10 flex justify-start sm:mt-12 sm:justify-end">
             <Link
               href="/about"
-              data-cursor="STUDIO"
-              className="wg-brutal-btn mt-6 inline-flex w-fit items-center gap-2 border-2 border-ivory bg-cobalt px-4 py-2 font-mono text-xs font-bold text-ivory uppercase shadow-[4px_4px_0px_#E9FF45] hover:bg-acid hover:text-[#F5F1FA]"
+              className="wg-link-underline inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[#D8C5F2] transition-colors hover:text-[#FF9FFC]"
             >
-              Read Full Studio Philosophy
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              More about our studio
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

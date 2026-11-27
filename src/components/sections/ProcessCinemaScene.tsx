@@ -1,204 +1,136 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import { HighlighterReveal } from "@/components/motion/KineticTypography";
-import { ProcessStageVisual } from "@/components/visuals/ProcessStageVisual";
-import { PROCESS_STAGES } from "@/data/process";
 
-gsap.registerPlugin(ScrollTrigger);
+interface ProcessMilestone {
+  number: string;
+  title: string;
+  summary: string;
+  outcome: string;
+}
 
-/** Renders Scene 05 (How We Work) across Electric Cobalt color blocking while preserving pinned ScrollTrigger step progression. */
+const PROCESS_MILESTONES: ProcessMilestone[] = [
+  {
+    number: "01",
+    title: "Discover",
+    summary: "We understand your business and its goals.",
+    outcome:
+      "We review how customers currently find you online, look at what isn't working, and clarify what matters most.",
+  },
+  {
+    number: "02",
+    title: "Strategize",
+    summary: "We decide what your business actually needs.",
+    outcome:
+      "Instead of selling unnecessary extras, we agree on a clear, practical plan tailored to your budget and timeline.",
+  },
+  {
+    number: "03",
+    title: "Build & Implement",
+    summary: "We design and implement the solutions.",
+    outcome:
+      "Our team designs, builds, and connects your website, Google visibility, apps, or review tools under one roof.",
+  },
+  {
+    number: "04",
+    title: "Manage & Grow",
+    summary: "We continue supporting and improving your digital presence.",
+    outcome:
+      "After launch we stay involved—handling updates, improvements, hosting, and ongoing support as your business grows.",
+  },
+];
+
+/** Renders a clean four-stage interactive working process section for the About page. */
 export function ProcessCinemaScene() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const pinWrapperRef = useRef<HTMLDivElement | null>(null);
-  const stageTriggerRef = useRef<ScrollTrigger | null>(null);
-  const { reducedMotion, setActiveSceneIndex, scrollToTarget } =
-    useCinemaEngine();
+  const { reducedMotion } = useCinemaEngine();
   const [stageIndex, setStageIndex] = useState(0);
-
-  const activeStage = PROCESS_STAGES[stageIndex] || PROCESS_STAGES[0];
-
-  // Preserve exact GSAP ScrollTrigger pinning and 4-stage progress mapping.
-  useEffect(() => {
-    const section = sectionRef.current;
-    const pinWrapper = pinWrapperRef.current;
-    if (!section || !pinWrapper) return;
-
-    const mm = gsap.matchMedia();
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top center",
-        end: "bottom center",
-        onEnter: () => setActiveSceneIndex(4),
-        onEnterBack: () => setActiveSceneIndex(4),
-      });
-
-      if (reducedMotion) return;
-
-      mm.add("(min-width: 1024px)", () => {
-        const trigger = ScrollTrigger.create({
-          trigger: pinWrapper,
-          pin: true,
-          scrub: 0.5,
-          anticipatePin: 1,
-          start: "top top",
-          end: "+=1400",
-          onUpdate: (self) => {
-            const idx = Math.min(
-              PROCESS_STAGES.length - 1,
-              Math.max(
-                0,
-                Math.floor(self.progress * PROCESS_STAGES.length - 0.01)
-              )
-            );
-            setStageIndex((prev) => (prev === idx ? prev : idx));
-          },
-        });
-        stageTriggerRef.current = trigger;
-        return () => {
-          stageTriggerRef.current = null;
-        };
-      });
-    }, section);
-
-    return () => {
-      ctx.revert();
-      mm.revert();
-    };
-  }, [reducedMotion, setActiveSceneIndex]);
-
-  /** Navigates cleanly to the selected stage inside the pinned scroll range or inline stack. */
-  function selectStage(index: number) {
-    setStageIndex(index);
-    const st = stageTriggerRef.current;
-    if (st && window.innerWidth >= 1024 && !reducedMotion) {
-      const targetProgress = (index + 0.12) / PROCESS_STAGES.length;
-      const y = st.start + targetProgress * (st.end - st.start);
-      scrollToTarget(y);
-    }
-  }
+  const activeStage = PROCESS_MILESTONES[stageIndex];
 
   return (
     <section
       id="scene-process"
-      ref={sectionRef}
       aria-labelledby="process-cinema-heading"
-      className="bg-cobalt text-ivory"
+      className="relative border-t border-white/10 bg-[#0D0815]/50 py-16 text-[#F5F1FA] sm:py-24"
     >
-      <div
-        ref={pinWrapperRef}
-        className="mx-auto flex max-w-[90rem] flex-col justify-center px-5 py-20 sm:px-8 sm:py-24 lg:min-h-screen lg:px-12 lg:pt-28 lg:pb-16"
-      >
-        <div className="flex flex-col justify-between gap-6 border-b-[3px] border-ivory pb-8 lg:flex-row lg:items-end">
-          <div>
-            <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-              [05] · How We Work
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
+        <div className="border-b border-white/10 pb-8">
+          <p className="text-xs font-medium text-[#A78BFA]">How we work</p>
+          <h2
+            id="process-cinema-heading"
+            className="mt-2 max-w-3xl font-display text-[clamp(1.9rem,4.2vw,3.25rem)] leading-[1.06] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
+          >
+            A clear path from first conversation to{" "}
+            <span className="font-serif font-normal italic text-[#FF9FFC]">
+              steady growth.
             </span>
-            <HighlighterReveal
-              as="h2"
-              id="process-cinema-heading"
-              lines={["Structured progression.", "From audit to continuous care."]}
-              barClassName="bg-ink"
-              className="mt-3 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ivory uppercase sm:text-5xl"
-            />
-          </div>
-
-          <p className="max-w-sm border-2 border-ink bg-ivory p-4 text-sm leading-relaxed text-ink shadow-[4px_4px_0px_#151515]">
-            Scroll through or click any milestone below to trace how a project
-            moves from first discovery audit to long-term support.
-          </p>
+          </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
-          {/* Left clean editorial milestone list */}
-          <div className="divide-y divide-ivory/15 border-y border-ivory/15 lg:col-span-5">
-            {PROCESS_STAGES.map((stage, index) => {
+        <div className="mt-10 grid grid-cols-1 items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-16">
+          {/* Four-step interactive index */}
+          <div className="divide-y divide-white/10 border-y border-white/10 lg:col-span-5">
+            {PROCESS_MILESTONES.map((step, index) => {
               const active = index === stageIndex;
               return (
                 <button
-                  key={stage.number}
+                  key={step.number}
                   type="button"
-                  onClick={() => selectStage(index)}
-                  aria-pressed={active}
-                  className={`group flex w-full items-start justify-between py-5 text-left transition-colors ${
-                    active ? "text-acid" : "text-ivory/75 hover:text-ivory"
-                  }`}
+                  onClick={() => setStageIndex(index)}
+                  className="flex min-h-[52px] w-full items-center justify-between gap-4 py-4 text-left transition-colors"
                 >
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs tracking-[0.12em] uppercase">
-                        {stage.number}
-                      </span>
-                      <span className="font-display text-xl font-extrabold tracking-tight uppercase">
-                        {stage.title}
-                      </span>
-                    </div>
-                    <p
-                      className={`mt-1 font-mono text-[11px] uppercase ${
-                        active ? "text-ivory/90" : "text-ivory/50"
+                  <div className="flex items-baseline gap-4">
+                    <span
+                      className={`text-xs font-semibold transition-colors ${
+                        active ? "text-[#FF9FFC]" : "text-[#91869F]"
                       }`}
                     >
-                      {stage.focusLabel}
-                    </p>
+                      {step.number}
+                    </span>
+                    <span
+                      className={`font-display text-lg font-semibold transition-colors sm:text-xl ${
+                        active
+                          ? "text-[#F5F1FA]"
+                          : "text-[#91869F] hover:text-[#C7BDD5]"
+                      }`}
+                    >
+                      {step.title}
+                    </span>
                   </div>
-
                   <span
-                    className={`mt-2 h-2 w-2 rounded-full transition-colors ${
-                      active ? "bg-acid" : "bg-ivory/20"
+                    className={`h-2 w-2 rounded-full transition-colors ${
+                      active ? "bg-[#5227FF]" : "bg-white/15"
                     }`}
+                    aria-hidden="true"
                   />
                 </button>
               );
             })}
           </div>
 
-          {/* Right active open editorial stage view */}
-          <div className="py-2 text-ivory lg:col-span-7">
-            <div className="flex items-center justify-between border-b border-ivory/15 pb-4">
-              <span className="font-mono text-xs font-semibold tracking-[0.14em] text-acid uppercase">
-                Stage {activeStage.number} — {activeStage.focusLabel}
-              </span>
-              <span className="font-mono text-xs text-ivory/60 uppercase">
-                Step {stageIndex + 1} of {PROCESS_STAGES.length}
-              </span>
-            </div>
-
-            <div className="mt-8 grid grid-cols-1 items-center gap-8 sm:grid-cols-12">
-              <div className="space-y-4 sm:col-span-7">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-display text-4xl font-extrabold text-acid/40">
-                    {activeStage.number}
-                  </span>
-                  <h3 className="font-display text-3xl font-extrabold tracking-tight text-ivory uppercase">
-                    {activeStage.title}
-                  </h3>
-                </div>
-                <p className="text-sm leading-relaxed text-ivory/85 sm:text-base">
-                  {activeStage.summary}
+          {/* Active stage detail */}
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStage.number}
+                initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reducedMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
+                className="space-y-4"
+              >
+                <span className="block font-display text-4xl font-semibold text-[#5227FF]/60 sm:text-5xl">
+                  {activeStage.number}
+                </span>
+                <h3 className="font-display text-2xl font-semibold text-[#F5F1FA] sm:text-3xl">
+                  {activeStage.title} — {activeStage.summary}
+                </h3>
+                <p className="max-w-xl text-base leading-relaxed text-[#C7BDD5]">
+                  {activeStage.outcome}
                 </p>
-
-                <ul className="space-y-2.5 border-t border-ivory/15 pt-4 text-xs text-ivory/85">
-                  {activeStage.clientReceives.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span
-                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-acid"
-                        aria-hidden="true"
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rounded-xl bg-[#070E24]/70 p-3 sm:col-span-5">
-                <ProcessStageVisual stageIndex={stageIndex} />
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

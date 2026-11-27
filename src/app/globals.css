@@ -1,61 +1,42 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   WEB GURU — NEO-BRUTALIST STUDIO DESIGN SYSTEM
-   Electric Cobalt Blue (#3155F5), Acid Yellow (#E9FF45), Deep Ink Black (#151515),
-   Warm Ivory (#F5F0E6), Signal Orange (#F0522B), and Muted Concrete (#D6D1C6).
-   Visual restyling only — animation timing and Lenis/GSAP hooks preserved.
+   WEB GURU — CINEMATIC DARK PURPLE STUDIO DESIGN SYSTEM
+   Unified palette: Near-black plum (#100B18), Deep plum (#0D0815),
+   Midnight purple (#171027), Electric violet (#5227FF), Lavender (#B497CF),
+   Pink-lavender (#FF9FFC), Soft white text (#F5F1FA / #C7BDD5 / #91869F).
    ========================================================================== */
 
 :root {
-  --wg-ivory: #f5f0e6;
-  --wg-concrete: #d6d1c6;
-  --wg-ink: #151515;
-  --wg-slate: #3b3b3b;
-  --wg-cobalt: #3155f5;
-  --wg-cobalt-deep: #1d39c4;
-  --wg-acid: #e9ff45;
-  --wg-orange: #f0522b;
-  --wg-orange-hover: #d43d18;
-
-  /* Compatibility aliases keeping existing component token references unified */
-  --wg-paper: var(--wg-ivory);
-  --wg-linen: var(--wg-concrete);
-  --wg-stone: #c7c1b4;
-  --wg-rule: #151515;
-  --wg-pine: var(--wg-cobalt);
-  --wg-pine-soft: var(--wg-cobalt-deep);
-  --wg-accent: var(--wg-orange);
-  --wg-accent-hover: var(--wg-orange-hover);
-  --wg-amber: var(--wg-acid);
+  --wg-bg: #100b18;
+  --wg-bg-deep: #0d0815;
+  --wg-surface: #171027;
+  --wg-surface-elevated: #241542;
+  --wg-violet: #5227ff;
+  --wg-violet-accent: #a78bfa;
+  --wg-lavender: #b497cf;
+  --wg-pink: #ff9ffc;
+  --wg-text: #f5f1fa;
+  --wg-text-secondary: #c7bdd5;
+  --wg-text-muted: #91869f;
+  --wg-border: rgba(255, 255, 255, 0.12);
 
   --ease-out-studio: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-studio: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @theme inline {
-  --color-ivory: var(--wg-ivory);
-  --color-concrete: var(--wg-concrete);
-  --color-cobalt: var(--wg-cobalt);
-  --color-acid: var(--wg-acid);
-  --color-orange: var(--wg-orange);
+  --color-plum: var(--wg-bg);
+  --color-plum-deep: var(--wg-bg-deep);
+  --color-surface: var(--wg-surface);
+  --color-violet: var(--wg-violet);
+  --color-lavender: var(--wg-lavender);
+  --color-pink: var(--wg-pink);
 
-  --color-paper: var(--wg-paper);
-  --color-linen: var(--wg-linen);
-  --color-stone: var(--wg-stone);
-  --color-ink: var(--wg-ink);
-  --color-slate: var(--wg-slate);
-  --color-rule: var(--wg-rule);
-  --color-pine: var(--wg-pine);
-  --color-pine-soft: var(--wg-pine-soft);
-  --color-accent: var(--wg-accent);
-  --color-accent-hover: var(--wg-accent-hover);
-  --color-amber: var(--wg-amber);
-
-  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, serif;
-  --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Native smooth-scroll disabled so Lenis and GSAP ScrollTrigger stay synchronized */
@@ -64,133 +45,57 @@ html {
 }
 
 body {
-  background-color: #100b18;
-  color: #f5f1fa;
+  background-color: var(--wg-bg);
+  color: var(--wg-text);
   font-family: var(--font-sans);
 }
 
-/* Neo-brutalist crisp structural grid on light surfaces */
-.wg-grid-pattern {
-  background-image:
-    linear-gradient(to right, rgba(21, 21, 21, 0.085) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(21, 21, 21, 0.085) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* Neo-brutalist crisp structural grid on dark surfaces */
-.wg-grid-pattern-dark {
-  background-image:
-    linear-gradient(to right, rgba(245, 240, 230, 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(245, 240, 230, 0.09) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-/* Tactile dot matrix pattern */
-.wg-dot-matrix {
-  background-image: radial-gradient(rgba(21, 21, 21, 0.2) 1.25px, transparent 1.25px);
-  background-size: 16px 16px;
-}
-
-/* Interactive neo-brutalist button depth: moves into its hard offset shadow on hover/active */
-.wg-brutal-btn {
-  box-shadow: 4px 4px 0px var(--wg-ink);
-  transition: transform 140ms var(--ease-out-studio),
-    box-shadow 140ms var(--ease-out-studio),
-    background-color 140ms ease,
-    color 140ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .wg-brutal-btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px var(--wg-ink);
-  }
-}
-
-.wg-brutal-btn:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0px 0px 0px var(--wg-ink);
-}
-
-/* High-contrast Neo-Brutalist underline field inside the Scene 07 atelier */
+/* Refined underline field styling for contact inputs */
 .wg-underline-field {
   background: transparent;
-  border-bottom: 2px solid rgba(245, 240, 230, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   transition: border-color 220ms var(--ease-out-studio);
 }
 
 .wg-underline-field:focus {
   outline: none;
-  border-bottom-color: var(--wg-acid);
+  border-bottom-color: var(--wg-violet-accent);
 }
 
-/* Preserved SVG signal flow pulse */
-@keyframes wg-signal-flow {
-  from {
-    stroke-dashoffset: 36;
+/* Animated link underline transition layered cleanly under utilities */
+@layer components {
+  .wg-link-underline {
+    position: relative;
+    display: inline-block;
   }
-  to {
-    stroke-dashoffset: 0;
+
+  .wg-link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms var(--ease-out-studio);
   }
-}
 
-.wg-flow-line {
-  stroke-dasharray: 6 6;
-  animation: wg-signal-flow 2.2s linear infinite;
-}
-
-/* Preserved animated underline link effect */
-.wg-link-underline {
-  position: relative;
-}
-
-.wg-link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 2px;
-  background-color: currentColor;
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform 240ms var(--ease-out-studio);
-}
-
-@media (hover: hover) and (pointer: fine) {
   .wg-link-underline:hover::after,
   .wg-link-underline:focus-visible::after {
     transform: scaleX(1);
-    transform-origin: left center;
   }
 }
 
-/* High-visibility square neo-brutalist keyboard focus outline */
+/* Focus ring consistency across interactive controls */
 :focus-visible {
-  outline: 3px solid var(--wg-acid);
+  outline: 2px solid var(--wg-violet-accent);
   outline-offset: 2px;
 }
 
-/* Hide horizontal scrollbar rails cleanly */
-.wg-no-scrollbar {
-  scrollbar-width: none;
-}
-
-.wg-no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Global reduced-motion respect */
 @media (prefers-reduced-motion: reduce) {
-  .wg-flow-line {
-    animation: none !important;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .wg-link-underline::after {
+    transition: none;
   }
 }

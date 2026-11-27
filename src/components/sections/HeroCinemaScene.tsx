@@ -10,13 +10,12 @@ import { MagneticButton } from "@/components/motion/MagneticButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Renders Scene 01 (The Opening) as a full-viewport cinematic blue topographic environment with editorial typography. */
+/** Renders the mobile-first Hero section with clear agency positioning and primary actions over global LiquidEther. */
 export function HeroCinemaScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { reducedMotion, setActiveSceneIndex, scrollToTarget } =
     useCinemaEngine();
 
-  // Register active scene tracking and entrance stagger verbatim in GSAP context.
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -32,9 +31,9 @@ export function HeroCinemaScene() {
 
       if (!reducedMotion) {
         gsap.from("[data-hero-stagger]", {
-          y: 26,
+          y: 20,
           opacity: 0,
-          duration: 0.72,
+          duration: 0.65,
           stagger: 0.08,
           ease: "power3.out",
           clearProps: "transform,opacity",
@@ -50,55 +49,55 @@ export function HeroCinemaScene() {
       id="scene-opening"
       ref={sectionRef}
       aria-labelledby="hero-cinema-heading"
-      className="relative flex min-h-[100dvh] w-full flex-col justify-end overflow-hidden bg-transparent text-ivory"
+      className="relative flex min-h-[86dvh] w-full flex-col justify-end overflow-hidden bg-transparent text-[#F5F1FA] sm:min-h-[96dvh]"
     >
-      {/* Subtle atmospheric vignette for editorial contrast over global LiquidEther */}
+      {/* Subtle readability veil protecting headline contrast over LiquidEther */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#05091B]/25 via-transparent to-[#05091B]/65"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#100B18]/35 via-[#100B18]/15 to-[#100B18]/75"
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[92rem] flex-col justify-end px-6 pt-28 pb-14 sm:px-10 sm:pb-16 lg:px-14 lg:pb-20">
-        <div className="max-w-5xl">
+      <div className="relative z-10 mx-auto flex w-full max-w-[92rem] flex-col justify-end px-5 pt-28 pb-12 sm:px-10 sm:pt-36 sm:pb-16 lg:px-14 lg:pb-20">
+        <div className="max-w-4xl">
           <h1
             id="hero-cinema-heading"
             data-hero-stagger
-            className="font-display text-[clamp(2.35rem,6.4vw,5.75rem)] leading-[0.98] font-bold tracking-[-0.035em] text-[#F5F1FA]"
+            className="font-display text-[clamp(2.25rem,7.2vw,5.5rem)] leading-[1.01] font-bold tracking-[-0.03em] text-[#F5F1FA]"
           >
-            Everything your business needs to grow online.{" "}
+            Your business deserves a{" "}
             <span className="font-serif font-normal italic text-[#FF9FFC]">
-              One partner.
-            </span>
+              better
+            </span>{" "}
+            digital presence.
           </h1>
 
           <div
             data-hero-stagger
-            className="mt-8 flex flex-col justify-between gap-8 border-t border-white/15 pt-7 md:flex-row md:items-end"
+            className="mt-7 flex flex-col justify-between gap-7 border-t border-white/15 pt-6 sm:mt-9 sm:pt-7 md:flex-row md:items-end"
           >
-            <p className="max-w-xl text-base leading-relaxed text-[#C2B9D0] sm:text-lg">
-              From getting found on Google to fast websites, custom apps, social
-              media, and ongoing support—we handle your entire online presence
-              under one roof.
+            <p className="max-w-lg text-base leading-relaxed text-[#D8CFEA] sm:text-lg">
+              We build websites, improve your visibility, and manage the digital
+              tools that help your business grow.
             </p>
 
-            <div className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <MagneticButton>
                 <Link
                   href="/contact"
-                  data-cursor="START"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[#5227FF] px-7 py-3.5 font-sans text-xs font-semibold tracking-[0.06em] text-[#F5F1FA] uppercase transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18]"
+                  data-cursor="TALK"
+                  className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#5227FF] px-7 py-3 text-sm font-medium text-[#F5F1FA] transition-colors hover:bg-[#A78BFA] hover:text-[#100B18]"
                 >
-                  Let&apos;s Grow Your Business
+                  Let&apos;s Talk
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </MagneticButton>
 
               <button
                 type="button"
-                onClick={() => scrollToTarget("#scene-services")}
-                className="inline-flex items-center gap-2 font-sans text-xs font-medium tracking-[0.06em] text-[#F5F1FA]/85 uppercase underline decoration-[#B497CF]/50 decoration-1 underline-offset-8 transition-colors hover:text-[#FF9FFC]"
+                onClick={() => scrollToTarget("#scene-work")}
+                className="wg-link-underline inline-flex min-h-[48px] items-center gap-2 px-1 text-sm font-medium text-[#E5DDF2] transition-colors hover:text-[#FF9FFC]"
               >
-                Explore Services
+                Explore Our Work
                 <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>

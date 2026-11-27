@@ -80,12 +80,11 @@ export function StudioCursor() {
       }`}
     >
       {cursorLabel ? (
-        <span className="inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-          <span className="h-1.5 w-1.5 bg-cobalt" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B497CF]/50 bg-[#171027]/85 px-3 py-1 font-sans text-[11px] font-medium text-[#F5F1FA] backdrop-blur-sm">
           {cursorLabel}
         </span>
       ) : (
-        <span className="block h-3 w-3 border-2 border-ink bg-acid shadow-[2px_2px_0px_#151515]" />
+        <span className="block h-3 w-3 rounded-full bg-[#A78BFA]/80 shadow-[0_0_12px_rgba(167,139,250,0.65)]" />
       )}
     </div>
   );

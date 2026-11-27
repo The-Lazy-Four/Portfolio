@@ -5,8 +5,8 @@ interface LogoProps {
   size?: "sm" | "md" | "lg";
 }
 
-/** Renders the Web Guru Neo-Brutalist square aperture mark and high-contrast studio wordmark. */
-export function Logo({ inverted = false, size = "md" }: LogoProps) {
+/** Renders the Web Guru emblem and wordmark styled for the dark purple LiquidEther identity. */
+export function Logo({ inverted = true, size = "md" }: LogoProps) {
   const markSizes = {
     sm: "h-7 w-7",
     md: "h-9 w-9",
@@ -23,9 +23,10 @@ export function Logo({ inverted = false, size = "md" }: LogoProps) {
     <Link
       href="/"
       aria-label="Web Guru Home"
-      className="group inline-flex items-center gap-3 focus-visible:outline-acid"
+      data-inverted={inverted}
+      className="group inline-flex items-center gap-3 focus-visible:outline-[#A78BFA]"
     >
-      {/* Refined W monogram with electric violet & lavender accent */}
+      {/* Clean dark-purple rounded W mark with pink-lavender accent */}
       <svg
         viewBox="0 0 36 36"
         fill="none"
@@ -44,12 +45,12 @@ export function Logo({ inverted = false, size = "md" }: LogoProps) {
 
       <span className="flex flex-col leading-none">
         <span
-          className={`font-display font-bold tracking-[-0.02em] ${textSizes[size]} text-[#F5F1FA]`}
+          className={`font-display font-semibold tracking-[-0.02em] ${textSizes[size]} text-[#F5F1FA]`}
         >
           Web Guru
           <span className="text-[#FF9FFC]">.</span>
         </span>
-        <span className="mt-0.5 font-sans text-[10px] font-medium tracking-[0.14em] text-[#B8ADC9] uppercase">
+        <span className="mt-0.5 font-sans text-[10px] font-medium tracking-[0.08em] text-[#91869F]">
           Digital Studio
         </span>
       </span>

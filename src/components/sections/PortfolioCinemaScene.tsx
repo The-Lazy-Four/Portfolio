@@ -4,30 +4,31 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import { HighlighterReveal } from "@/components/motion/KineticTypography";
-import { ProjectPreviewArt } from "@/components/visuals/ProjectPreviewArt";
+import FlexCarousel from "@/components/visuals/FlexCarousel";
 import { PORTFOLIO_PROJECTS } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Renders Scene 04 (Selected Work) in a bold Neo-Brutalist monograph grid while preserving GSAP arch reveal and interactive archive accordions. */
+const CAROUSEL_ITEMS = PORTFOLIO_PROJECTS.map((project) => ({
+  src: project.desktopImage,
+  alt: `${project.name} — ${project.industry}`,
+  title: project.name,
+  subtitle: project.industry,
+}));
+
+/** Renders Section 03 (Selected Work) using the interactive WebGL2 FlexCarousel and synchronized project details. */
 export function PortfolioCinemaScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const archPortalRef = useRef<HTMLDivElement | null>(null);
-  const { reducedMotion, setActiveSceneIndex } = useCinemaEngine();
-  const [expandedSlug, setExpandedSlug] = useState<string>(
-    PORTFOLIO_PROJECTS[2]?.slug || ""
-  );
+  const { setActiveSceneIndex } = useCinemaEngine();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const flagshipProject = PORTFOLIO_PROJECTS[0];
-  const secondaryLeft = PORTFOLIO_PROJECTS[1];
-  const archiveRows = PORTFOLIO_PROJECTS.slice(2);
+  const activeProject =
+    PORTFOLIO_PROJECTS[activeIndex] || PORTFOLIO_PROJECTS[0];
 
   useEffect(() => {
     const section = sectionRef.current;
-    const archPortal = archPortalRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
@@ -35,259 +36,107 @@ export function PortfolioCinemaScene() {
         trigger: section,
         start: "top center",
         end: "bottom center",
-        onEnter: () => setActiveSceneIndex(3),
-        onEnterBack: () => setActiveSceneIndex(3),
+        onEnter: () => setActiveSceneIndex(2),
+        onEnterBack: () => setActiveSceneIndex(2),
       });
-
-      // Preserve exact Era Residence inspired scroll-scrubbed arch expansion timeline
-      if (archPortal && !reducedMotion) {
-        gsap.fromTo(
-          archPortal,
-          {
-            scale: 0.91,
-            borderTopLeftRadius: "260px",
-            borderTopRightRadius: "260px",
-          },
-          {
-            scale: 1,
-            borderTopLeftRadius: "24px",
-            borderTopRightRadius: "24px",
-            ease: "none",
-            scrollTrigger: {
-              trigger: archPortal,
-              start: "top 88%",
-              end: "top 30%",
-              scrub: 0.65,
-            },
-          }
-        );
-      }
     }, section);
 
     return () => ctx.revert();
-  }, [reducedMotion, setActiveSceneIndex]);
+  }, [setActiveSceneIndex]);
 
   return (
     <section
       id="scene-work"
       ref={sectionRef}
       aria-labelledby="portfolio-cinema-heading"
-      className="border-y-[3px] border-ink bg-ivory py-20 sm:py-28"
+      className="relative overflow-hidden border-t border-white/10 bg-[#100B18]/40 py-16 text-[#F5F1FA] sm:py-24 lg:py-28"
     >
-      <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Bold Neo-Brutalist section banner */}
-        <div className="flex flex-col justify-between gap-6 border-b-[3px] border-ink pb-10 lg:flex-row lg:items-end">
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
+        {/* Minimal section header */}
+        <div className="flex flex-col justify-between gap-4 border-b border-white/10 pb-8 sm:flex-row sm:items-end">
           <div>
-            <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-[#F5F1FA] uppercase shadow-[3px_3px_0px_#151515]">
-              [04] · Selected Work &amp; Blueprints
-            </span>
-            <HighlighterReveal
-              as="h2"
+            <h2
               id="portfolio-cinema-heading"
-              lines={[
-                "Architectural case concepts",
-                "engineered for real growth.",
-              ]}
-              barClassName="bg-cobalt"
-              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-[#F5F1FA] uppercase sm:text-5xl"
-            />
-          </div>
-
-          <div className="max-w-md border-2 border-ink bg-[#171027]/75 p-4 shadow-[5px_5px_0px_#151515]">
-            <span className="inline-flex items-center gap-2 bg-ink px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-acid uppercase">
-              <span className="h-2 w-2 bg-orange" />
-              Concept Demo Showcase · Client Slots Ready
-            </span>
-            <p className="mt-2.5 text-sm leading-relaxed text-[#F5F1FA]">
-              Interactive case blueprints demonstrating how we unite local
-              discovery, web systems, workflows, and NFC touchpoints. Verified
-              client engagements drop directly into these slots.
+              className="font-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.04] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
+            >
+              Selected{" "}
+              <span className="font-serif font-normal italic text-[#FF9FFC]">
+                Work
+              </span>
+            </h2>
+            <p className="mt-2.5 text-base text-[#C7BDD5] sm:text-lg">
+              Real websites built for growing businesses.
             </p>
           </div>
+
+          <Link
+            href="/work"
+            className="wg-link-underline inline-flex min-h-[44px] w-fit items-center gap-2 text-sm font-medium text-[#D8C5F2] transition-colors hover:text-[#FF9FFC]"
+          >
+            Explore all projects
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
+      </div>
 
-        {/* Asymmetric Neo-Brutalist Showcase Grid */}
-        <div className="mt-14 grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Dominant left showcase with preserved arch GSAP reveal + offset cobalt shadow */}
-          {flagshipProject && (
-            <article className="lg:col-span-7">
-              <Link
-                href={`/work/${flagshipProject.slug}`}
-                data-cursor="VIEW CONCEPT"
-                className="group block"
-              >
-                <div className="relative">
-                  <div
-                    ref={archPortalRef}
-                    className="overflow-hidden rounded-xl bg-ink transition-transform duration-500"
-                  >
-                    <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                      <ProjectPreviewArt
-                        theme={flagshipProject.visualTheme}
-                        label={flagshipProject.name}
-                        aspectClass="aspect-[16/10]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Editorial metadata specification footer */}
-                <div className="mt-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-2xl leading-tight font-extrabold tracking-tight text-[#F5F1FA] uppercase group-hover:text-cobalt sm:text-3xl">
-                      {flagshipProject.name}
-                    </h3>
-                    <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[#F5F1FA] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cobalt" aria-hidden="true" />
-                  </div>
-
-                  <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#C2B9D0]">
-                    {flagshipProject.shortDescription}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-ink/15 pt-3 font-mono text-[11px] text-[#C2B9D0] uppercase">
-                    <span>{flagshipProject.industry}</span>
-                    <span aria-hidden="true">·</span>
-                    <span>{flagshipProject.servicesDelivered[0]}</span>
-                    <span aria-hidden="true">·</span>
-                    <span className="text-cobalt">Concept Demo 01</span>
-                  </div>
-                </div>
-              </Link>
-            </article>
-          )}
-
-          {/* Offset right rectangular showcase */}
-          {secondaryLeft && (
-            <article className="lg:col-span-5 lg:mt-20">
-              <Link
-                href={`/work/${secondaryLeft.slug}`}
-                data-cursor="VIEW CONCEPT"
-                className="group block"
-              >
-                <div className="relative">
-                  <div className="overflow-hidden rounded-xl bg-[#171027]/75">
-                    <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                      <ProjectPreviewArt
-                        theme={secondaryLeft.visualTheme}
-                        label={secondaryLeft.name}
-                        aspectClass="aspect-[4/3]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-xl leading-tight font-extrabold tracking-tight text-[#F5F1FA] uppercase group-hover:text-cobalt sm:text-2xl">
-                      {secondaryLeft.name}
-                    </h3>
-                    <ArrowUpRight
-                      className="mt-1 h-5 w-5 shrink-0 text-[#F5F1FA] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-[#C2B9D0]">
-                    {secondaryLeft.shortDescription}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-ink/15 pt-3 font-mono text-[11px] text-[#C2B9D0] uppercase">
-                    <span>{secondaryLeft.industry}</span>
-                    <span aria-hidden="true">·</span>
-                    <span className="text-cobalt">Concept Demo 02</span>
-                  </div>
-                </div>
-              </Link>
-            </article>
-          )}
+      {/* Responsive full-bleed FlexCarousel stage */}
+      <div className="mx-auto mt-8 w-full max-w-[100rem] px-2 sm:mt-10 sm:px-6 lg:px-10">
+        <div className="h-[340px] w-full overflow-hidden sm:h-[440px] lg:h-[520px]">
+          <FlexCarousel
+            items={CAROUSEL_ITEMS}
+            preset="liquid"
+            intro="rise"
+            fit="landscape"
+            cardHeight={0.54}
+            gap={16}
+            radius={4}
+            squeeze={0.12}
+            dispersion={0.22}
+            bend={0.24}
+            focusOnClick={true}
+            autoplay={false}
+            captions={true}
+            captureWheel={false}
+            onChange={(index: number) => setActiveIndex(index)}
+            onSelect={(index: number) => setActiveIndex(index)}
+            className="text-[#F5F1FA]"
+          />
         </div>
+      </div>
 
-        {/* Neo-Brutalist Expandable Archive Index Rows */}
-        <div className="mt-20 border-t-[3px] border-ink pt-10">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <span className="bg-ink px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-acid uppercase">
-              More Concept Blueprints &amp; Reserved Case Slots
-            </span>
-            <Link
-              href="/work"
-              data-cursor="ARCHIVE"
-              className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-bold text-[#F5F1FA] uppercase"
-            >
-              View Full Archive
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+      {/* Minimal dynamic active project information (no rectangular card) */}
+      <div className="mx-auto mt-6 max-w-[92rem] px-5 sm:mt-8 sm:px-10 lg:px-14">
+        <div className="flex flex-col justify-between gap-6 border-t border-white/10 pt-7 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <p className="text-xs font-medium text-[#A78BFA]">
+              {activeProject.industry}
+            </p>
+            <h3 className="mt-1.5 font-display text-2xl font-semibold tracking-tight text-[#F5F1FA] sm:text-3xl">
+              {activeProject.name}
+            </h3>
+            <p className="mt-2 line-clamp-2 text-base leading-relaxed text-[#C7BDD5]">
+              {activeProject.shortDescription}
+            </p>
           </div>
 
-          <div className="divide-y-2 divide-ink border-2 border-ink bg-[#171027]/75 shadow-[6px_6px_0px_#151515]">
-            {archiveRows.map((project, rowIdx) => {
-              const isOpen = expandedSlug === project.slug;
-              return (
-                <div
-                  key={project.slug}
-                  className={`p-5 transition-colors sm:p-6 ${
-                    isOpen ? "bg-ivory" : "bg-[#171027]/75 hover:bg-ivory/70"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setExpandedSlug(isOpen ? "" : project.slug)
-                      }
-                      aria-expanded={isOpen}
-                      className="flex flex-1 items-center gap-4 text-left sm:gap-7"
-                    >
-                      <span className="border-2 border-ink bg-acid px-2.5 py-1 font-mono text-xs font-extrabold text-[#F5F1FA]">
-                        0{rowIdx + 3}
-                      </span>
-                      <span className="font-display text-xl font-extrabold tracking-tight text-[#F5F1FA] uppercase transition-colors hover:text-cobalt sm:text-2xl">
-                        {project.name}
-                      </span>
-                    </button>
+          <div className="flex flex-wrap items-center gap-5">
+            <a
+              href={activeProject.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#5227FF] px-6 py-3 text-sm font-medium text-[#F5F1FA] transition-colors hover:bg-[#A78BFA] hover:text-[#100B18]"
+            >
+              View Live Website
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
 
-                    <div className="flex items-center gap-3">
-                      <span className="hidden border border-ink bg-[#171027]/75 px-2 py-0.5 font-mono text-[10px] font-bold text-[#F5F1FA] uppercase md:inline">
-                        {project.demoLabel}
-                      </span>
-                      <Link
-                        href={`/work/${project.slug}`}
-                        data-cursor="OPEN"
-                        className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-cobalt px-4 py-1.5 font-mono text-[10px] font-bold text-ivory uppercase hover:bg-orange"
-                      >
-                        Blueprint
-                        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {isOpen && (
-                    <div className="mt-5 grid grid-cols-1 items-center gap-6 border-t-2 border-ink pt-5 lg:grid-cols-12">
-                      <div className="overflow-hidden border-2 border-ink bg-ink shadow-[4px_4px_0px_#151515] lg:col-span-5">
-                        <ProjectPreviewArt
-                          theme={project.visualTheme}
-                          label={project.name}
-                          aspectClass="aspect-[16/10]"
-                        />
-                      </div>
-                      <div className="space-y-4 lg:col-span-7">
-                        <p className="text-sm leading-relaxed text-[#F5F1FA] sm:text-base">
-                          {project.overview}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.deliverables.map((d) => (
-                            <span
-                              key={d}
-                              className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[10px] font-bold text-[#F5F1FA]"
-                            >
-                              {d}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+            <Link
+              href={`/work/${activeProject.slug}`}
+              className="wg-link-underline inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[#D8C5F2] transition-colors hover:text-[#FF9FFC]"
+            >
+              Explore Project
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </div>

@@ -4,86 +4,82 @@ import { SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description:
-    "Privacy Policy placeholder and data handling overview for Web Guru.",
+  description: "Privacy Policy and enquiry data handling overview for Web Guru.",
   alternates: {
     canonical: "/privacy",
   },
 };
 
-/** Renders Web Guru's Neo-Brutalist privacy policy page detailing enquiry data handling clearly. */
+/** Renders Web Guru's Privacy Policy page matching the dark-purple LiquidEther visual system. */
 export default function PrivacyPage() {
+  const hasEmail = Boolean(
+    SITE_CONFIG.contact.email &&
+      !SITE_CONFIG.contact.email.includes(".example")
+  );
+
   return (
-    <section className="bg-ivory">
-      <div className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-        <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-          Legal &amp; Privacy
-        </span>
-        <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink uppercase sm:text-5xl">
+    <section className="bg-[#100B18]/45 pt-32 pb-20 text-[#F5F1FA] sm:pt-40 sm:pb-28">
+      <div className="mx-auto max-w-4xl px-6 sm:px-10">
+        <p className="text-xs font-medium text-[#A78BFA]">Legal &amp; Privacy</p>
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#F5F1FA] sm:text-5xl">
           Privacy Policy
         </h1>
-        <p className="mt-3 font-mono text-xs font-bold text-slate">
-          Template Policy · Review and finalize with your agency legal details
-          before launch
-        </p>
 
-        <div className="mt-10 space-y-6 border-[3px] border-ink bg-concrete p-6 text-base leading-relaxed text-ink shadow-[8px_8px_0px_#151515] sm:p-8">
-          <div className="border-2 border-ink bg-ivory p-5">
-            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
+        <div className="mt-12 divide-y divide-white/12 border-y border-white/12 text-base leading-relaxed text-[#C7BDD5]">
+          <div className="py-8">
+            <h2 className="font-display text-xl font-semibold text-[#F5F1FA]">
               1. Information Collected via Enquiry Forms
             </h2>
-            <p className="mt-2 text-slate">
+            <p className="mt-2">
               When you submit a project enquiry on {SITE_CONFIG.brandName}, we
               collect only the details you enter—such as your name, business
-              name, email address, phone number, selected service, and project
-              description—for the sole purpose of responding to your request.
+              name, email address, phone number, selected service, and short
+              message—for the sole purpose of responding to your request.
             </p>
           </div>
 
-          <div className="border-2 border-ink bg-ivory p-5">
-            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
-              2. How Enquiry Information Is Delivered
+          <div className="py-8">
+            <h2 className="font-display text-xl font-semibold text-[#F5F1FA]">
+              2. How Enquiry Information Is Handled
             </h2>
-            <p className="mt-2 text-slate">
-              Form submissions are transmitted directly to the configured agency
-              email or webhook endpoint when active. We do not sell, rent, or
-              distribute enquiry contact details to third-party brokers.
+            <p className="mt-2">
+              Form submissions are transmitted only to respond to your enquiry.
+              We do not sell, rent, or distribute your contact details to
+              third-party brokers.
             </p>
           </div>
 
-          <div className="border-2 border-ink bg-ivory p-5">
-            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
-              3. Cookies &amp; Analytics
+          <div className="py-8">
+            <h2 className="font-display text-xl font-semibold text-[#F5F1FA]">
+              3. Cookies &amp; Tracking
             </h2>
-            <p className="mt-2 text-slate">
+            <p className="mt-2">
               This website does not load invasive third-party advertising
-              trackers by default. If optional analytics are added in the
-              future, update this section with the exact provider and retention
-              policy.
+              trackers by default.
             </p>
           </div>
 
-          <div className="border-2 border-ink bg-ivory p-5">
-            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
+          <div className="py-8">
+            <h2 className="font-display text-xl font-semibold text-[#F5F1FA]">
               4. Contact Regarding Your Data
             </h2>
-            <p className="mt-2 text-slate">
-              To request deletion or updates to enquiry information shared with
-              Web Guru, reach us via{" "}
-              {SITE_CONFIG.contact.email ? (
+            <p className="mt-2">
+              To request deletion or updates to enquiry information shared with{" "}
+              {SITE_CONFIG.brandName}, reach us via{" "}
+              {hasEmail ? (
                 <a
                   href={`mailto:${SITE_CONFIG.contact.email}`}
-                  className="font-bold text-cobalt underline hover:text-orange"
+                  className="text-[#F5F1FA] underline decoration-[#5227FF] underline-offset-4 hover:text-[#FF9FFC]"
                 >
                   {SITE_CONFIG.contact.email}
                 </a>
               ) : (
-                <span>
-                  the configured business email in{" "}
-                  <code className="bg-acid px-1.5 py-0.5 font-mono text-xs font-bold text-ink">
-                    src/config/site.ts
-                  </code>
-                </span>
+                <Link
+                  href="/contact"
+                  className="text-[#F5F1FA] underline decoration-[#5227FF] underline-offset-4 hover:text-[#FF9FFC]"
+                >
+                  our contact form
+                </Link>
               )}
               .
             </p>
@@ -93,7 +89,7 @@ export default function PrivacyPage() {
         <div className="mt-10">
           <Link
             href="/"
-            className="wg-brutal-btn inline-flex items-center border-2 border-ink bg-acid px-5 py-2.5 font-mono text-xs font-bold tracking-[0.08em] text-ink uppercase"
+            className="inline-flex min-h-[40px] items-center text-sm font-medium text-[#D8C5F2] underline decoration-[#5227FF] underline-offset-8 transition-colors hover:text-[#FF9FFC]"
           >
             &larr; Return to Home
           </Link>

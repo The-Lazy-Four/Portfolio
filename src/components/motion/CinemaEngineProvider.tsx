@@ -23,13 +23,11 @@ export interface SceneMeta {
 }
 
 export const HOMEPAGE_SCENES: SceneMeta[] = [
-  { number: "01", title: "The Opening", targetId: "scene-opening" },
-  { number: "02", title: "Digital Ecosystem", targetId: "scene-ecosystem" },
-  { number: "03", title: "Services Stage", targetId: "scene-services" },
-  { number: "04", title: "Selected Work", targetId: "scene-work" },
-  { number: "05", title: "How We Work", targetId: "scene-process" },
-  { number: "06", title: "The Studio", targetId: "scene-studio" },
-  { number: "07", title: "Start a Project", targetId: "contact" },
+  { number: "01", title: "Opening", targetId: "scene-opening" },
+  { number: "02", title: "What We Do", targetId: "scene-what-we-do" },
+  { number: "03", title: "Selected Work", targetId: "scene-work" },
+  { number: "04", title: "The People", targetId: "scene-studio" },
+  { number: "05", title: "Contact", targetId: "contact" },
 ];
 
 interface CinemaEngineContextValue {

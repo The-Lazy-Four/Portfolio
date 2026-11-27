@@ -1,22 +1,18 @@
-import { ContactSection } from "@/components/sections/ContactSection";
-import { EcosystemScene } from "@/components/sections/EcosystemScene";
 import { HeroCinemaScene } from "@/components/sections/HeroCinemaScene";
+import { HomeContactCTA } from "@/components/sections/HomeContactCTA";
 import { PortfolioCinemaScene } from "@/components/sections/PortfolioCinemaScene";
-import { ProcessCinemaScene } from "@/components/sections/ProcessCinemaScene";
-import { ServicesCinemaScene } from "@/components/sections/ServicesCinemaScene";
 import { StudioCinemaScene } from "@/components/sections/StudioCinemaScene";
+import { WhatWeDoSection } from "@/components/sections/WhatWeDoSection";
 
-/** Renders Web Guru's 7-scene cinematic flagship experience unifying award-researched layout, WebGL shaders, scroll choreography, and business clarity. */
+/** Renders Web Guru's concise five-section homepage: Hero, What We Do, Selected Work, Team, and Contact CTA. */
 export default function HomePage() {
   return (
     <>
       <HeroCinemaScene />
-      <EcosystemScene />
-      <ServicesCinemaScene />
+      <WhatWeDoSection />
       <PortfolioCinemaScene />
-      <ProcessCinemaScene />
       <StudioCinemaScene />
-      <ContactSection />
+      <HomeContactCTA />
     </>
   );
 }

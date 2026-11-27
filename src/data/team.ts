@@ -1,67 +1,91 @@
 /**
- * Team slot definitions for Web Guru's four-member agency structure.
- * Deliberately avoids fabricated names, fake biographies, or stock portraits.
+ * Verified team members and studio principles for Web Guru's four-member agency.
+ * Centralizes portrait paths, framing coordinates, roles, bios, and LinkedIn links.
  */
 
-export interface TeamMemberSlot {
+export interface TeamMemberProfile {
   slotNumber: string;
-  placeholderName: string;
-  rolePlaceholder: string;
-  focusPlaceholder: string;
-  initials: string;
-  statusNote: string;
+  name: string;
+  role: string;
+  focus: string;
+  image: string;
+  linkedinUrl: string;
+  imageClassName: string;
+  hasVerifiedProfile: boolean;
 }
 
-export const TEAM_SLOTS: TeamMemberSlot[] = [
+export const TEAM_MEMBERS: TeamMemberProfile[] = [
   {
     slotNumber: "01",
-    placeholderName: "Team Member 01",
-    rolePlaceholder: "[Role & Title to be added]",
-    focusPlaceholder:
-      "Update src/data/team.ts with member name, specialty, portrait, and short bio.",
-    initials: "01",
-    statusNote: "Profile Pending",
+    name: "Partha Sarathi Sarkar",
+    role: "Web & Application Developer",
+    focus:
+      "Building websites, web applications, and mobile software tailored to business goals.",
+    image: "/images/team/partha-sarathi.jpg",
+    linkedinUrl:
+      "https://www.linkedin.com/in/partha-sarathi-sarkar-7385a8367",
+    imageClassName: "object-cover object-[50%_22%]",
+    hasVerifiedProfile: true,
   },
   {
     slotNumber: "02",
-    placeholderName: "Team Member 02",
-    rolePlaceholder: "[Role & Title to be added]",
-    focusPlaceholder:
-      "Update src/data/team.ts with member name, specialty, portrait, and short bio.",
-    initials: "02",
-    statusNote: "Profile Pending",
+    name: "Souvik Dey",
+    role: "Technical Lead & Client Solutions Developer",
+    focus:
+      "Bridging client ideas with technology through solution planning, interactive demos, and web and application development.",
+    image: "/images/team/souvik-dey.jpg",
+    linkedinUrl: "https://www.linkedin.com/in/souvik-dey-400497366",
+    imageClassName: "object-cover object-[58%_38%] scale-[1.35] origin-[58%_38%]",
+    hasVerifiedProfile: true,
   },
   {
     slotNumber: "03",
-    placeholderName: "Team Member 03",
-    rolePlaceholder: "[Role & Title to be added]",
-    focusPlaceholder:
-      "Update src/data/team.ts with member name, specialty, portrait, and short bio.",
-    initials: "03",
-    statusNote: "Profile Pending",
+    name: "Snehasis Chakraborty",
+    role: "Software Developer & Business Development",
+    focus:
+      "Supporting software development alongside client outreach and business growth.",
+    image: "/images/team/snehasis-chakraborty.jpg",
+    linkedinUrl:
+      "https://www.linkedin.com/in/snehasis-chakraborty-2b68823a6",
+    imageClassName: "object-cover object-[45%_24%]",
+    hasVerifiedProfile: true,
   },
   {
     slotNumber: "04",
-    placeholderName: "Team Member 04",
-    rolePlaceholder: "[Role & Title to be added]",
-    focusPlaceholder:
-      "Update src/data/team.ts with member name, specialty, portrait, and short bio.",
-    initials: "04",
-    statusNote: "Profile Pending",
+    name: "Samrat Chatterjee",
+    role: "Creative Director — Visual Design & Motion",
+    focus:
+      "Crafting graphic design, visual identity, video editing, and motion assets.",
+    image: "/images/team/samrat-chatterjee.jpg",
+    linkedinUrl: "https://www.linkedin.com/in/samrat-chatterjee-2aa543368",
+    imageClassName: "object-cover object-[58%_16%] scale-[1.18] origin-[58%_18%]",
+    hasVerifiedProfile: true,
   },
 ];
 
-export const ABOUT_VALUES = [
+export const VERIFIED_TEAM_MEMBERS = TEAM_MEMBERS.filter(
+  (member) => member.hasVerifiedProfile && member.name.trim().length > 0
+);
+
+export const STUDIO_PRINCIPLES = [
   {
-    label: "Who We Are",
-    body: "Web Guru is a focused four-member digital services agency. We keep our team compact by design so business owners speak directly with the people designing, building, and supporting their work.",
+    number: "01",
+    title: "We stay involved.",
+    body: "We remain available to maintain, improve, and support what we build after launch.",
   },
   {
-    label: "Who We Serve",
-    body: "We partner with small businesses, local shops, restaurants, startups, independent professionals, and growing service companies that want dependable digital clarity without enterprise overhead.",
+    number: "02",
+    title: "Practical technology.",
+    body: "We make digital tools understandable and useful for your business, without unnecessary complexity.",
   },
   {
-    label: "What Drives Us",
-    body: "Good technology should feel effortless for your customers and manageable for your team. We care equally about sharp visual presentation, local discoverability, and staying around after launch.",
+    number: "03",
+    title: "Room to grow.",
+    body: "Start with what your business needs today and expand smoothly as you grow.",
   },
 ];
+
+export const ABOUT_VALUES = STUDIO_PRINCIPLES.map((item) => ({
+  label: item.title,
+  body: item.body,
+}));

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Sparkles, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
 import { ScrollProgressBar } from "@/components/motion/ScrollProgressBar";
@@ -221,7 +221,7 @@ export function Navbar() {
             initial={
               reducedMotion
                 ? { opacity: 1 }
-                : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.98 }
+                : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.96 }
             }
             animate={
               reducedMotion
@@ -231,128 +231,72 @@ export function Navbar() {
             exit={
               reducedMotion
                 ? { opacity: 0 }
-                : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.98 }
+                : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.96 }
             }
-            transition={{ duration: 0.44, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto border-t-2 border-ink bg-ink text-ivory"
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto border-t border-white/10 bg-[#100B18]/95 text-[#F5F1FA] backdrop-blur-xl"
           >
-            <div className="wg-grid-pattern-dark mx-auto grid min-h-full max-w-[92rem] grid-cols-1 gap-10 px-5 py-10 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-14">
-              {/* Left electric-cobalt preview block with hard Acid Yellow shadow */}
-              <div className="hidden flex-col justify-between border-2 border-ivory bg-cobalt p-8 shadow-[8px_8px_0px_#E9FF45] lg:col-span-5 lg:flex">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between border-b-2 border-ivory/30 pb-4">
-                    <span className="bg-ink px-2.5 py-1 font-mono text-[11px] font-bold tracking-[0.14em] text-acid uppercase">
-                      [{activePreview.number}] · {activePreview.eyebrow}
-                    </span>
-                    <Sparkles className="h-4 w-4 text-acid" aria-hidden="true" />
-                  </div>
+            <div className="mx-auto flex min-h-full max-w-[92rem] flex-col justify-between px-6 py-10 sm:px-10 lg:px-14">
+              <nav
+                aria-label="Mobile navigation"
+                className="flex flex-col divide-y divide-white/10 border-y border-white/10"
+              >
+                {OVERLAY_PREVIEWS.map((item, idx) => {
+                  const active = isActiveRoute(item.href);
 
-                  <div>
-                    <h2 className="font-display text-3xl leading-[1.06] font-extrabold tracking-tight text-ivory">
-                      {activePreview.title}
-                    </h2>
-                    <p className="mt-4 text-sm leading-relaxed text-ivory/90">
-                      {activePreview.summary}
-                    </p>
-                  </div>
-
-                  <div className="space-y-3 border-2 border-ink bg-ivory p-4 text-ink shadow-[4px_4px_0px_#151515]">
-                    <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase">
-                      Studio Availability &amp; Capabilities
-                    </span>
-                    <div className="grid grid-cols-3 gap-2 font-mono text-[10px] font-bold">
-                      <span className="border-2 border-ink bg-acid px-2 py-2">
-                        01 Local SEO
-                      </span>
-                      <span className="border-2 border-ink bg-concrete px-2 py-2">
-                        02 Web &amp; Apps
-                      </span>
-                      <span className="border-2 border-ink bg-orange px-2 py-2 text-ivory">
-                        03 NFC &amp; Care
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between border-t-2 border-ivory/30 pt-5 font-mono text-[11px] font-bold text-acid">
-                  <span>{SITE_CONFIG.contact.businessHours}</span>
-                  <span>{SITE_CONFIG.teamSize}-MEMBER STUDIO</span>
-                </div>
-              </div>
-
-              {/* Right monumental stacked navigation links */}
-              <div className="flex flex-col justify-between lg:col-span-7">
-                <nav
-                  aria-label="Overlay route links"
-                  className="flex flex-col divide-y-2 divide-ivory/25 border-y-2 border-ivory/25"
-                >
-                  {OVERLAY_PREVIEWS.map((item, idx) => {
-                    const active = isActiveRoute(item.href);
-                    const focused = hoveredRouteHref === item.href;
-
-                    return (
-                      <motion.div
-                        key={item.href}
-                        initial={reducedMotion ? false : { opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.35,
-                          delay: reducedMotion ? 0 : 0.06 + idx * 0.045,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: reducedMotion ? 0 : 0.04 + idx * 0.04,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onMouseEnter={() => setHoveredRouteHref(item.href)}
+                        onFocus={() => setHoveredRouteHref(item.href)}
+                        onClick={() => setOverlayPathname(null)}
+                        className={`group flex min-h-[56px] items-center justify-between py-5 transition-colors ${
+                          active
+                            ? "text-[#FF9FFC]"
+                            : "text-[#F5F1FA] hover:text-[#B497CF]"
+                        }`}
                       >
-                        <Link
-                          href={item.href}
-                          onMouseEnter={() => setHoveredRouteHref(item.href)}
-                          onFocus={() => setHoveredRouteHref(item.href)}
-                          onClick={() => setOverlayPathname(null)}
-                          className={`group relative flex items-center justify-between px-3 py-5 transition-colors sm:py-6 ${
-                            focused ? "bg-cobalt/25 text-acid" : "hover:text-acid"
+                        <span className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+                          {item.label}
+                        </span>
+
+                        <ArrowUpRight
+                          className={`h-5 w-5 transition-transform duration-200 ${
+                            active
+                              ? "text-[#FF9FFC]"
+                              : "text-[#91869F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#F5F1FA]"
                           }`}
-                        >
-                          <div className="flex items-baseline gap-4 sm:gap-7">
-                            <span className="border border-acid bg-ink px-2 py-0.5 font-mono text-xs font-bold text-acid">
-                              /{item.number}
-                            </span>
-                            <span className="relative font-display text-3xl font-extrabold tracking-[-0.03em] uppercase sm:text-5xl">
-                              {item.label}
-                              {(active || focused) && (
-                                <span
-                                  aria-hidden="true"
-                                  className="absolute inset-x-0 top-1/2 h-[4px] -translate-y-1/2 bg-orange"
-                                />
-                              )}
-                            </span>
-                          </div>
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
 
-                          <ArrowUpRight
-                            className={`h-6 w-6 transition-transform duration-200 ${
-                              focused
-                                ? "translate-x-1 -translate-y-1 text-acid"
-                                : "text-ivory/50"
-                            }`}
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </nav>
+              <div className="mt-8 flex flex-col gap-6 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-[#C7BDD5]">
+                  {activePreview.summary}
+                </p>
 
-                <div className="mt-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                  <p className="font-mono text-xs text-ivory/75">
-                    {SITE_CONFIG.contact.email ||
-                      SITE_CONFIG.contact.emailPlaceholder}
-                  </p>
-                  <Link
-                    href="/contact"
-                    onClick={() => setOverlayPathname(null)}
-                    className="inline-flex w-fit items-center gap-2 border-2 border-ivory bg-orange px-6 py-3 font-mono text-xs font-bold tracking-[0.08em] text-ivory uppercase shadow-[4px_4px_0px_#E9FF45] transition-transform hover:translate-x-0.5 hover:translate-y-0.5"
-                  >
-                    Start Your Project
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </div>
+                <Link
+                  href="/contact"
+                  onClick={() => setOverlayPathname(null)}
+                  className="inline-flex min-h-[44px] w-fit shrink-0 items-center gap-2 rounded-full bg-[#5227FF] px-6 py-3 font-sans text-xs font-semibold text-[#F5F1FA] transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18]"
+                >
+                  Start a Project
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
               </div>
             </div>
           </motion.div>

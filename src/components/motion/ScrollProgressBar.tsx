@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 
-/** Renders the continuous scroll reading bar anchored directly along the header bottom border. */
+/** Renders a hairline scroll reading progress bar along the bottom edge of the fixed header. */
 export function ScrollProgressBar() {
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -19,11 +19,11 @@ export function ScrollProgressBar() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-0 bottom-0 left-0 h-[3px] bg-ink/15"
+      className="pointer-events-none absolute right-0 bottom-0 left-0 h-[2px] bg-white/10"
     >
       <motion.div
         style={{ scaleX: smoothProgress, transformOrigin: "0% 50%" }}
-        className="h-full w-full bg-cobalt"
+        className="h-full w-full bg-[#5227FF]"
       />
     </div>
   );

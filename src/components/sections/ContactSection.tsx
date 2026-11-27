@@ -11,7 +11,6 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import { HighlighterReveal } from "@/components/motion/KineticTypography";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/config/site";
 import { SERVICE_CATEGORIES } from "@/data/services";
@@ -36,11 +35,15 @@ interface SubmissionFeedback {
   message: string;
 }
 
-/** Renders Scene 07 (Closing Contact Atelier) in bold Deep Ink, Signal Orange, Cobalt & Acid Yellow styling while keeping live /api/contact validation intact. */
+/** Renders the closing contact section on a dark-purple surface while keeping live /api/contact validation intact. */
 export function ContactSection({ initialService = "" }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { setActiveSceneIndex } = useCinemaEngine();
   const whatsAppUrl = getWhatsAppUrl();
+  const hasEmail = Boolean(SITE_CONFIG.contact.email);
+  const configuredSocials = SITE_CONFIG.socialLinks.filter(
+    (s) => s.configured && s.href
+  );
 
   const [formState, setFormState] = useState<FormState>({
     name: "",
@@ -194,112 +197,95 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
       id="contact"
       ref={sectionRef}
       aria-labelledby="contact-heading"
-      className="border-t border-ivory/10 bg-[#05091B]/45 py-24 text-ivory sm:py-32"
+      className="border-t border-white/12 bg-[#100B18]/45 py-20 text-[#F5F1FA] sm:py-28"
     >
       <div className="mx-auto max-w-[92rem] px-6 sm:px-10 lg:px-14">
-        {/* Dramatic cinematic closing banner */}
-        <div className="border-b border-ivory/15 pb-12">
-          <span className="font-mono text-xs tracking-[0.2em] text-acid/90 uppercase">
-            07 · Start Your Project
-          </span>
-          <HighlighterReveal
-            as="h2"
-            id="contact-heading"
-            lines={[
-              "One conversation to bring",
-              "your digital presence together.",
-            ]}
-            barClassName="bg-cobalt"
-            className="mt-4 font-display text-4xl leading-[1.0] font-extrabold tracking-[-0.035em] text-ivory uppercase sm:text-6xl lg:text-[4.2rem]"
-          />
-        </div>
-
-        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Left direct channel block styled in Electric Cobalt */}
-          <div className="space-y-6 lg:col-span-5">
-            <div className="border-[3px] border-ivory bg-cobalt p-6 text-ivory shadow-[8px_8px_0px_#E9FF45] sm:p-8">
-              <span className="inline-block bg-ink px-2.5 py-1 font-mono text-[10px] font-bold text-acid uppercase">
-                Direct Access · Zero Gatekeepers
-              </span>
-              <p className="mt-4 text-base leading-relaxed sm:text-lg">
-                Share what your business wants to fix, launch, or manage. Our
-                four-member team replies directly with plain-English scope
-                options—no sales handoff or agency runaround.
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Left editorial headline & configured direct contact details */}
+          <div className="space-y-8 lg:col-span-5">
+            <div>
+              <h2
+                id="contact-heading"
+                className="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.06] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
+              >
+                Let&apos;s build something{" "}
+                <span className="font-serif font-normal italic text-[#FF9FFC]">
+                  better
+                </span>{" "}
+                for your business.
+              </h2>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-[#C7BDD5]">
+                Tell us what you&apos;re looking for. We&apos;ll help you
+                figure out the right next step.
               </p>
+            </div>
 
-              <div className="mt-6 space-y-4 border-t-2 border-ivory/25 pt-5">
-                <div className="flex items-start gap-3">
-                  <Mail
-                    className="mt-0.5 h-4 w-4 shrink-0 text-acid"
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <p className="font-mono text-[10px] font-bold tracking-[0.1em] text-acid uppercase">
-                      Direct Email
-                    </p>
-                    {SITE_CONFIG.contact.email ? (
-                      <a
-                        href={`mailto:${SITE_CONFIG.contact.email}`}
-                        className="text-sm font-semibold text-ivory underline hover:text-acid"
-                      >
-                        {SITE_CONFIG.contact.email}
-                      </a>
-                    ) : (
-                      <p className="font-mono text-xs text-ivory/85">
-                        {SITE_CONFIG.contact.emailPlaceholder}
-                      </p>
-                    )}
+            {(hasEmail || whatsAppUrl || configuredSocials.length > 0) && (
+              <div className="space-y-4 border-t border-white/12 pt-6 text-sm">
+                {hasEmail && (
+                  <div className="flex items-center gap-3">
+                    <Mail
+                      className="h-4 w-4 shrink-0 text-[#B497CF]"
+                      aria-hidden="true"
+                    />
+                    <a
+                      href={`mailto:${SITE_CONFIG.contact.email}`}
+                      className="wg-link-underline text-[#F5F1FA] hover:text-[#FF9FFC]"
+                    >
+                      {SITE_CONFIG.contact.email}
+                    </a>
                   </div>
-                </div>
+                )}
 
-                <div className="flex items-start gap-3">
-                  <MessageSquare
-                    className="mt-0.5 h-4 w-4 shrink-0 text-acid"
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <p className="font-mono text-[10px] font-bold tracking-[0.1em] text-acid uppercase">
-                      WhatsApp / Phone
-                    </p>
-                    {whatsAppUrl ? (
+                {whatsAppUrl && (
+                  <div className="flex items-center gap-3">
+                    <MessageSquare
+                      className="h-4 w-4 shrink-0 text-[#B497CF]"
+                      aria-hidden="true"
+                    />
+                    <a
+                      href={whatsAppUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="wg-link-underline text-[#F5F1FA] hover:text-[#FF9FFC]"
+                    >
+                      Chat on WhatsApp
+                    </a>
+                  </div>
+                )}
+
+                {configuredSocials.length > 0 && (
+                  <div className="flex flex-wrap gap-4 pt-1">
+                    {configuredSocials.map((social) => (
                       <a
-                        href={whatsAppUrl}
+                        key={social.label}
+                        href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-semibold text-ivory underline hover:text-acid"
+                        className="wg-link-underline text-xs font-medium text-[#B497CF] hover:text-[#FF9FFC]"
                       >
-                        Open WhatsApp Thread
+                        {social.label}
                       </a>
-                    ) : (
-                      <p className="font-mono text-xs text-ivory/85">
-                        {SITE_CONFIG.contact.whatsappDisplayPlaceholder}
-                      </p>
-                    )}
+                    ))}
                   </div>
-                </div>
+                )}
               </div>
-            </div>
+            )}
 
-            <div className="border-2 border-ivory bg-ivory p-5 font-mono text-xs text-ink shadow-[6px_6px_0px_#F0522B]">
-              <span className="inline-block bg-ink px-2 py-0.5 font-bold text-acid uppercase">
-                Studio Hours
-              </span>
-              <span className="mt-2 block text-sm font-bold">
-                {SITE_CONFIG.contact.businessHours}
-              </span>
-            </div>
+            <p className="text-xs text-[#91869F]">
+              Available {SITE_CONFIG.contact.businessHours}
+            </p>
           </div>
 
-          {/* Right brutalist atelier enquiry form */}
+          {/* Right minimal accessible enquiry form */}
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="space-y-8 border-[3px] border-ivory bg-ink p-6 shadow-[8px_8px_0px_#3155F5] sm:p-8 lg:col-span-7"
+            className="space-y-7 lg:col-span-7"
           >
-            {/* Scope selector rectangular buttons */}
             <div>
-              <span className="block font-mono text-[11px] font-bold tracking-[0.12em] text-acid uppercase">
-                01 / Select Primary Need *
+              <span className="block text-sm font-medium text-[#F5F1FA]">
+                What do you need help with?
               </span>
               <div className="mt-3 flex flex-wrap gap-2">
                 {scopeOptions.map((option) => {
@@ -315,10 +301,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                         }))
                       }
                       aria-pressed={selected}
-                      className={`border-2 px-3.5 py-2 font-mono text-[11px] font-bold uppercase transition-colors ${
+                      className={`min-h-[40px] rounded-full border px-4 py-2 text-xs font-medium transition-colors ${
                         selected
-                          ? "border-ink bg-acid text-ink shadow-[3px_3px_0px_#F0522B]"
-                          : "border-ivory/35 bg-ink text-ivory/85 hover:border-acid hover:text-acid"
+                          ? "border-[#A78BFA] bg-[#5227FF] text-[#F5F1FA]"
+                          : "border-white/15 bg-white/5 text-[#C7BDD5] hover:border-white/30 hover:text-[#F5F1FA]"
                       }`}
                     >
                       {option}
@@ -327,20 +313,19 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                 })}
               </div>
               {fieldErrors.serviceRequired && (
-                <p className="mt-2 font-mono text-xs font-bold text-acid">
+                <p className="mt-2 text-xs text-[#FF9FFC]">
                   {fieldErrors.serviceRequired}
                 </p>
               )}
             </div>
 
-            {/* Underline fields row 1 */}
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="wg-contact-name"
-                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
+                  className="block text-sm font-medium text-[#C7BDD5]"
                 >
-                  02 / Your Name *
+                  Your name
                 </label>
                 <input
                   id="wg-contact-name"
@@ -352,10 +337,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     setFormState((prev) => ({ ...prev, name: e.target.value }))
                   }
                   placeholder="Alex Morgan"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
+                  className="wg-underline-field mt-1.5 w-full py-3 text-base text-[#F5F1FA] placeholder:text-[#91869F]"
                 />
                 {fieldErrors.name && (
-                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
+                  <p className="mt-1.5 text-xs text-[#FF9FFC]">
                     {fieldErrors.name}
                   </p>
                 )}
@@ -364,9 +349,9 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="wg-contact-business"
-                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
+                  className="block text-sm font-medium text-[#C7BDD5]"
                 >
-                  03 / Business or Company *
+                  Business name
                 </label>
                 <input
                   id="wg-contact-business"
@@ -381,24 +366,23 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     }))
                   }
                   placeholder="Northside Bakery & Cafe"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
+                  className="wg-underline-field mt-1.5 w-full py-3 text-base text-[#F5F1FA] placeholder:text-[#91869F]"
                 />
                 {fieldErrors.businessName && (
-                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
+                  <p className="mt-1.5 text-xs text-[#FF9FFC]">
                     {fieldErrors.businessName}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Underline fields row 2 */}
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="wg-contact-email"
-                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
+                  className="block text-sm font-medium text-[#C7BDD5]"
                 >
-                  04 / Your Email *
+                  Email address
                 </label>
                 <input
                   id="wg-contact-email"
@@ -410,10 +394,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     setFormState((prev) => ({ ...prev, email: e.target.value }))
                   }
                   placeholder="you@yourbusiness.com"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
+                  className="wg-underline-field mt-1.5 w-full py-3 text-base text-[#F5F1FA] placeholder:text-[#91869F]"
                 />
                 {fieldErrors.email && (
-                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
+                  <p className="mt-1.5 text-xs text-[#FF9FFC]">
                     {fieldErrors.email}
                   </p>
                 )}
@@ -422,9 +406,9 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="wg-contact-phone"
-                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
+                  className="block text-sm font-medium text-[#C7BDD5]"
                 >
-                  05 / Phone or WhatsApp *
+                  Phone or WhatsApp
                 </label>
                 <input
                   id="wg-contact-phone"
@@ -435,24 +419,23 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                   onChange={(e) =>
                     setFormState((prev) => ({ ...prev, phone: e.target.value }))
                   }
-                  placeholder="+1 555 234 5678"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
+                  placeholder="+91 98765 43210"
+                  className="wg-underline-field mt-1.5 w-full py-3 text-base text-[#F5F1FA] placeholder:text-[#91869F]"
                 />
                 {fieldErrors.phone && (
-                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
+                  <p className="mt-1.5 text-xs text-[#FF9FFC]">
                     {fieldErrors.phone}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Underline textarea */}
             <div>
               <label
                 htmlFor="wg-contact-description"
-                className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
+                className="block text-sm font-medium text-[#C7BDD5]"
               >
-                06 / Project Brief *
+                Short message
               </label>
               <textarea
                 id="wg-contact-description"
@@ -465,52 +448,46 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     projectDescription: e.target.value,
                   }))
                 }
-                placeholder="Tell us about your current online presence, website goals, local visibility challenges, or app needs..."
-                className="wg-underline-field mt-2 w-full resize-y py-3 text-base text-ivory placeholder:text-ivory/35"
+                placeholder="Tell us a little about what your business needs next..."
+                className="wg-underline-field mt-1.5 w-full resize-y py-3 text-base text-[#F5F1FA] placeholder:text-[#91869F]"
               />
               {fieldErrors.projectDescription && (
-                <p className="mt-1.5 font-mono text-xs font-bold text-acid">
+                <p className="mt-1.5 text-xs text-[#FF9FFC]">
                   {fieldErrors.projectDescription}
                 </p>
               )}
             </div>
 
-            {/* Submission feedback status box */}
             {feedback.status !== "idle" && (
               <div
                 role="status"
                 aria-live="polite"
-                className={`flex items-start gap-3 border-2 p-4 text-sm font-medium ${
+                className={`flex items-start gap-3 rounded-xl border p-4 text-sm ${
                   feedback.status === "delivered"
-                    ? "border-acid bg-cobalt text-ivory"
+                    ? "border-[#A78BFA]/40 bg-[#5227FF]/20 text-[#F5F1FA]"
                     : feedback.status === "unconfigured"
-                    ? "border-acid bg-ink text-acid"
+                    ? "border-[#FF9FFC]/40 bg-[#171027]/80 text-[#F5F1FA]"
                     : feedback.status === "submitting"
-                    ? "border-ivory/40 bg-ink text-ivory/80"
-                    : "border-orange bg-orange text-ivory"
+                    ? "border-white/15 bg-[#171027]/60 text-[#C7BDD5]"
+                    : "border-[#FF9FFC]/50 bg-[#241542]/80 text-[#FF9FFC]"
                 }`}
               >
                 {feedback.status === "delivered" ? (
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#A78BFA]" />
                 ) : (
-                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#FF9FFC]" />
                 )}
                 <p>{feedback.message}</p>
               </div>
             )}
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-t-2 border-ivory/25 pt-6">
-              <p className="font-mono text-[11px] text-ivory/65">
-                Protected validation · Direct delivery via{" "}
-                <code>/api/contact</code>
-              </p>
-
+            <div className="pt-2">
               <MagneticButton>
                 <button
                   type="submit"
                   data-cursor="SEND"
                   disabled={feedback.status === "submitting"}
-                  className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ivory bg-acid px-7 py-3.5 font-mono text-xs font-extrabold tracking-[0.08em] text-ink uppercase shadow-[5px_5px_0px_#F0522B] hover:bg-orange hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex min-h-[46px] items-center gap-2 rounded-full bg-[#5227FF] px-8 py-3 font-sans text-xs font-semibold text-[#F5F1FA] transition-colors hover:bg-[#FF9FFC] hover:text-[#100B18] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {feedback.status === "submitting"
                     ? "Sending..."

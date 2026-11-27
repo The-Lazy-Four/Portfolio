@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Bricolage_Grotesque,
-  Instrument_Serif,
-  JetBrains_Mono,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import LiquidEther from "@/components/visuals/LiquidEther";
@@ -14,10 +9,10 @@ import { StudioCursor } from "@/components/motion/StudioCursor";
 import { SITE_CONFIG } from "@/config/site";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -26,20 +21,6 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -89,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${instrumentSerif.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`${geistSans.variable} ${instrumentSerif.variable} antialiased`}
     >
       <body className="flex min-h-screen flex-col bg-[#100B18] text-[#F5F1FA] selection:bg-[#5227FF] selection:text-[#F5F1FA]">
         {/* Persistent global LiquidEther fluid simulation across all routes */}

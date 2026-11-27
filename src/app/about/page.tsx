@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { AboutSection } from "@/components/sections/AboutSection";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { WhyWebGuruSection } from "@/components/sections/WhyWebGuruSection";
+import { ProcessCinemaScene } from "@/components/sections/ProcessCinemaScene";
+import { StudioCinemaScene } from "@/components/sections/StudioCinemaScene";
+import { STUDIO_PRINCIPLES } from "@/data/team";
 
 export const metadata: Metadata = {
   title: "About Web Guru",
@@ -13,33 +13,49 @@ export const metadata: Metadata = {
   },
 };
 
-/** Renders the Neo-Brutalist About page introducing Web Guru's compact structure, advantages, process, and contact section. */
+/** Renders the concise About page covering Web Guru's studio principles, four-member team, process, and contact form. */
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b-[3px] border-ink bg-ivory">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-          <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
-            About Us · Four-Member Studio
-          </span>
-          <h1 className="mt-5 max-w-4xl font-display text-4xl leading-[1.02] font-extrabold tracking-[-0.035em] text-ink uppercase sm:text-6xl">
+      <section className="bg-transparent pt-28 pb-14 text-[#F5F1FA] sm:pt-36 sm:pb-20">
+        <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
+          <p className="text-xs font-medium text-[#A78BFA]">About Web Guru</p>
+          <h1 className="mt-3 max-w-4xl font-display text-[clamp(2.15rem,5vw,4.25rem)] leading-[1.05] font-bold tracking-[-0.03em] text-[#F5F1FA]">
             Small enough to care personally.{" "}
-            <span className="font-serif font-normal lowercase italic text-cobalt underline decoration-orange decoration-4 underline-offset-4">
+            <span className="font-serif font-normal italic text-[#FF9FFC]">
               Skilled enough
             </span>{" "}
-            to own the whole stack.
+            to handle everything online.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate sm:text-lg">
-            Web Guru was formed around a practical observation: business owners
-            deserve one reliable technology partner—not a maze of disconnected
-            agencies and disappearing freelancers.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#C7BDD5] sm:text-lg">
+            Business owners deserve one reliable partner—from Google visibility
+            and websites to custom apps and ongoing technical care—without
+            juggling disconnected freelancers.
           </p>
+
+          <div className="mt-12 grid grid-cols-1 divide-y divide-white/10 border-y border-white/10 md:mt-16 md:grid-cols-3 md:divide-y-0">
+            {STUDIO_PRINCIPLES.map((item) => (
+              <div
+                key={item.number}
+                className="py-6 md:border-r md:border-white/10 md:px-6 md:py-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
+              >
+                <span className="text-xs font-medium text-[#A78BFA]">
+                  {item.number}
+                </span>
+                <h2 className="mt-2 font-display text-xl font-semibold text-[#F5F1FA]">
+                  {item.title}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#C7BDD5]">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <AboutSection />
-      <WhyWebGuruSection />
-      <ProcessSection />
+      <StudioCinemaScene showAboutLink={false} />
+      <ProcessCinemaScene />
       <ContactSection />
     </>
   );
