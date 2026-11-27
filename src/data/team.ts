@@ -20,7 +20,7 @@ export const TEAM_MEMBERS: TeamMemberProfile[] = [
     name: "Partha Sarathi Sarkar",
     role: "Web & Application Developer",
     focus:
-      "Building websites, web applications, and mobile software tailored to business goals.",
+      "Building websites, applications, and practical digital solutions for businesses.",
     image: "/images/team/partha-sarathi.jpg",
     linkedinUrl:
       "https://www.linkedin.com/in/partha-sarathi-sarkar-7385a8367",
@@ -32,7 +32,7 @@ export const TEAM_MEMBERS: TeamMemberProfile[] = [
     name: "Souvik Dey",
     role: "Technical Lead & Client Solutions Developer",
     focus:
-      "Bridging client ideas with technology through solution planning, interactive demos, and web and application development.",
+      "Connecting client ideas with technology through solution planning, interactive demos, and web and application development.",
     image: "/images/team/souvik-dey.jpg",
     linkedinUrl: "https://www.linkedin.com/in/souvik-dey-400497366",
     imageClassName: "object-cover object-[58%_38%] scale-[1.35] origin-[58%_38%]",
@@ -43,7 +43,7 @@ export const TEAM_MEMBERS: TeamMemberProfile[] = [
     name: "Snehasis Chakraborty",
     role: "Software Developer & Business Development",
     focus:
-      "Supporting software development alongside client outreach and business growth.",
+      "Supporting software development and building strong client relationships through outreach and business development.",
     image: "/images/team/snehasis-chakraborty.jpg",
     linkedinUrl:
       "https://www.linkedin.com/in/snehasis-chakraborty-2b68823a6",
@@ -55,7 +55,7 @@ export const TEAM_MEMBERS: TeamMemberProfile[] = [
     name: "Samrat Chatterjee",
     role: "Creative Director — Visual Design & Motion",
     focus:
-      "Crafting graphic design, visual identity, video editing, and motion assets.",
+      "Bringing ideas to life through graphic design, visual identity, video editing, and motion content.",
     image: "/images/team/samrat-chatterjee.jpg",
     linkedinUrl: "https://www.linkedin.com/in/samrat-chatterjee-2aa543368",
     imageClassName: "object-cover object-[58%_16%] scale-[1.18] origin-[58%_18%]",

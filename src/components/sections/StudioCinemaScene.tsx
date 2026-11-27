@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
-import DepthCarousel from "@/components/visuals/DepthCarousel";
 import { VERIFIED_TEAM_MEMBERS } from "@/data/team";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,11 +15,6 @@ gsap.registerPlugin(ScrollTrigger);
 interface StudioCinemaSceneProps {
   showAboutLink?: boolean;
 }
-
-const TEAM_ITEMS = VERIFIED_TEAM_MEMBERS.map((member) => ({
-  image: member.image,
-  alt: `${member.name} — ${member.role}`,
-}));
 
 /** Renders a clean geometric LinkedIn mark for external team member links. */
 function LinkedInGlyph() {
@@ -35,12 +30,15 @@ function LinkedInGlyph() {
   );
 }
 
-/** Renders Section 04 (The People Behind Web Guru) with the 3D DepthCarousel and synchronized member profile details. */
+/** Renders Section 04 (The People Behind Web Guru) as a scroll-driven portrait showcase with four circular member selectors. */
 export function StudioCinemaScene({
   showAboutLink = true,
 }: StudioCinemaSceneProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { reducedMotion, setActiveSceneIndex } = useCinemaEngine();
+  const pinWrapperRef = useRef<HTMLDivElement | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const { reducedMotion, setActiveSceneIndex, scrollToTarget } =
+    useCinemaEngine();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeMember =
@@ -48,7 +46,10 @@ export function StudioCinemaScene({
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const pinWrapper = pinWrapperRef.current;
+    if (!section || !pinWrapper) return;
+
+    const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -58,25 +59,106 @@ export function StudioCinemaScene({
         onEnter: () => setActiveSceneIndex(3),
         onEnterBack: () => setActiveSceneIndex(3),
       });
+
+      if (reducedMotion) return;
+
+      mm.add("(min-width: 1024px)", () => {
+        const st = ScrollTrigger.create({
+          trigger: pinWrapper,
+          pin: true,
+          scrub: 0.4,
+          anticipatePin: 1,
+          start: "top top",
+          end: () => `+=${Math.round(window.innerHeight * 2.6)}`,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (VERIFIED_TEAM_MEMBERS.length - 1),
+            duration: { min: 0.2, max: 0.45 },
+            delay: 0.05,
+            ease: "power2.out",
+          },
+          onUpdate: (self) => {
+            const idx = Math.min(
+              VERIFIED_TEAM_MEMBERS.length - 1,
+              Math.round(self.progress * (VERIFIED_TEAM_MEMBERS.length - 1))
+            );
+            setActiveIndex((prev) => (prev === idx ? prev : idx));
+          },
+        });
+        scrollTriggerRef.current = st;
+        return () => {
+          scrollTriggerRef.current = null;
+        };
+      });
+
+      mm.add("(max-width: 1023px)", () => {
+        const st = ScrollTrigger.create({
+          trigger: pinWrapper,
+          pin: true,
+          scrub: 0.35,
+          anticipatePin: 1,
+          start: "top top",
+          end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (VERIFIED_TEAM_MEMBERS.length - 1),
+            duration: { min: 0.18, max: 0.35 },
+            delay: 0.04,
+            ease: "power2.out",
+          },
+          onUpdate: (self) => {
+            const idx = Math.min(
+              VERIFIED_TEAM_MEMBERS.length - 1,
+              Math.round(self.progress * (VERIFIED_TEAM_MEMBERS.length - 1))
+            );
+            setActiveIndex((prev) => (prev === idx ? prev : idx));
+          },
+        });
+        scrollTriggerRef.current = st;
+        return () => {
+          scrollTriggerRef.current = null;
+        };
+      });
     }, section);
 
-    return () => ctx.revert();
-  }, [setActiveSceneIndex]);
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
+  }, [reducedMotion, setActiveSceneIndex]);
+
+  /** Scrolls the page smoothly to the selected team member's scroll stage. */
+  function selectMember(index: number) {
+    setActiveIndex(index);
+    const st = scrollTriggerRef.current;
+    if (st && !reducedMotion) {
+      const targetProgress = index / (VERIFIED_TEAM_MEMBERS.length - 1);
+      const y = st.start + targetProgress * (st.end - st.start);
+      scrollToTarget(y);
+    }
+  }
 
   return (
     <section
       id="scene-studio"
       ref={sectionRef}
       aria-labelledby="studio-cinema-heading"
-      className="relative overflow-hidden border-t border-white/10 bg-[#100B18]/45 py-16 text-[#F5F1FA] sm:py-24 lg:py-28"
+      className="relative overflow-hidden border-t border-white/10 bg-[#100B18]/45 text-[#F5F1FA]"
     >
-      <div className="mx-auto max-w-[92rem] px-5 sm:px-10 lg:px-14">
+      <div
+        ref={pinWrapperRef}
+        className={`mx-auto max-w-[92rem] px-5 pt-20 pb-8 sm:px-10 ${
+          reducedMotion
+            ? "py-16 lg:py-24"
+            : "flex min-h-[100dvh] flex-col justify-center lg:px-14 lg:pt-24 lg:pb-12"
+        }`}
+      >
         {/* Section header */}
-        <div className="grid grid-cols-1 gap-5 border-b border-white/10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-14">
+        <div className="grid grid-cols-1 gap-4 border-b border-white/10 pb-6 lg:grid-cols-12 lg:items-end lg:gap-14">
           <div className="lg:col-span-7">
             <h2
               id="studio-cinema-heading"
-              className="font-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.06] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
+              className="font-display text-[clamp(1.9rem,4.2vw,3.4rem)] leading-[1.06] font-semibold tracking-[-0.025em] text-[#F5F1FA]"
             >
               The people behind the{" "}
               <span className="font-serif font-normal italic text-[#FF9FFC]">
@@ -92,51 +174,62 @@ export function StudioCinemaScene({
           </div>
         </div>
 
-        {/* Two-column desktop / stacked mobile DepthCarousel + Synchronized Profile */}
-        <div className="mt-10 grid grid-cols-1 items-center gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-7">
-            <div className="h-[400px] w-full sm:h-[440px] lg:h-[480px]">
-              <DepthCarousel
-                items={TEAM_ITEMS}
-                cardWidth={300}
-                cardHeight={390}
-                radius={12}
-                tint="#100B18"
-                depth={150}
-                spread={65}
-                tilt={16}
-                tiltDirection="right"
-                perspective={1400}
-                visibleCards={3}
-                falloff={0.14}
-                blur={2}
-                duration={700}
-                ease="power3.out"
-                autoplay={false}
-                loop={true}
-                showControls={true}
-                showIndicators={false}
-                onChange={(index: number) => setActiveIndex(index)}
+        {/* Main Large Portrait Display + Active Member Profile */}
+        <div className="mt-6 grid grid-cols-1 items-center gap-5 sm:mt-8 sm:gap-8 lg:mt-10 lg:grid-cols-12 lg:gap-14">
+          {/* Large Portrait */}
+          <div className="lg:col-span-5">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[240px] overflow-hidden rounded-2xl bg-[#171027]/60 sm:max-w-[320px] lg:mx-0 lg:max-w-[400px]">
+              {VERIFIED_TEAM_MEMBERS.map((member, index) => {
+                const isActive = index === activeIndex;
+                return (
+                  <div
+                    key={member.slotNumber}
+                    aria-hidden={!isActive}
+                    className={`absolute inset-0 ${
+                      reducedMotion
+                        ? ""
+                        : "transition-[opacity,transform] duration-500 ease-out"
+                    } ${
+                      isActive
+                        ? "z-10 scale-100 opacity-100"
+                        : "pointer-events-none z-0 scale-[1.03] opacity-0"
+                    }`}
+                  >
+                    <Image
+                      src={member.image}
+                      alt={`${member.name} — ${member.role}`}
+                      fill
+                      loading="eager"
+                      sizes="(max-width: 1023px) 360px, 400px"
+                      className={member.imageClassName}
+                    />
+                  </div>
+                );
+              })}
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-[#100B18]/70 via-transparent to-transparent"
               />
             </div>
           </div>
 
-          {/* Synchronized active member details */}
-          <div className="lg:col-span-5">
-            <AnimatePresence mode="wait">
+          {/* Synchronized Profile Information */}
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={activeMember.slotNumber}
-                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={reducedMotion ? undefined : { opacity: 0, y: -12 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="space-y-4 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:border-white/10 lg:pt-0 lg:pl-10"
+                exit={reducedMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="space-y-3 sm:space-y-4"
               >
                 <p className="text-xs font-medium tabular-nums text-[#A78BFA]">
                   {activeMember.slotNumber} / 04
                 </p>
 
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-[#F5F1FA] sm:text-3xl">
+                <h3 className="font-display text-2xl font-semibold tracking-tight text-[#F5F1FA] sm:text-4xl">
                   {activeMember.name}
                 </h3>
 
@@ -144,7 +237,7 @@ export function StudioCinemaScene({
                   {activeMember.role}
                 </p>
 
-                <p className="max-w-md text-base leading-relaxed text-[#C7BDD5]">
+                <p className="max-w-xl text-base leading-relaxed text-[#C7BDD5] sm:text-lg">
                   {activeMember.focus}
                 </p>
 
@@ -165,8 +258,42 @@ export function StudioCinemaScene({
           </div>
         </div>
 
-        {showAboutLink && (
-          <div className="mt-10 flex justify-start sm:mt-12 sm:justify-end">
+        {/* Four Circular Portrait Selectors + Optional About Link */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-6 sm:mt-10 sm:flex-row">
+          <div
+            role="tablist"
+            aria-label="Select team member"
+            className="flex items-center justify-center gap-4 sm:gap-6"
+          >
+            {VERIFIED_TEAM_MEMBERS.map((member, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <button
+                  key={member.slotNumber}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`View ${member.name}`}
+                  onClick={() => selectMember(index)}
+                  className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-full transition-all duration-300 sm:h-16 sm:w-16 ${
+                    isActive
+                      ? "scale-105 opacity-100 ring-2 ring-[#A78BFA] ring-offset-2 ring-offset-[#100B18] shadow-[0_0_24px_rgba(82,39,255,0.45)]"
+                      : "opacity-55 ring-1 ring-white/15 hover:opacity-90"
+                  }`}
+                >
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="64px"
+                    className={member.imageClassName}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {showAboutLink && (
             <Link
               href="/about"
               className="wg-link-underline inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[#D8C5F2] transition-colors hover:text-[#FF9FFC]"
@@ -174,8 +301,8 @@ export function StudioCinemaScene({
               More about our studio
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );

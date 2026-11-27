@@ -30,15 +30,6 @@ const OVERLAY_PREVIEWS: OverlayRoutePreview[] = [
       "Local discovery, custom websites, workflow apps, social media craft, NFC/QR review stands, and ongoing care under one 4-member roof.",
   },
   {
-    href: "/services",
-    label: "Services",
-    number: "02",
-    eyebrow: "Six Connected Disciplines",
-    title: "Built Together So Nothing Falls Between Vendors",
-    summary:
-      "Explore interactive demos across Google Business Profile & Local SEO, Websites, Apps, Social Media, NFC/QR Reviews, and Technical Support.",
-  },
-  {
     href: "/work",
     label: "Our Work",
     number: "03",
