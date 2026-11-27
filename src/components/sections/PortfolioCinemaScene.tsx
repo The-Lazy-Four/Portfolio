@@ -12,7 +12,7 @@ import { PORTFOLIO_PROJECTS } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Renders Scene 04 (Selected Work) combining an Era-style scroll-expanding arch portal, ZZDP staggered asymmetric grid, and Noomo hover-preview index rows. */
+/** Renders Scene 04 (Selected Work) in a bold Neo-Brutalist monograph grid while preserving GSAP arch reveal and interactive archive accordions. */
 export function PortfolioCinemaScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const archPortalRef = useRef<HTMLDivElement | null>(null);
@@ -39,11 +39,15 @@ export function PortfolioCinemaScene() {
         onEnterBack: () => setActiveSceneIndex(3),
       });
 
-      // Era Residence inspired scroll-scrubbed arch expansion reveal on desktop/non-reduced-motion
+      // Preserve exact Era Residence inspired scroll-scrubbed arch expansion timeline
       if (archPortal && !reducedMotion) {
         gsap.fromTo(
           archPortal,
-          { scale: 0.91, borderTopLeftRadius: "260px", borderTopRightRadius: "260px" },
+          {
+            scale: 0.91,
+            borderTopLeftRadius: "260px",
+            borderTopRightRadius: "260px",
+          },
           {
             scale: 1,
             borderTopLeftRadius: "24px",
@@ -68,40 +72,43 @@ export function PortfolioCinemaScene() {
       id="scene-work"
       ref={sectionRef}
       aria-labelledby="portfolio-cinema-heading"
-      className="border-b border-rule bg-paper py-20 sm:py-28 xl:pl-11"
+      className="border-y-[3px] border-ink bg-ivory py-20 sm:py-28 xl:pl-12"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Top studio work header with transparency notice */}
-        <div className="flex flex-col justify-between gap-6 border-b border-rule pb-10 lg:flex-row lg:items-end">
+        {/* Bold Neo-Brutalist section banner */}
+        <div className="flex flex-col justify-between gap-6 border-b-[3px] border-ink pb-10 lg:flex-row lg:items-end">
           <div>
-            <span className="font-mono text-xs tracking-[0.14em] text-accent uppercase">
+            <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
               [04] · Selected Work &amp; Blueprints
             </span>
             <HighlighterReveal
               as="h2"
               id="portfolio-cinema-heading"
-              lines={["Architectural case concepts", "engineered for real growth."]}
-              className="mt-3 font-display text-3xl leading-[1.06] font-bold tracking-[-0.03em] text-ink sm:text-5xl"
+              lines={[
+                "Architectural case concepts",
+                "engineered for real growth.",
+              ]}
+              barClassName="bg-cobalt"
+              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ink uppercase sm:text-5xl"
             />
           </div>
 
-          <div className="max-w-md space-y-2">
-            <span className="inline-flex items-center gap-2 rounded-full border border-rule bg-linen px-3 py-1 font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <div className="max-w-md border-2 border-ink bg-concrete p-4 shadow-[5px_5px_0px_#151515]">
+            <span className="inline-flex items-center gap-2 bg-ink px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-acid uppercase">
+              <span className="h-2 w-2 bg-orange" />
               Concept Demo Showcase · Client Slots Ready
             </span>
-            <p className="text-sm leading-relaxed text-slate">
-              Below are interactive architectural case blueprints demonstrating
-              how we combine local discovery, web systems, workflows, and NFC
-              touchpoints. Verified client engagements drop directly into these
-              slots.
+            <p className="mt-2.5 text-sm leading-relaxed text-ink">
+              Interactive case blueprints demonstrating how we unite local
+              discovery, web systems, workflows, and NFC touchpoints. Verified
+              client engagements drop directly into these slots.
             </p>
           </div>
         </div>
 
-        {/* Era Residence + ZZDP 10/4 Asymmetric Monograph Pair */}
+        {/* Asymmetric Neo-Brutalist Showcase Grid */}
         <div className="mt-14 grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Dominant left asymmetric showcase with scroll-expanding Arch Portal mask */}
+          {/* Dominant left showcase with preserved arch GSAP reveal + offset cobalt shadow */}
           {flagshipProject && (
             <article className="lg:col-span-7">
               <Link
@@ -109,27 +116,32 @@ export function PortfolioCinemaScene() {
                 data-cursor="VIEW CONCEPT"
                 className="group block"
               >
-                <div
-                  ref={archPortalRef}
-                  className="overflow-hidden border border-ink/15 bg-linen shadow-sm transition-shadow duration-300 group-hover:shadow-xl"
-                >
-                  <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <ProjectPreviewArt
-                      theme={flagshipProject.visualTheme}
-                      label={flagshipProject.name}
-                      aspectClass="aspect-[16/10]"
-                    />
+                <div className="relative">
+                  <div
+                    ref={archPortalRef}
+                    className="overflow-hidden border-[3px] border-ink bg-ink shadow-[9px_9px_0px_#3155F5] transition-shadow duration-300"
+                  >
+                    <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                      <ProjectPreviewArt
+                        theme={flagshipProject.visualTheme}
+                        label={flagshipProject.name}
+                        aspectClass="aspect-[16/10]"
+                      />
+                    </div>
                   </div>
+                  <span className="absolute -top-4 left-4 border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-extrabold text-ink uppercase shadow-[3px_3px_0px_#151515]">
+                    CASE // 01
+                  </span>
                 </div>
 
-                {/* ZZDP-style 3-column hairline metadata table underneath */}
-                <div className="mt-5">
+                {/* Hard-edged metadata specification footer */}
+                <div className="mt-6">
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-2xl leading-tight font-bold tracking-tight text-ink group-hover:text-accent sm:text-3xl">
+                    <h3 className="font-display text-2xl leading-tight font-extrabold tracking-tight text-ink uppercase group-hover:text-cobalt sm:text-3xl">
                       {flagshipProject.name}
                     </h3>
-                    <span className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-rule transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-paper">
-                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    <span className="wg-brutal-btn mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center border-2 border-ink bg-orange text-ivory group-hover:bg-acid group-hover:text-ink">
+                      <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
                     </span>
                   </div>
 
@@ -137,14 +149,14 @@ export function PortfolioCinemaScene() {
                     {flagshipProject.shortDescription}
                   </p>
 
-                  <div className="mt-4 grid grid-cols-3 divide-x divide-rule border-y border-rule py-2.5 font-mono text-[10px] text-slate uppercase">
-                    <span className="truncate pr-2">
+                  <div className="mt-4 grid grid-cols-3 divide-x-2 divide-ink border-2 border-ink bg-concrete font-mono text-[10px] font-bold text-ink uppercase shadow-[4px_4px_0px_#151515]">
+                    <span className="truncate px-3 py-2.5">
                       &bull; {flagshipProject.industry}
                     </span>
-                    <span className="truncate px-2 text-center">
+                    <span className="truncate px-3 py-2.5 text-center">
                       &bull; {flagshipProject.servicesDelivered[0]}
                     </span>
-                    <span className="truncate pl-2 text-right text-accent">
+                    <span className="truncate bg-ink px-3 py-2.5 text-right text-acid">
                       &bull; Concept Demo 01
                     </span>
                   </div>
@@ -153,7 +165,7 @@ export function PortfolioCinemaScene() {
             </article>
           )}
 
-          {/* Offset right portrait showcase (ZZDP asymmetric counterbalance) */}
+          {/* Offset right rectangular showcase */}
           {secondaryLeft && (
             <article className="lg:col-span-5 lg:mt-20">
               <Link
@@ -161,23 +173,28 @@ export function PortfolioCinemaScene() {
                 data-cursor="VIEW CONCEPT"
                 className="group block"
               >
-                <div className="overflow-hidden rounded-2xl border border-ink/15 bg-linen shadow-sm transition-shadow duration-300 group-hover:shadow-xl">
-                  <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <ProjectPreviewArt
-                      theme={secondaryLeft.visualTheme}
-                      label={secondaryLeft.name}
-                      aspectClass="aspect-[4/3]"
-                    />
+                <div className="relative">
+                  <div className="overflow-hidden border-[3px] border-ink bg-concrete shadow-[9px_9px_0px_#151515]">
+                    <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                      <ProjectPreviewArt
+                        theme={secondaryLeft.visualTheme}
+                        label={secondaryLeft.name}
+                        aspectClass="aspect-[4/3]"
+                      />
+                    </div>
                   </div>
+                  <span className="absolute -top-4 right-4 border-2 border-ink bg-orange px-3 py-1 font-mono text-xs font-extrabold text-ivory uppercase shadow-[3px_3px_0px_#151515]">
+                    CASE // 02
+                  </span>
                 </div>
 
-                <div className="mt-5">
+                <div className="mt-6">
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-xl leading-tight font-bold tracking-tight text-ink group-hover:text-accent sm:text-2xl">
+                    <h3 className="font-display text-xl leading-tight font-extrabold tracking-tight text-ink uppercase group-hover:text-cobalt sm:text-2xl">
                       {secondaryLeft.name}
                     </h3>
                     <ArrowUpRight
-                      className="mt-1 h-5 w-5 shrink-0 text-slate transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                      className="mt-1 h-5 w-5 shrink-0 text-ink transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange"
                       aria-hidden="true"
                     />
                   </div>
@@ -185,9 +202,11 @@ export function PortfolioCinemaScene() {
                     {secondaryLeft.shortDescription}
                   </p>
 
-                  <div className="mt-4 grid grid-cols-2 divide-x divide-rule border-y border-rule py-2.5 font-mono text-[10px] text-slate uppercase">
-                    <span className="truncate pr-2">&bull; {secondaryLeft.industry}</span>
-                    <span className="truncate pl-2 text-right text-accent">
+                  <div className="mt-4 grid grid-cols-2 divide-x-2 divide-ink border-2 border-ink bg-concrete font-mono text-[10px] font-bold text-ink uppercase shadow-[4px_4px_0px_#151515]">
+                    <span className="truncate px-3 py-2.5">
+                      &bull; {secondaryLeft.industry}
+                    </span>
+                    <span className="truncate bg-cobalt px-3 py-2.5 text-right text-ivory">
                       &bull; Concept Demo 02
                     </span>
                   </div>
@@ -197,27 +216,32 @@ export function PortfolioCinemaScene() {
           )}
         </div>
 
-        {/* Noomo-inspired Interactive Expandable Archive Rows for additional concepts */}
-        <div className="mt-20 border-t border-ink/20 pt-10">
-          <div className="mb-6 flex items-center justify-between">
-            <span className="font-mono text-xs tracking-[0.12em] text-slate uppercase">
+        {/* Neo-Brutalist Expandable Archive Index Rows */}
+        <div className="mt-20 border-t-[3px] border-ink pt-10">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <span className="bg-ink px-3 py-1 font-mono text-xs font-bold tracking-[0.12em] text-acid uppercase">
               More Concept Blueprints &amp; Reserved Case Slots
             </span>
             <Link
               href="/work"
               data-cursor="ARCHIVE"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-medium text-ink uppercase hover:text-accent"
+              className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-acid px-4 py-2 font-mono text-xs font-bold text-ink uppercase"
             >
               View Full Archive
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="divide-y divide-rule border-y border-rule">
+          <div className="divide-y-2 divide-ink border-2 border-ink bg-concrete shadow-[6px_6px_0px_#151515]">
             {archiveRows.map((project, rowIdx) => {
               const isOpen = expandedSlug === project.slug;
               return (
-                <div key={project.slug} className="py-5 sm:py-6">
+                <div
+                  key={project.slug}
+                  className={`p-5 transition-colors sm:p-6 ${
+                    isOpen ? "bg-ivory" : "bg-concrete hover:bg-ivory/70"
+                  }`}
+                >
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <button
                       type="button"
@@ -227,47 +251,47 @@ export function PortfolioCinemaScene() {
                       aria-expanded={isOpen}
                       className="flex flex-1 items-center gap-4 text-left sm:gap-7"
                     >
-                      <span className="font-mono text-xs text-accent">
+                      <span className="border-2 border-ink bg-acid px-2.5 py-1 font-mono text-xs font-extrabold text-ink">
                         0{rowIdx + 3}
                       </span>
-                      <span className="font-display text-xl font-bold tracking-tight text-ink transition-colors hover:text-accent sm:text-2xl">
+                      <span className="font-display text-xl font-extrabold tracking-tight text-ink uppercase transition-colors hover:text-cobalt sm:text-2xl">
                         {project.name}
                       </span>
                     </button>
 
                     <div className="flex items-center gap-3">
-                      <span className="hidden font-mono text-[11px] text-slate uppercase md:inline">
+                      <span className="hidden border border-ink bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase md:inline">
                         {project.demoLabel}
                       </span>
                       <Link
                         href={`/work/${project.slug}`}
                         data-cursor="OPEN"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-rule bg-linen px-4 py-1.5 font-mono text-[10px] font-medium text-ink uppercase transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+                        className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-cobalt px-4 py-1.5 font-mono text-[10px] font-bold text-ivory uppercase hover:bg-orange"
                       >
                         Blueprint
-                        <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </Link>
                     </div>
                   </div>
 
                   {isOpen && (
-                    <div className="mt-5 grid grid-cols-1 items-center gap-6 border-t border-rule/60 pt-5 lg:grid-cols-12">
-                      <div className="overflow-hidden rounded-xl border border-rule bg-linen lg:col-span-5">
+                    <div className="mt-5 grid grid-cols-1 items-center gap-6 border-t-2 border-ink pt-5 lg:grid-cols-12">
+                      <div className="overflow-hidden border-2 border-ink bg-ink shadow-[4px_4px_0px_#151515] lg:col-span-5">
                         <ProjectPreviewArt
                           theme={project.visualTheme}
                           label={project.name}
                           aspectClass="aspect-[16/10]"
                         />
                       </div>
-                      <div className="space-y-3 lg:col-span-7">
-                        <p className="text-sm leading-relaxed text-slate sm:text-base">
+                      <div className="space-y-4 lg:col-span-7">
+                        <p className="text-sm leading-relaxed text-ink sm:text-base">
                           {project.overview}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {project.deliverables.map((d) => (
                             <span
                               key={d}
-                              className="rounded-full border border-rule bg-linen px-3 py-1 font-mono text-[10px] text-ink"
+                              className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[10px] font-bold text-ink"
                             >
                               {d}
                             </span>

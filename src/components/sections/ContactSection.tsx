@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { AlertCircle, ArrowUpRight, CheckCircle2, Mail, MessageSquare } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowUpRight,
+  CheckCircle2,
+  Mail,
+  MessageSquare,
+} from "lucide-react";
 import { useCinemaEngine } from "@/components/motion/CinemaEngineProvider";
 import { HighlighterReveal } from "@/components/motion/KineticTypography";
 import { MagneticButton } from "@/components/motion/MagneticButton";
@@ -30,7 +36,7 @@ interface SubmissionFeedback {
   message: string;
 }
 
-/** Renders Scene 07 (Closing Contact Atelier) with selectable scope pills, Noomo underline fields, and honest /api/contact submission handling. */
+/** Renders Scene 07 (Closing Contact Atelier) in bold Deep Ink, Signal Orange, Cobalt & Acid Yellow styling while keeping live /api/contact validation intact. */
 export function ContactSection({ initialService = "" }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { setActiveSceneIndex } = useCinemaEngine();
@@ -71,7 +77,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
     return () => ctx.revert();
   }, [setActiveSceneIndex]);
 
-  /** Validates every contact input client-side before sending the request. */
+  /** Validates every contact input client-side before posting to the server route. */
   function validateForm(): boolean {
     const errors: Partial<Record<keyof FormState, string>> = {};
 
@@ -108,7 +114,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
     return Object.keys(errors).length === 0;
   }
 
-  /** Posts validated enquiry data to /api/contact and updates explicit status feedback. */
+  /** Posts validated enquiry payload to /api/contact and reports exact delivery status. */
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFeedback({ status: "idle", message: "" });
@@ -188,12 +194,12 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
       id="contact"
       ref={sectionRef}
       aria-labelledby="contact-heading"
-      className="bg-ink py-20 text-paper sm:py-28 xl:pl-11"
+      className="wg-grid-pattern-dark bg-ink py-20 text-ivory sm:py-28 xl:pl-12"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Dramatic Scene 07 closing banner */}
-        <div className="border-b border-paper/15 pb-12">
-          <span className="font-mono text-xs tracking-[0.14em] text-amber uppercase">
+        {/* Dramatic Neo-Brutalist closing banner */}
+        <div className="border-b-[3px] border-ivory/30 pb-12">
+          <span className="inline-block border-2 border-ivory bg-orange px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#E9FF45]">
             [07] · Start Your Project
           </span>
           <HighlighterReveal
@@ -203,87 +209,96 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               "One conversation to bring",
               "your digital presence together.",
             ]}
-            barClassName="bg-accent"
-            className="mt-3 font-display text-4xl leading-[1.03] font-bold tracking-[-0.035em] text-paper sm:text-6xl lg:text-[4.2rem]"
+            barClassName="bg-cobalt"
+            className="mt-4 font-display text-4xl leading-[1.0] font-extrabold tracking-[-0.035em] text-ivory uppercase sm:text-6xl lg:text-[4.2rem]"
           />
         </div>
 
-        {/* Two-column editorial underline atelier form */}
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Left direct channel panel */}
-          <div className="space-y-7 lg:col-span-5">
-            <p className="text-base leading-relaxed text-paper/80 sm:text-lg">
-              Share what your business wants to fix, launch, or manage. Our
-              four-member team replies directly with plain-English scope
-              options—no sales handoff or agency runaround.
-            </p>
+          {/* Left direct channel block styled in Electric Cobalt */}
+          <div className="space-y-6 lg:col-span-5">
+            <div className="border-[3px] border-ivory bg-cobalt p-6 text-ivory shadow-[8px_8px_0px_#E9FF45] sm:p-8">
+              <span className="inline-block bg-ink px-2.5 py-1 font-mono text-[10px] font-bold text-acid uppercase">
+                Direct Access · Zero Gatekeepers
+              </span>
+              <p className="mt-4 text-base leading-relaxed sm:text-lg">
+                Share what your business wants to fix, launch, or manage. Our
+                four-member team replies directly with plain-English scope
+                options—no sales handoff or agency runaround.
+              </p>
 
-            <div className="space-y-4 border-t border-paper/15 pt-6">
-              <div className="flex items-start gap-3">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] text-paper/55 uppercase">
-                    Direct Email
-                  </p>
-                  {SITE_CONFIG.contact.email ? (
-                    <a
-                      href={`mailto:${SITE_CONFIG.contact.email}`}
-                      className="text-sm font-medium text-paper hover:text-amber"
-                    >
-                      {SITE_CONFIG.contact.email}
-                    </a>
-                  ) : (
-                    <p className="text-xs text-paper/65">
-                      {SITE_CONFIG.contact.emailPlaceholder}
+              <div className="mt-6 space-y-4 border-t-2 border-ivory/25 pt-5">
+                <div className="flex items-start gap-3">
+                  <Mail
+                    className="mt-0.5 h-4 w-4 shrink-0 text-acid"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <p className="font-mono text-[10px] font-bold tracking-[0.1em] text-acid uppercase">
+                      Direct Email
                     </p>
-                  )}
+                    {SITE_CONFIG.contact.email ? (
+                      <a
+                        href={`mailto:${SITE_CONFIG.contact.email}`}
+                        className="text-sm font-semibold text-ivory underline hover:text-acid"
+                      >
+                        {SITE_CONFIG.contact.email}
+                      </a>
+                    ) : (
+                      <p className="font-mono text-xs text-ivory/85">
+                        {SITE_CONFIG.contact.emailPlaceholder}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <MessageSquare
+                    className="mt-0.5 h-4 w-4 shrink-0 text-acid"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <p className="font-mono text-[10px] font-bold tracking-[0.1em] text-acid uppercase">
+                      WhatsApp / Phone
+                    </p>
+                    {whatsAppUrl ? (
+                      <a
+                        href={whatsAppUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-ivory underline hover:text-acid"
+                      >
+                        Open WhatsApp Thread
+                      </a>
+                    ) : (
+                      <p className="font-mono text-xs text-ivory/85">
+                        {SITE_CONFIG.contact.whatsappDisplayPlaceholder}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div className="flex items-start gap-3">
-                <MessageSquare
-                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] text-paper/55 uppercase">
-                    WhatsApp / Phone
-                  </p>
-                  {whatsAppUrl ? (
-                    <a
-                      href={whatsAppUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-medium text-paper hover:text-amber"
-                    >
-                      Open WhatsApp Thread
-                    </a>
-                  ) : (
-                    <p className="text-xs text-paper/65">
-                      {SITE_CONFIG.contact.whatsappDisplayPlaceholder}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="border border-paper/15 bg-pine/50 p-4 font-mono text-[11px] text-paper/80">
-                <span className="block text-amber uppercase">
-                  Studio Availability
-                </span>
-                <span className="mt-1 block">{SITE_CONFIG.contact.businessHours}</span>
-              </div>
+            <div className="border-2 border-ivory bg-ivory p-5 font-mono text-xs text-ink shadow-[6px_6px_0px_#F0522B]">
+              <span className="inline-block bg-ink px-2 py-0.5 font-bold text-acid uppercase">
+                Studio Hours
+              </span>
+              <span className="mt-2 block text-sm font-bold">
+                {SITE_CONFIG.contact.businessHours}
+              </span>
             </div>
           </div>
 
-          {/* Right Noomo-inspired underline contact form & clickable scope pills */}
+          {/* Right brutalist atelier enquiry form */}
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="space-y-8 lg:col-span-7"
+            className="space-y-8 border-[3px] border-ivory bg-ink p-6 shadow-[8px_8px_0px_#3155F5] sm:p-8 lg:col-span-7"
           >
-            {/* Scope selector pills (replaces generic budget pills cleanly) */}
+            {/* Scope selector rectangular buttons */}
             <div>
-              <span className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase">
+              <span className="block font-mono text-[11px] font-bold tracking-[0.12em] text-acid uppercase">
                 01 / Select Primary Need *
               </span>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -300,10 +315,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                         }))
                       }
                       aria-pressed={selected}
-                      className={`rounded-full border px-4 py-2 text-xs font-medium transition-colors ${
+                      className={`border-2 px-3.5 py-2 font-mono text-[11px] font-bold uppercase transition-colors ${
                         selected
-                          ? "border-accent bg-accent text-paper"
-                          : "border-paper/20 bg-paper/[0.04] text-paper/75 hover:border-paper/55 hover:text-paper"
+                          ? "border-ink bg-acid text-ink shadow-[3px_3px_0px_#F0522B]"
+                          : "border-ivory/35 bg-ink text-ivory/85 hover:border-acid hover:text-acid"
                       }`}
                     >
                       {option}
@@ -312,18 +327,18 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                 })}
               </div>
               {fieldErrors.serviceRequired && (
-                <p className="mt-2 font-mono text-xs text-amber">
+                <p className="mt-2 font-mono text-xs font-bold text-acid">
                   {fieldErrors.serviceRequired}
                 </p>
               )}
             </div>
 
-            {/* Underline inputs row 1 */}
+            {/* Underline fields row 1 */}
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="wg-contact-name"
-                  className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase"
+                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
                 >
                   02 / Your Name *
                 </label>
@@ -337,10 +352,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     setFormState((prev) => ({ ...prev, name: e.target.value }))
                   }
                   placeholder="Alex Morgan"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-paper placeholder:text-paper/35"
+                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
                 />
                 {fieldErrors.name && (
-                  <p className="mt-1.5 font-mono text-xs text-amber">
+                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
                     {fieldErrors.name}
                   </p>
                 )}
@@ -349,7 +364,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="wg-contact-business"
-                  className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase"
+                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
                 >
                   03 / Business or Company *
                 </label>
@@ -366,22 +381,22 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     }))
                   }
                   placeholder="Northside Bakery & Cafe"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-paper placeholder:text-paper/35"
+                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
                 />
                 {fieldErrors.businessName && (
-                  <p className="mt-1.5 font-mono text-xs text-amber">
+                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
                     {fieldErrors.businessName}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Underline inputs row 2 */}
+            {/* Underline fields row 2 */}
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="wg-contact-email"
-                  className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase"
+                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
                 >
                   04 / Your Email *
                 </label>
@@ -395,10 +410,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     setFormState((prev) => ({ ...prev, email: e.target.value }))
                   }
                   placeholder="you@yourbusiness.com"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-paper placeholder:text-paper/35"
+                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
                 />
                 {fieldErrors.email && (
-                  <p className="mt-1.5 font-mono text-xs text-amber">
+                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
                     {fieldErrors.email}
                   </p>
                 )}
@@ -407,7 +422,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="wg-contact-phone"
-                  className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase"
+                  className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
                 >
                   05 / Phone or WhatsApp *
                 </label>
@@ -421,10 +436,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                     setFormState((prev) => ({ ...prev, phone: e.target.value }))
                   }
                   placeholder="+1 555 234 5678"
-                  className="wg-underline-field mt-2 w-full py-3 text-base text-paper placeholder:text-paper/35"
+                  className="wg-underline-field mt-2 w-full py-3 text-base text-ivory placeholder:text-ivory/35"
                 />
                 {fieldErrors.phone && (
-                  <p className="mt-1.5 font-mono text-xs text-amber">
+                  <p className="mt-1.5 font-mono text-xs font-bold text-acid">
                     {fieldErrors.phone}
                   </p>
                 )}
@@ -435,7 +450,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
             <div>
               <label
                 htmlFor="wg-contact-description"
-                className="block font-mono text-[11px] tracking-[0.12em] text-paper/65 uppercase"
+                className="block font-mono text-[11px] font-bold tracking-[0.12em] text-ivory/80 uppercase"
               >
                 06 / Project Brief *
               </label>
@@ -451,10 +466,10 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                   }))
                 }
                 placeholder="Tell us about your current online presence, website goals, local visibility challenges, or app needs..."
-                className="wg-underline-field mt-2 w-full resize-y py-3 text-base text-paper placeholder:text-paper/35"
+                className="wg-underline-field mt-2 w-full resize-y py-3 text-base text-ivory placeholder:text-ivory/35"
               />
               {fieldErrors.projectDescription && (
-                <p className="mt-1.5 font-mono text-xs text-amber">
+                <p className="mt-1.5 font-mono text-xs font-bold text-acid">
                   {fieldErrors.projectDescription}
                 </p>
               )}
@@ -465,14 +480,14 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               <div
                 role="status"
                 aria-live="polite"
-                className={`flex items-start gap-3 border p-4 text-sm ${
+                className={`flex items-start gap-3 border-2 p-4 text-sm font-medium ${
                   feedback.status === "delivered"
-                    ? "border-emerald-400/50 bg-emerald-950/50 text-emerald-100"
+                    ? "border-acid bg-cobalt text-ivory"
                     : feedback.status === "unconfigured"
-                    ? "border-amber/50 bg-amber/10 text-amber"
+                    ? "border-acid bg-ink text-acid"
                     : feedback.status === "submitting"
-                    ? "border-paper/20 bg-paper/5 text-paper/80"
-                    : "border-accent bg-accent/15 text-paper"
+                    ? "border-ivory/40 bg-ink text-ivory/80"
+                    : "border-orange bg-orange text-ivory"
                 }`}
               >
                 {feedback.status === "delivered" ? (
@@ -484,8 +499,8 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
               </div>
             )}
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-6">
-              <p className="font-mono text-[11px] text-paper/55">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t-2 border-ivory/25 pt-6">
+              <p className="font-mono text-[11px] text-ivory/65">
                 Protected validation · Direct delivery via{" "}
                 <code>/api/contact</code>
               </p>
@@ -495,7 +510,7 @@ export function ContactSection({ initialService = "" }: ContactSectionProps) {
                   type="submit"
                   data-cursor="SEND"
                   disabled={feedback.status === "submitting"}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold tracking-[0.04em] text-paper uppercase transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
+                  className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ivory bg-acid px-7 py-3.5 font-mono text-xs font-extrabold tracking-[0.08em] text-ink uppercase shadow-[5px_5px_0px_#F0522B] hover:bg-orange hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {feedback.status === "submitting"
                     ? "Sending..."

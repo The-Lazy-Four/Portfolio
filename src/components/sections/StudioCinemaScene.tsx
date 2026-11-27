@@ -13,7 +13,7 @@ import { TRUST_PILLARS, WHY_WEB_GURU_POINTS } from "@/data/whyWebGuru";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Renders a 2x2 geometric seat marker identifying each partner slot inside Web Guru's four-member team. */
+/** Renders a sharp Neo-Brutalist 2x2 partner seat badge highlighting each specialist desk cleanly. */
 function StudioSeatMarker({ slotIndex }: { slotIndex: number }) {
   return (
     <svg viewBox="0 0 64 64" fill="none" className="h-14 w-14" aria-hidden="true">
@@ -28,10 +28,9 @@ function StudioSeatMarker({ slotIndex }: { slotIndex: number }) {
             y={y}
             width={26}
             height={26}
-            rx={4}
-            fill={active ? "#D94E28" : "#F6F3EC"}
-            stroke="#161A18"
-            strokeOpacity={0.22}
+            fill={active ? "#3155F5" : "#F5F0E6"}
+            stroke="#151515"
+            strokeWidth={2.5}
           />
         );
       })}
@@ -39,7 +38,7 @@ function StudioSeatMarker({ slotIndex }: { slotIndex: number }) {
   );
 }
 
-/** Renders Scene 06 (The Studio) featuring Archivio Garonzi vertical ruled member bays, core principles, and transparent proof status. */
+/** Renders Scene 06 (The Studio) in stark Neo-Brutalist concrete & ivory blocks while preserving all team slots and verification honesty. */
 export function StudioCinemaScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { setActiveSceneIndex } = useCinemaEngine();
@@ -66,31 +65,32 @@ export function StudioCinemaScene() {
       id="scene-studio"
       ref={sectionRef}
       aria-labelledby="studio-cinema-heading"
-      className="border-y border-rule bg-linen py-20 sm:py-28 xl:pl-11"
+      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28 xl:pl-12"
     >
       <div className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Studio Manifesto Split */}
-        <div className="grid grid-cols-1 gap-10 border-b border-rule pb-12 lg:grid-cols-12">
+        {/* Studio Manifesto Header */}
+        <div className="grid grid-cols-1 gap-10 border-b-[3px] border-ink pb-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <span className="font-mono text-xs tracking-[0.14em] text-accent uppercase">
+            <span className="inline-block border-2 border-ink bg-orange px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
               [06] · The Four-Member Studio
             </span>
             <HighlighterReveal
               as="h2"
               id="studio-cinema-heading"
               lines={["Four builders.", "Direct access. Zero bloat."]}
-              className="mt-3 font-display text-3xl leading-[1.06] font-bold tracking-[-0.03em] text-ink sm:text-5xl"
+              barClassName="bg-cobalt"
+              className="mt-4 font-display text-3xl leading-[1.04] font-extrabold tracking-[-0.03em] text-ink uppercase sm:text-5xl"
             />
-            <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {TRUST_PILLARS.map((pillar) => (
                 <div
                   key={pillar.code}
-                  className="border border-rule bg-paper px-3.5 py-2.5"
+                  className="border-2 border-ink bg-ivory p-3 shadow-[3px_3px_0px_#151515]"
                 >
-                  <span className="block font-mono text-[10px] text-accent uppercase">
+                  <span className="inline-block bg-acid px-1.5 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
                     [{pillar.code}]
                   </span>
-                  <span className="mt-0.5 block font-display text-xs font-bold text-ink">
+                  <span className="mt-1.5 block font-display text-xs font-extrabold text-ink">
                     {pillar.title}
                   </span>
                 </div>
@@ -98,16 +98,16 @@ export function StudioCinemaScene() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:col-span-7">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 lg:col-span-7">
             {ABOUT_VALUES.map((item) => (
               <div
                 key={item.label}
-                className="border-t border-rule pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5"
+                className="border-2 border-ink bg-ivory p-5 shadow-[5px_5px_0px_#151515]"
               >
-                <p className="font-mono text-[11px] tracking-[0.1em] text-accent uppercase">
+                <p className="inline-block bg-cobalt px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.1em] text-ivory uppercase">
                   {item.label}
                 </p>
-                <p className="mt-2.5 text-sm leading-relaxed text-slate">
+                <p className="mt-3 text-sm leading-relaxed text-ink">
                   {item.body}
                 </p>
               </div>
@@ -115,28 +115,29 @@ export function StudioCinemaScene() {
           </div>
         </div>
 
-        {/* Archivio Garonzi-inspired 4-Column Vertical Ruled Studio Desk Strip */}
-        <div className="mt-12 overflow-hidden border border-ink/20 bg-paper">
+        {/* Archivio-inspired 4-Column Structural Bay Strip rendered with stark black borders */}
+        <div className="mt-12 overflow-hidden border-[3px] border-ink bg-ivory shadow-[8px_8px_0px_#151515]">
           <div className="flex">
-            {/* Far-left vertical accent spine (Archivio Garonzi rail detail) */}
             <div
               aria-hidden="true"
-              className="hidden w-8 shrink-0 items-center justify-center bg-accent text-paper sm:flex"
+              className="hidden w-10 shrink-0 items-center justify-center border-r-[3px] border-ink bg-orange text-ivory sm:flex"
             >
-              <span className="-rotate-90 whitespace-nowrap font-mono text-[10px] font-bold tracking-[0.2em] uppercase">
+              <span className="-rotate-90 whitespace-nowrap font-mono text-[10px] font-extrabold tracking-[0.2em] uppercase">
                 WG STUDIO 01–04
               </span>
             </div>
 
-            <div className="grid flex-1 grid-cols-1 divide-y divide-rule sm:grid-cols-2 sm:divide-x lg:grid-cols-4 lg:divide-y-0">
+            <div className="grid flex-1 grid-cols-1 divide-y-2 divide-ink sm:grid-cols-2 sm:divide-x-2 lg:grid-cols-4 lg:divide-y-0">
               {TEAM_SLOTS.map((slot, index) => (
                 <article
                   key={slot.slotNumber}
-                  className="flex min-h-[260px] flex-col justify-between p-6 transition-colors hover:bg-linen/70"
+                  className="wg-grid-pattern flex min-h-[268px] flex-col justify-between p-6 transition-colors hover:bg-acid/45"
                 >
-                  <div className="flex items-center justify-between font-mono text-xs uppercase">
-                    <span className="text-ink">( N&deg; {slot.slotNumber} )</span>
-                    <span className="rounded-full border border-rule bg-linen px-2 py-0.5 text-[9px] text-slate">
+                  <div className="flex items-center justify-between font-mono text-xs font-bold uppercase">
+                    <span className="bg-ink px-2 py-0.5 text-acid">
+                      ( N&deg; {slot.slotNumber} )
+                    </span>
+                    <span className="border border-ink bg-concrete px-2 py-0.5 text-[9px] text-ink">
                       {slot.statusNote}
                     </span>
                   </div>
@@ -145,11 +146,11 @@ export function StudioCinemaScene() {
                     <StudioSeatMarker slotIndex={index} />
                   </div>
 
-                  <div className="border-t border-rule/80 pt-4">
-                    <h3 className="font-display text-lg font-bold tracking-tight text-ink">
+                  <div className="border-t-2 border-ink pt-4">
+                    <h3 className="font-display text-lg font-extrabold tracking-tight text-ink uppercase">
                       {slot.placeholderName}
                     </h3>
-                    <p className="mt-0.5 font-mono text-[11px] text-accent">
+                    <p className="mt-0.5 font-mono text-[11px] font-bold text-cobalt">
                       {slot.rolePlaceholder}
                     </p>
                     <p className="mt-2 text-xs leading-relaxed text-slate">
@@ -162,20 +163,20 @@ export function StudioCinemaScene() {
           </div>
         </div>
 
-        {/* Why Web Guru 4 differentiators + Honest Client Review slot */}
+        {/* Why Web Guru grid + Electric Cobalt Proof Verification Vault */}
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8">
             {WHY_WEB_GURU_POINTS.map((point, index) => (
               <div
                 key={point.title}
-                className={`border border-rule bg-paper p-5 ${
+                className={`border-2 border-ink bg-ivory p-5 shadow-[4px_4px_0px_#151515] ${
                   index === WHY_WEB_GURU_POINTS.length - 1 ? "sm:col-span-2" : ""
                 }`}
               >
-                <span className="font-mono text-[11px] text-accent uppercase">
+                <span className="inline-block bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
                   0{index + 1} · Value Principle
                 </span>
-                <h3 className="mt-1.5 font-display text-base font-bold text-ink">
+                <h3 className="mt-2 font-display text-base font-extrabold text-ink uppercase">
                   {point.title}
                 </h3>
                 <p className="mt-1.5 text-xs leading-relaxed text-slate">
@@ -185,21 +186,21 @@ export function StudioCinemaScene() {
             ))}
           </div>
 
-          <div className="flex flex-col justify-between border border-rule bg-ink p-6 text-paper lg:col-span-4">
+          <div className="flex flex-col justify-between border-[3px] border-ink bg-ink p-6 text-ivory shadow-[8px_8px_0px_#F0522B] lg:col-span-4">
             <div>
-              <span className="font-mono text-[10px] tracking-[0.12em] text-amber uppercase">
+              <span className="inline-block bg-acid px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-ink uppercase">
                 Client Verification Policy
               </span>
               {VERIFIED_TESTIMONIALS.length > 0 ? (
-                <p className="mt-3 text-sm leading-relaxed text-paper/85">
+                <p className="mt-4 text-sm leading-relaxed text-ivory/90">
                   {VERIFIED_TESTIMONIALS[0].quote}
                 </p>
               ) : (
-                <p className="mt-3 text-sm leading-relaxed text-paper/80">
+                <p className="mt-4 text-sm leading-relaxed text-ivory/85">
                   We publish verified client feedback strictly with documented
                   permission—never invented ratings or anonymous quotes. This
                   slot activates automatically in{" "}
-                  <code className="font-mono text-xs text-amber">
+                  <code className="bg-cobalt px-1.5 py-0.5 font-mono text-xs text-ivory">
                     src/data/testimonials.ts
                   </code>
                   .
@@ -210,10 +211,10 @@ export function StudioCinemaScene() {
             <Link
               href="/about"
               data-cursor="STUDIO"
-              className="mt-6 inline-flex w-fit items-center gap-2 font-mono text-xs text-amber underline-offset-4 hover:underline"
+              className="wg-brutal-btn mt-6 inline-flex w-fit items-center gap-2 border-2 border-ivory bg-cobalt px-4 py-2 font-mono text-xs font-bold text-ivory uppercase shadow-[4px_4px_0px_#E9FF45] hover:bg-acid hover:text-ink"
             >
               Read Full Studio Philosophy
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </div>

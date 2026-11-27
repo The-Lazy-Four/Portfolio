@@ -11,25 +11,25 @@ export const metadata: Metadata = {
   },
 };
 
-/** Renders Web Guru's privacy policy page explaining contact form data handling and configuration notes. */
+/** Renders Web Guru's Neo-Brutalist privacy policy page detailing enquiry data handling clearly. */
 export default function PrivacyPage() {
   return (
-    <section className="bg-paper">
+    <section className="bg-ivory">
       <div className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-        <span className="font-mono text-xs tracking-[0.1em] text-accent uppercase">
+        <span className="inline-block border-2 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase shadow-[3px_3px_0px_#151515]">
           Legal &amp; Privacy
         </span>
-        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink uppercase sm:text-5xl">
           Privacy Policy
         </h1>
-        <p className="mt-3 font-mono text-xs text-slate">
+        <p className="mt-3 font-mono text-xs font-bold text-slate">
           Template Policy · Review and finalize with your agency legal details
           before launch
         </p>
 
-        <div className="mt-10 space-y-8 border-t border-rule pt-8 text-base leading-relaxed text-ink/90">
-          <div>
-            <h2 className="font-display text-xl font-semibold text-ink">
+        <div className="mt-10 space-y-6 border-[3px] border-ink bg-concrete p-6 text-base leading-relaxed text-ink shadow-[8px_8px_0px_#151515] sm:p-8">
+          <div className="border-2 border-ink bg-ivory p-5">
+            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
               1. Information Collected via Enquiry Forms
             </h2>
             <p className="mt-2 text-slate">
@@ -40,8 +40,8 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          <div>
-            <h2 className="font-display text-xl font-semibold text-ink">
+          <div className="border-2 border-ink bg-ivory p-5">
+            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
               2. How Enquiry Information Is Delivered
             </h2>
             <p className="mt-2 text-slate">
@@ -51,8 +51,8 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          <div>
-            <h2 className="font-display text-xl font-semibold text-ink">
+          <div className="border-2 border-ink bg-ivory p-5">
+            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
               3. Cookies &amp; Analytics
             </h2>
             <p className="mt-2 text-slate">
@@ -63,8 +63,8 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          <div>
-            <h2 className="font-display text-xl font-semibold text-ink">
+          <div className="border-2 border-ink bg-ivory p-5">
+            <h2 className="font-display text-xl font-extrabold text-ink uppercase">
               4. Contact Regarding Your Data
             </h2>
             <p className="mt-2 text-slate">
@@ -73,14 +73,14 @@ export default function PrivacyPage() {
               {SITE_CONFIG.contact.email ? (
                 <a
                   href={`mailto:${SITE_CONFIG.contact.email}`}
-                  className="underline hover:text-accent"
+                  className="font-bold text-cobalt underline hover:text-orange"
                 >
                   {SITE_CONFIG.contact.email}
                 </a>
               ) : (
                 <span>
                   the configured business email in{" "}
-                  <code className="font-mono text-xs text-ink">
+                  <code className="bg-acid px-1.5 py-0.5 font-mono text-xs font-bold text-ink">
                     src/config/site.ts
                   </code>
                 </span>
@@ -90,10 +90,10 @@ export default function PrivacyPage() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-rule pt-6">
+        <div className="mt-10">
           <Link
             href="/"
-            className="wg-link-underline font-mono text-xs tracking-[0.08em] text-ink uppercase"
+            className="wg-brutal-btn inline-flex items-center border-2 border-ink bg-acid px-5 py-2.5 font-mono text-xs font-bold tracking-[0.08em] text-ink uppercase"
           >
             &larr; Return to Home
           </Link>

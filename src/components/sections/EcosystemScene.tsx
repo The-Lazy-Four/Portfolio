@@ -20,7 +20,6 @@ interface NodeCoordinate {
   y: number;
 }
 
-// Radial coordinates around a 500x380 blueprint canvas uniting all 6 disciplines into one center engine
 const NODE_POSITIONS: NodeCoordinate[] = [
   { x: 110, y: 74 },
   { x: 390, y: 74 },
@@ -30,7 +29,7 @@ const NODE_POSITIONS: NodeCoordinate[] = [
   { x: 390, y: 306 },
 ];
 
-/** Renders Scene 02 (The Digital Ecosystem) with scrubbed manifesto copy, highlighter blocks, and an interactive node-topology diagram. */
+/** Renders Scene 02 (The Digital Ecosystem) in Neo-Brutalist color blocking while preserving ScrubbedStatement and interactive SVG topology. */
 export function EcosystemScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { setActiveSceneIndex } = useCinemaEngine();
@@ -60,47 +59,47 @@ export function EcosystemScene() {
       id="scene-ecosystem"
       ref={sectionRef}
       aria-labelledby="ecosystem-heading"
-      className="border-y border-rule bg-linen py-20 sm:py-28 xl:pl-11"
+      className="border-y-[3px] border-ink bg-concrete py-20 sm:py-28 xl:pl-12"
     >
       <ParallaxContourField className="mx-auto max-w-[90rem] px-5 sm:px-8 lg:px-12">
-        {/* Scrubbed word-by-word thesis + Highlighter wipe subhead */}
-        <div className="border-b border-rule pb-14">
+        {/* Scrubbed word-by-word thesis + Neo-Brutalist metadata stamp */}
+        <div className="border-b-[3px] border-ink pb-14">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <span className="font-mono text-xs tracking-[0.14em] text-accent uppercase">
+            <span className="border-2 border-ink bg-cobalt px-3 py-1 font-mono text-xs font-bold tracking-[0.14em] text-ivory uppercase shadow-[3px_3px_0px_#151515]">
               [02] · The Digital Ecosystem
             </span>
-            <span className="font-mono text-[11px] tracking-[0.08em] text-slate uppercase">
-              Connected Systems Over Fragmented Freelancers
+            <span className="border-2 border-ink bg-acid px-3 py-1 font-mono text-[11px] font-bold tracking-[0.08em] text-ink uppercase">
+              + Connected Systems Over Fragmented Vendors +
             </span>
           </div>
 
           <ScrubbedStatement
             text="Most growing businesses stitch together separate vendors for local SEO, websites, custom software, social feeds, and support. We align every touchpoint under one engineering team."
             accentWord="one"
-            className="mt-7 max-w-5xl font-display text-3xl leading-[1.12] font-bold tracking-[-0.03em] text-ink sm:text-5xl lg:text-[3.4rem]"
+            className="mt-8 max-w-5xl font-display text-3xl leading-[1.1] font-extrabold tracking-[-0.03em] text-ink sm:text-5xl lg:text-[3.4rem]"
           />
         </div>
 
-        {/* Interactive Node Topology + Synchronized Specification Rail (Shopify Editions inspired) */}
+        {/* Interactive Node Topology + Synchronized Deep Ink Block */}
         <div className="mt-14 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-          {/* Interactive SVG Network Diagram */}
+          {/* Interactive SVG Network Diagram on Warm Ivory grid */}
           <div className="lg:col-span-7">
-            <div className="mb-4 flex items-center justify-between">
+            <div className="mb-5 flex items-center justify-between gap-4">
               <HighlighterReveal
                 as="h2"
                 id="ecosystem-heading"
                 lines={["Select a node to trace", "how the system connects."]}
-                className="font-display text-2xl leading-tight font-bold tracking-tight text-ink sm:text-3xl"
-                barClassName="bg-accent"
+                className="font-display text-2xl leading-tight font-extrabold tracking-tight text-ink uppercase sm:text-3xl"
+                barClassName="bg-cobalt"
               />
-              <span className="hidden font-mono text-[11px] text-slate uppercase sm:inline">
+              <span className="hidden border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] font-bold text-acid uppercase sm:inline">
                 6 Active Nodes
               </span>
             </div>
 
             <div
               data-cursor="INSPECT"
-              className="wg-grid-pattern relative overflow-hidden rounded-xl border border-rule bg-paper p-4 sm:p-6"
+              className="wg-grid-pattern relative overflow-hidden border-[3px] border-ink bg-ivory p-4 shadow-[8px_8px_0px_#151515] sm:p-6"
             >
               <svg
                 viewBox="0 0 500 380"
@@ -108,7 +107,7 @@ export function EcosystemScene() {
                 role="img"
                 aria-label="Interactive Web Guru digital ecosystem node diagram connecting all six services"
               >
-                {/* Signal connector lines from core hub (250, 190) to all 6 disciplines */}
+                {/* Signal connector lines from core hub (250, 190) */}
                 {NODE_POSITIONS.map((coords, index) => {
                   const isActive = index === selectedIndex;
                   return (
@@ -118,60 +117,68 @@ export function EcosystemScene() {
                       y1={190}
                       x2={coords.x}
                       y2={coords.y}
-                      stroke={isActive ? "#d94e28" : "#161a18"}
-                      strokeOpacity={isActive ? 0.95 : 0.18}
-                      strokeWidth={isActive ? 2.2 : 1}
+                      stroke={isActive ? "#F0522B" : "#151515"}
+                      strokeOpacity={isActive ? 1 : 0.25}
+                      strokeWidth={isActive ? 3 : 1.5}
                       className={isActive ? "wg-flow-line" : ""}
                     />
                   );
                 })}
 
-                {/* Outer dashed orbital boundary */}
-                <ellipse
-                  cx={250}
-                  cy={190}
-                  rx={176}
-                  ry={130}
+                {/* Geometric octagonal structural ring */}
+                <rect
+                  x={64}
+                  y={64}
+                  width={372}
+                  height={252}
                   fill="none"
-                  stroke="#161a18"
-                  strokeOpacity={0.12}
-                  strokeDasharray="4 4"
+                  stroke="#151515"
+                  strokeOpacity={0.18}
+                  strokeDasharray="6 6"
+                  strokeWidth={1.5}
                 />
 
-                {/* Central Web Guru hub */}
-                <circle cx={250} cy={190} r={46} fill="#18362f" />
-                <circle
-                  cx={250}
-                  cy={190}
-                  r={54}
-                  fill="none"
-                  stroke="#d94e28"
-                  strokeOpacity={0.55}
-                  strokeWidth={1.2}
+                {/* Central Electric Cobalt hub with black brutalist offset */}
+                <rect
+                  x={203}
+                  y={145}
+                  width={102}
+                  height={98}
+                  fill="#151515"
+                />
+                <rect
+                  x={198}
+                  y={140}
+                  width={102}
+                  height={98}
+                  fill="#3155F5"
+                  stroke="#151515"
+                  strokeWidth={2.5}
                 />
                 <text
-                  x={250}
-                  y={186}
+                  x={249}
+                  y={184}
                   textAnchor="middle"
-                  fill="#f6f3ec"
-                  fontSize="11"
-                  fontWeight="700"
+                  fill="#F5F0E6"
+                  fontSize="12"
+                  fontWeight="800"
                   letterSpacing="0.08em"
                 >
                   WEB GURU
                 </text>
                 <text
-                  x={250}
+                  x={249}
                   y={202}
                   textAnchor="middle"
-                  fill="#f3b340"
-                  fontSize="8.5"
+                  fill="#E9FF45"
+                  fontSize="9"
+                  fontWeight="700"
                   letterSpacing="0.1em"
                 >
                   CORE ENGINE
                 </text>
 
-                {/* Interactive service nodes rendered directly inside SVG */}
+                {/* Sharp rectangular interactive service nodes */}
                 {SERVICE_CATEGORIES.map((service, index) => {
                   const pos = NODE_POSITIONS[index];
                   const isSelected = index === selectedIndex;
@@ -192,23 +199,30 @@ export function EcosystemScene() {
                       }}
                       className="cursor-pointer outline-none"
                     >
+                      {/* Hard black offset shadow beneath node */}
                       <rect
-                        x={pos.x - 58}
-                        y={pos.y - 24}
-                        width={116}
+                        x={pos.x - 55}
+                        y={pos.y - 21}
+                        width={118}
                         height={48}
-                        rx={8}
-                        fill={isSelected ? "#d94e28" : "#ece7dc"}
-                        stroke={isSelected ? "#161a18" : "#c7bfb1"}
-                        strokeWidth={isSelected ? 1.5 : 1}
+                        fill="#151515"
+                      />
+                      <rect
+                        x={pos.x - 59}
+                        y={pos.y - 25}
+                        width={118}
+                        height={48}
+                        fill={isSelected ? "#E9FF45" : "#F5F0E6"}
+                        stroke="#151515"
+                        strokeWidth={2.5}
                       />
                       <text
                         x={pos.x}
-                        y={pos.y - 5}
+                        y={pos.y - 6}
                         textAnchor="middle"
-                        fill={isSelected ? "#f6f3ec" : "#d94e28"}
+                        fill={isSelected ? "#3155F5" : "#F0522B"}
                         fontSize="9"
-                        fontWeight="700"
+                        fontWeight="800"
                         letterSpacing="0.1em"
                       >
                         NODE {service.number}
@@ -217,9 +231,9 @@ export function EcosystemScene() {
                         x={pos.x}
                         y={pos.y + 11}
                         textAnchor="middle"
-                        fill={isSelected ? "#ffffff" : "#161a18"}
+                        fill="#151515"
                         fontSize="10"
-                        fontWeight="600"
+                        fontWeight="700"
                       >
                         {service.shortTitle}
                       </text>
@@ -228,8 +242,8 @@ export function EcosystemScene() {
                 })}
               </svg>
 
-              {/* Accessible horizontal fallback pill bar for quick tap switching on small screens */}
-              <div className="mt-4 flex flex-wrap gap-1.5 border-t border-rule pt-4">
+              {/* Accessible brutalist pill tabs */}
+              <div className="mt-4 flex flex-wrap gap-2 border-t-2 border-ink pt-4">
                 {SERVICE_CATEGORIES.map((service, index) => {
                   const active = index === selectedIndex;
                   return (
@@ -237,10 +251,10 @@ export function EcosystemScene() {
                       key={service.id}
                       type="button"
                       onClick={() => setSelectedIndex(index)}
-                      className={`rounded-full px-3 py-1.5 font-mono text-[10px] uppercase transition-colors ${
+                      className={`border-2 border-ink px-3 py-1.5 font-mono text-[10px] font-bold uppercase transition-colors ${
                         active
-                          ? "bg-ink text-paper"
-                          : "border border-rule bg-linen text-slate hover:border-ink hover:text-ink"
+                          ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
+                          : "bg-concrete text-ink hover:bg-acid"
                       }`}
                     >
                       {service.number} · {service.shortTitle}
@@ -252,54 +266,57 @@ export function EcosystemScene() {
           </div>
 
           {/* Synchronized right specification card */}
-          <div className="rounded-xl border border-ink/15 bg-ink p-7 text-paper sm:p-9 lg:col-span-5">
-            <div className="flex items-center justify-between border-b border-paper/15 pb-4">
-              <span className="font-mono text-xs tracking-[0.12em] text-amber uppercase">
+          <div className="border-[3px] border-ink bg-ink p-7 text-ivory shadow-[8px_8px_0px_#3155F5] sm:p-9 lg:col-span-5">
+            <div className="flex items-center justify-between border-b-2 border-ivory/25 pb-4">
+              <span className="bg-acid px-2.5 py-1 font-mono text-xs font-bold tracking-[0.1em] text-ink uppercase">
                 Discipline [{selectedService.number}]
               </span>
-              <span className="font-mono text-[11px] text-paper/65 uppercase">
+              <span className="font-mono text-[11px] font-bold text-acid uppercase">
                 {selectedService.deliverables.length} Deliverables
               </span>
             </div>
 
-            <h3 className="mt-5 font-display text-2xl leading-tight font-bold text-paper sm:text-3xl">
+            <h3 className="mt-5 font-display text-2xl leading-tight font-extrabold text-ivory uppercase sm:text-3xl">
               {selectedService.title}
             </h3>
 
-            <p className="mt-4 text-sm leading-relaxed text-paper/80 sm:text-base">
+            <p className="mt-4 text-sm leading-relaxed text-ivory/85 sm:text-base">
               {selectedService.summary}
             </p>
 
-            <div className="mt-6 border-l-2 border-accent pl-4">
-              <span className="font-mono text-[10px] tracking-[0.12em] text-amber uppercase">
+            <div className="mt-6 border-2 border-acid bg-cobalt/35 p-4">
+              <span className="font-mono text-[10px] font-bold tracking-[0.12em] text-acid uppercase">
                 Real Business Impact
               </span>
-              <p className="mt-1.5 text-sm leading-relaxed text-paper/90">
+              <p className="mt-1.5 text-sm leading-relaxed text-ivory">
                 {selectedService.businessOutcome}
               </p>
             </div>
 
-            <ul className="mt-6 grid grid-cols-1 gap-2 border-t border-paper/15 pt-5 text-xs text-paper/80">
+            <ul className="mt-6 grid grid-cols-1 gap-2.5 border-t-2 border-ivory/20 pt-5 text-xs text-ivory/90">
               {selectedService.deliverables.slice(0, 4).map((item) => (
                 <li key={item} className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 border border-ivory bg-orange"
+                    aria-hidden="true"
+                  />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-5">
+            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ivory/20 pt-5">
               <Link
                 href={`/services#${selectedService.id}`}
                 data-cursor="DETAILS"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-xs font-semibold tracking-[0.06em] text-paper uppercase transition-colors hover:bg-accent-hover"
+                className="wg-brutal-btn inline-flex items-center gap-2 border-2 border-ink bg-acid px-5 py-2.5 font-mono text-xs font-bold tracking-[0.06em] text-ink uppercase shadow-[4px_4px_0px_#F0522B]"
               >
                 Explore Discipline
-                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
                 href={`/contact?service=${encodeURIComponent(selectedService.title)}`}
-                className="font-mono text-[11px] text-amber underline-offset-4 hover:underline"
+                className="font-mono text-xs font-bold text-acid underline decoration-2 underline-offset-4 hover:text-orange"
               >
                 Enquire Directly &rarr;
               </Link>

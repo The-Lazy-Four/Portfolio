@@ -24,27 +24,27 @@ interface ServiceDemonstrationProps {
   kind: ServiceDiagramKind;
 }
 
-/** Interactive local search & Maps visibility demonstration (clearly labeled as a simulation). */
+/** Interactive local search & Maps visibility demonstration framed in Neo-Brutalist blocks (conceptual simulation). */
 function LocalSeoDemo() {
   const [optimized, setOptimized] = useState(true);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Conceptual Simulation · Not a live Google interface
         </span>
         <div
           role="group"
           aria-label="Toggle listing state"
-          className="inline-flex rounded-full border border-rule bg-paper p-0.5 text-[11px]"
+          className="inline-flex border-2 border-ink bg-ivory p-0.5 text-[11px]"
         >
           <button
             type="button"
             onClick={() => setOptimized(false)}
             aria-pressed={!optimized}
-            className={`rounded-full px-3 py-1 font-medium transition-colors ${
-              !optimized ? "bg-ink text-paper" : "text-slate hover:text-ink"
+            className={`px-3 py-1 font-mono font-bold uppercase transition-colors ${
+              !optimized ? "bg-ink text-acid" : "text-ink hover:bg-concrete"
             }`}
           >
             Unoptimized
@@ -53,8 +53,8 @@ function LocalSeoDemo() {
             type="button"
             onClick={() => setOptimized(true)}
             aria-pressed={optimized}
-            className={`rounded-full px-3 py-1 font-medium transition-colors ${
-              optimized ? "bg-accent text-paper" : "text-slate hover:text-ink"
+            className={`px-3 py-1 font-mono font-bold uppercase transition-colors ${
+              optimized ? "bg-cobalt text-ivory" : "text-ink hover:bg-concrete"
             }`}
           >
             With Web Guru
@@ -63,58 +63,55 @@ function LocalSeoDemo() {
       </div>
 
       {/* Simulated search bar */}
-      <div className="flex items-center justify-between rounded-full border border-rule bg-paper px-4 py-2 text-xs text-ink">
+      <div className="flex items-center justify-between border-2 border-ink bg-ivory px-4 py-2 text-xs text-ink shadow-[3px_3px_0px_#151515]">
         <span className="flex items-center gap-2">
-          <MapPin className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-          <span className="font-medium">&ldquo;local bakery &amp; cafe near me&rdquo;</span>
+          <MapPin className="h-4 w-4 text-orange" aria-hidden="true" />
+          <span className="font-semibold">&ldquo;local bakery &amp; cafe near me&rdquo;</span>
         </span>
-        <span className="font-mono text-[10px] text-slate uppercase">
+        <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
           Local Pack Demo
         </span>
       </div>
 
-      {/* Map + Business Profile Split */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
         {/* Stylized local discovery map */}
-        <div className="wg-grid-pattern relative flex min-h-[148px] items-center justify-center overflow-hidden border border-rule bg-paper sm:col-span-5">
+        <div className="wg-grid-pattern relative flex min-h-[148px] items-center justify-center overflow-hidden border-2 border-ink bg-ivory sm:col-span-5">
           {optimized && (
             <>
-              <span className="absolute h-28 w-28 rounded-full border border-accent/25" />
-              <span className="absolute h-16 w-16 rounded-full border border-accent/55 bg-accent/10" />
+              <span className="absolute h-28 w-28 border-2 border-dashed border-cobalt" />
+              <span className="absolute h-16 w-16 border-2 border-ink bg-acid/60" />
             </>
           )}
           <div className="relative z-10 flex flex-col items-center">
             <span
-              className={`flex h-9 w-9 items-center justify-center rounded-full shadow-sm transition-colors ${
-                optimized ? "bg-accent text-paper" : "bg-stone text-slate"
+              className={`flex h-9 w-9 items-center justify-center border-2 border-ink shadow-[3px_3px_0px_#151515] transition-colors ${
+                optimized ? "bg-orange text-ivory" : "bg-concrete text-ink"
               }`}
             >
               <MapPin className="h-4 w-4" aria-hidden="true" />
             </span>
-            <span className="mt-1.5 rounded bg-ink px-2 py-0.5 font-mono text-[10px] text-paper">
+            <span className="mt-2 border border-ink bg-ink px-2 py-0.5 font-mono text-[10px] font-bold text-acid">
               {optimized ? "Accurate Pin · Open" : "Incomplete Pin"}
             </span>
           </div>
         </div>
 
         {/* Simulated listing card */}
-        <div className="border border-rule bg-paper p-4 sm:col-span-7">
+        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-7">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-display text-sm font-bold text-ink">
+              <p className="font-display text-sm font-extrabold text-ink uppercase">
                 Sample Local Business
               </p>
-              <p className="text-[11px] text-slate">
+              <p className="text-[11px] font-medium text-slate">
                 {optimized
                   ? "Primary + Secondary Categories Configured"
                   : "Uncategorized Listing"}
               </p>
             </div>
             <span
-              className={`rounded-full px-2 py-0.5 font-mono text-[10px] uppercase ${
-                optimized
-                  ? "bg-pine text-paper"
-                  : "border border-rule bg-linen text-slate"
+              className={`border-2 border-ink px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${
+                optimized ? "bg-acid text-ink" : "bg-concrete text-ink"
               }`}
             >
               {optimized ? "Verified" : "Incomplete"}
@@ -122,7 +119,7 @@ function LocalSeoDemo() {
           </div>
 
           <div className="mt-3 flex items-center gap-1.5 text-xs">
-            <div className="flex items-center text-accent" aria-hidden="true">
+            <div className="flex items-center text-orange" aria-hidden="true">
               {[0, 1, 2, 3, 4].map((starIndex) => (
                 <Star
                   key={starIndex}
@@ -132,14 +129,14 @@ function LocalSeoDemo() {
                 />
               ))}
             </div>
-            <span className="font-mono text-[11px] text-slate">
+            <span className="font-mono text-[11px] font-bold text-ink">
               {optimized ? "Active review responses" : "No reply workflow"}
             </span>
           </div>
 
-          <ul className="mt-3 space-y-1.5 border-t border-rule pt-3 text-[11px] text-slate">
+          <ul className="mt-3 space-y-1.5 border-t-2 border-ink pt-3 text-[11px] text-ink">
             <li className="flex items-center gap-2">
-              <Clock className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+              <Clock className="h-3.5 w-3.5 text-cobalt" aria-hidden="true" />
               <span>
                 {optimized
                   ? "Updated hours, photos & service list"
@@ -147,7 +144,7 @@ function LocalSeoDemo() {
               </span>
             </li>
             <li className="flex items-center gap-2">
-              <Globe className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+              <Globe className="h-3.5 w-3.5 text-cobalt" aria-hidden="true" />
               <span>
                 {optimized
                   ? "Direct website & click-to-call actions"
@@ -161,25 +158,25 @@ function LocalSeoDemo() {
   );
 }
 
-/** Interactive browser preview showing responsive website architecture across desktop and mobile. */
+/** Interactive browser preview showing Neo-Brutalist desktop vs mobile storefront layout. */
 function WebDevDemo() {
   const [viewport, setViewport] = useState<"desktop" | "mobile">("desktop");
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Interactive Storefront Preview · Concept UI
         </span>
-        <div className="inline-flex rounded-full border border-rule bg-paper p-0.5 text-[11px]">
+        <div className="inline-flex border-2 border-ink bg-ivory p-0.5 text-[11px]">
           <button
             type="button"
             onClick={() => setViewport("desktop")}
             aria-pressed={viewport === "desktop"}
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium transition-colors ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1 font-mono font-bold uppercase transition-colors ${
               viewport === "desktop"
-                ? "bg-ink text-paper"
-                : "text-slate hover:text-ink"
+                ? "bg-cobalt text-ivory"
+                : "text-ink hover:bg-concrete"
             }`}
           >
             <Monitor className="h-3 w-3" aria-hidden="true" />
@@ -189,10 +186,10 @@ function WebDevDemo() {
             type="button"
             onClick={() => setViewport("mobile")}
             aria-pressed={viewport === "mobile"}
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium transition-colors ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1 font-mono font-bold uppercase transition-colors ${
               viewport === "mobile"
-                ? "bg-ink text-paper"
-                : "text-slate hover:text-ink"
+                ? "bg-cobalt text-ivory"
+                : "text-ink hover:bg-concrete"
             }`}
           >
             <Smartphone className="h-3 w-3" aria-hidden="true" />
@@ -202,25 +199,23 @@ function WebDevDemo() {
       </div>
 
       {/* Simulated browser container */}
-      <div className="flex justify-center bg-stone/50 p-3">
+      <div className="wg-grid-pattern flex justify-center border-2 border-ink bg-concrete p-3">
         <div
-          className={`overflow-hidden border border-rule bg-paper shadow-sm transition-all duration-300 ${
+          className={`overflow-hidden border-2 border-ink bg-ivory shadow-[5px_5px_0px_#151515] transition-all duration-300 ${
             viewport === "desktop" ? "w-full" : "w-[230px]"
           }`}
         >
-          {/* Browser chrome */}
-          <div className="flex items-center justify-between border-b border-rule bg-linen px-3 py-2">
+          <div className="flex items-center justify-between border-b-2 border-ink bg-acid px-3 py-2">
             <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="h-2 w-2 rounded-full bg-rule" />
-              <span className="h-2 w-2 rounded-full bg-rule" />
+              <span className="h-2.5 w-2.5 border border-ink bg-orange" />
+              <span className="h-2.5 w-2.5 border border-ink bg-ivory" />
+              <span className="h-2.5 w-2.5 border border-ink bg-cobalt" />
             </div>
-            <span className="font-mono text-[10px] text-slate">
+            <span className="font-mono text-[10px] font-bold text-ink">
               yourbusiness.example
             </span>
           </div>
 
-          {/* Demo hero composition inside frame */}
           <div className="p-4">
             <div
               className={`grid gap-3 ${
@@ -228,31 +223,31 @@ function WebDevDemo() {
               }`}
             >
               <div className={viewport === "desktop" ? "col-span-7" : ""}>
-                <span className="font-mono text-[9px] tracking-wider text-accent uppercase">
+                <span className="bg-ink px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wider text-acid uppercase">
                   Custom Architecture
                 </span>
-                <p className="mt-1 font-display text-base leading-tight font-bold text-ink">
+                <p className="mt-2 font-display text-base leading-tight font-extrabold text-ink uppercase">
                   Clear offer above the fold. Fast on every screen.
                 </p>
                 <div className="mt-3 flex items-center gap-2">
-                  <span className="rounded-full bg-ink px-3 py-1 text-[10px] font-medium text-paper">
+                  <span className="border-2 border-ink bg-orange px-3 py-1 font-mono text-[10px] font-bold text-ivory uppercase">
                     Book Now
                   </span>
-                  <span className="rounded-full border border-rule px-3 py-1 text-[10px] text-slate">
+                  <span className="border-2 border-ink bg-concrete px-3 py-1 font-mono text-[10px] font-bold text-ink uppercase">
                     Services
                   </span>
                 </div>
               </div>
               <div
-                className={`border border-rule bg-pine p-3 text-paper ${
+                className={`border-2 border-ink bg-cobalt p-3 text-ivory ${
                   viewport === "desktop" ? "col-span-5" : ""
                 }`}
               >
-                <p className="font-mono text-[9px] text-accent uppercase">
+                <p className="font-mono text-[9px] font-bold text-acid uppercase">
                   Technical Health
                 </p>
-                <p className="mt-1 text-xs font-medium">
-                  Semantic HTML, accessible contrast &amp; clean URLs
+                <p className="mt-1 text-xs font-semibold">
+                  Semantic HTML, sharp contrast &amp; clean URLs
                 </p>
               </div>
             </div>
@@ -284,17 +279,16 @@ function AppDevDemo() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Workflow App Simulation · Sample Operations UI
         </span>
-        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-pine uppercase">
-          <span className="h-1.5 w-1.5 rounded-full bg-pine" />
+        <span className="inline-flex items-center gap-1.5 bg-ink px-2 py-0.5 font-mono text-[10px] font-bold text-acid uppercase">
+          <span className="h-2 w-2 bg-orange" />
           Maintained &amp; Upgradeable
         </span>
       </div>
 
-      {/* Interactive workflow status tabs */}
       <div className="grid grid-cols-3 gap-2">
         {(
           [
@@ -310,10 +304,10 @@ function AppDevDemo() {
               type="button"
               onClick={() => setTab(statusTab.key)}
               aria-pressed={active}
-              className={`border px-3 py-2 text-xs font-medium transition-colors ${
+              className={`border-2 border-ink px-3 py-2 font-mono text-xs font-bold uppercase transition-colors ${
                 active
-                  ? "border-ink bg-ink text-paper"
-                  : "border-rule bg-paper text-slate hover:text-ink"
+                  ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
+                  : "bg-ivory text-ink hover:bg-acid"
               }`}
             >
               {statusTab.label}
@@ -322,18 +316,19 @@ function AppDevDemo() {
         })}
       </div>
 
-      {/* Simulated task rows */}
-      <div className="space-y-2">
+      <div className="space-y-2.5">
         {itemsByTab[tab].map((row) => (
           <div
             key={row.id}
-            className="flex items-center justify-between border border-rule bg-paper px-4 py-3"
+            className="flex items-center justify-between border-2 border-ink bg-ivory px-4 py-3 shadow-[3px_3px_0px_#151515]"
           >
             <div>
-              <span className="font-mono text-[10px] text-accent">{row.id}</span>
-              <p className="text-xs font-semibold text-ink">{row.title}</p>
+              <span className="font-mono text-[10px] font-bold text-orange">
+                {row.id}
+              </span>
+              <p className="text-xs font-bold text-ink">{row.title}</p>
             </div>
-            <span className="rounded-full border border-rule bg-linen px-2.5 py-0.5 font-mono text-[10px] text-ink">
+            <span className="border-2 border-ink bg-acid px-2.5 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
               {row.tag}
             </span>
           </div>
@@ -343,7 +338,7 @@ function AppDevDemo() {
   );
 }
 
-/** Interactive social media content planning and post framing showcase. */
+/** Interactive social media content planning and Neo-Brutalist post framing showcase. */
 function SocialMediaDemo() {
   const [selectedDay, setSelectedDay] = useState(0);
   const schedule = [
@@ -351,19 +346,19 @@ function SocialMediaDemo() {
       day: "MON",
       format: "Product Spotlight",
       headline: "Introduce a flagship service with clear customer benefit.",
-      tone: "bg-pine text-paper",
+      tone: "bg-cobalt text-ivory",
     },
     {
       day: "WED",
       format: "Behind the Craft",
       headline: "Show real workspace details that build authentic local trust.",
-      tone: "bg-ink text-paper",
+      tone: "bg-ink text-acid",
     },
     {
       day: "FRI",
       format: "Customer Guide",
       headline: "Answer a frequent buyer question with branded graphics.",
-      tone: "bg-accent text-paper",
+      tone: "bg-orange text-ivory",
     },
   ];
 
@@ -371,11 +366,11 @@ function SocialMediaDemo() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Editorial Calendar &amp; Brand Post System
         </span>
-        <span className="inline-flex items-center gap-1 font-mono text-[10px] text-accent uppercase">
+        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
           <Calendar className="h-3 w-3" aria-hidden="true" />
           Consistent Cadence
         </span>
@@ -390,14 +385,16 @@ function SocialMediaDemo() {
               type="button"
               onClick={() => setSelectedDay(index)}
               aria-pressed={isSelected}
-              className={`border p-2.5 text-left transition-colors ${
+              className={`border-2 border-ink p-2.5 text-left transition-colors ${
                 isSelected
-                  ? "border-accent bg-paper"
-                  : "border-rule bg-paper/60 hover:border-ink/40"
+                  ? "bg-acid text-ink shadow-[3px_3px_0px_#151515]"
+                  : "bg-ivory text-ink hover:bg-concrete"
               }`}
             >
-              <span className="font-mono text-[10px] text-accent">{slot.day}</span>
-              <span className="mt-0.5 block truncate text-xs font-semibold text-ink">
+              <span className="font-mono text-[10px] font-extrabold text-orange">
+                {slot.day}
+              </span>
+              <span className="mt-0.5 block truncate text-xs font-bold text-ink">
                 {slot.format}
               </span>
             </button>
@@ -406,26 +403,28 @@ function SocialMediaDemo() {
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
-        <div className={`flex flex-col justify-between p-4 sm:col-span-6 ${activePost.tone}`}>
-          <span className="font-mono text-[10px] uppercase opacity-75">
+        <div
+          className={`flex flex-col justify-between border-2 border-ink p-4 shadow-[4px_4px_0px_#151515] sm:col-span-6 ${activePost.tone}`}
+        >
+          <span className="font-mono text-[10px] font-bold uppercase opacity-85">
             {activePost.day} · Branded Frame
           </span>
-          <p className="mt-4 font-display text-base leading-snug font-bold">
+          <p className="mt-4 font-display text-base leading-snug font-extrabold uppercase">
             {activePost.format}
           </p>
-          <span className="mt-4 font-mono text-[10px] uppercase opacity-75">
+          <span className="mt-4 font-mono text-[10px] font-bold uppercase opacity-85">
             1080 × 1350 Ready
           </span>
         </div>
-        <div className="border border-rule bg-paper p-4 sm:col-span-6">
-          <p className="font-mono text-[10px] text-slate uppercase">
+        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-6">
+          <p className="font-mono text-[10px] font-bold text-cobalt uppercase">
             Planned Copy &amp; Schedule
           </p>
-          <p className="mt-2 text-xs leading-relaxed text-ink">
+          <p className="mt-2 text-xs leading-relaxed font-medium text-ink">
             {activePost.headline}
           </p>
-          <div className="mt-4 flex items-center gap-2 font-mono text-[10px] text-pine">
-            <Check className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+          <div className="mt-4 flex items-center gap-2 font-mono text-[10px] font-bold text-ink">
+            <Check className="h-4 w-4 text-orange" aria-hidden="true" />
             Approved &amp; queued for publishing
           </div>
         </div>
@@ -434,20 +433,20 @@ function SocialMediaDemo() {
   );
 }
 
-/** Interactive NFC tap card and QR scan simulation showing customer review capture. */
+/** Interactive NFC tap card and QR scan simulation framed cleanly in Deep Ink and Acid Yellow. */
 function NfcQrDemo() {
   const [scanned, setScanned] = useState(false);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Physical-to-Digital Review Flow Simulation
         </span>
         <button
           type="button"
           onClick={() => setScanned((prev) => !prev)}
-          className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1 text-[11px] font-medium text-paper transition-colors hover:bg-accent-hover"
+          className="wg-brutal-btn inline-flex items-center gap-1.5 border-2 border-ink bg-orange px-3.5 py-1 font-mono text-[11px] font-bold text-ivory uppercase hover:bg-cobalt"
         >
           <Wifi className="h-3 w-3 rotate-90" aria-hidden="true" />
           {scanned ? "Reset Demo" : "Simulate Tap / Scan"}
@@ -455,35 +454,33 @@ function NfcQrDemo() {
       </div>
 
       <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-12">
-        {/* Branded physical NFC + QR counter card */}
-        <div className="relative overflow-hidden rounded-lg bg-ink p-5 text-paper sm:col-span-7">
+        <div className="relative overflow-hidden border-2 border-ink bg-ink p-5 text-ivory shadow-[5px_5px_0px_#3155F5] sm:col-span-7">
           <div className="flex items-center justify-between">
-            <span className="font-display text-xs font-bold tracking-wider uppercase">
-              Your Business<span className="text-accent">.</span>
+            <span className="font-display text-xs font-extrabold tracking-wider uppercase">
+              Your Business<span className="text-acid">.</span>
             </span>
             <Wifi
               className={`h-4 w-4 rotate-90 transition-transform duration-300 ${
-                scanned ? "scale-125 text-accent" : "text-paper/70"
+                scanned ? "scale-125 text-acid" : "text-ivory/75"
               }`}
               aria-hidden="true"
             />
           </div>
 
-          <p className="mt-4 font-display text-base leading-snug font-semibold">
+          <p className="mt-4 font-display text-base leading-snug font-bold">
             Enjoyed your visit? Tap or scan to leave a Google review.
           </p>
 
           <div className="mt-4 flex items-center justify-between">
-            <span className="font-mono text-[10px] text-paper/65 uppercase">
+            <span className="bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
               NFC + Direct QR Link
             </span>
-            {/* Clean vector QR pattern */}
-            <div className="grid grid-cols-3 gap-1 rounded bg-paper p-1.5">
+            <div className="grid grid-cols-3 gap-1 border border-ivory bg-ivory p-1.5">
               {[1, 1, 0, 1, 0, 1, 0, 1, 1].map((filled, idx) => (
                 <span
                   key={idx}
                   className={`h-2 w-2 ${
-                    filled ? "bg-ink" : "bg-accent"
+                    filled ? "bg-ink" : "bg-orange"
                   }`}
                 />
               ))}
@@ -491,32 +488,31 @@ function NfcQrDemo() {
           </div>
         </div>
 
-        {/* Simulated customer smartphone screen */}
-        <div className="border-2 border-ink bg-paper p-4 sm:col-span-5">
-          <div className="mb-2 flex items-center justify-between border-b border-rule pb-2">
-            <span className="font-mono text-[9px] text-slate uppercase">
+        <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515] sm:col-span-5">
+          <div className="mb-2 flex items-center justify-between border-b-2 border-ink pb-2">
+            <span className="font-mono text-[9px] font-bold text-ink uppercase">
               Customer Phone
             </span>
             <span
-              className={`h-2 w-2 rounded-full ${
-                scanned ? "bg-pine" : "bg-rule"
+              className={`h-2.5 w-2.5 border border-ink ${
+                scanned ? "bg-acid" : "bg-concrete"
               }`}
             />
           </div>
 
           {scanned ? (
             <div className="space-y-2 py-1">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-pine">
-                <CheckCircle2 className="h-4 w-4 text-accent" aria-hidden="true" />
+              <div className="flex items-center gap-1.5 text-xs font-extrabold text-cobalt">
+                <CheckCircle2 className="h-4 w-4 text-orange" aria-hidden="true" />
                 Review link opened
               </div>
-              <p className="text-[11px] leading-relaxed text-slate">
+              <p className="text-[11px] leading-relaxed font-medium text-ink">
                 Customer lands straight on your verified review screen in one tap.
               </p>
             </div>
           ) : (
             <div className="space-y-2 py-1">
-              <p className="text-xs font-medium text-ink">Ready at counter</p>
+              <p className="text-xs font-bold text-ink">Ready at counter</p>
               <p className="text-[11px] leading-relaxed text-slate">
                 Click &ldquo;Simulate Tap / Scan&rdquo; above to preview the flow.
               </p>
@@ -528,7 +524,7 @@ function NfcQrDemo() {
   );
 }
 
-/** Interactive infrastructure and support care topology panel. */
+/** Interactive infrastructure and support care topology panel in bold Neo-Brutalist style. */
 function TechSupportDemo() {
   const [activeLayer, setActiveLayer] = useState(0);
   const layers = [
@@ -558,17 +554,17 @@ function TechSupportDemo() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3">
-        <span className="font-mono text-[10px] tracking-[0.08em] text-slate uppercase">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink pb-3">
+        <span className="bg-concrete px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.06em] text-ink uppercase">
           Connected Digital Infrastructure Care
         </span>
-        <span className="inline-flex items-center gap-1 font-mono text-[10px] text-pine uppercase">
+        <span className="inline-flex items-center gap-1 bg-acid px-2 py-0.5 font-mono text-[10px] font-bold text-ink uppercase">
           <Lock className="h-3 w-3" aria-hidden="true" />
           Single Support Contact
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2.5">
         {layers.map((layer, index) => {
           const Icon = layer.icon;
           const active = index === activeLayer;
@@ -578,15 +574,15 @@ function TechSupportDemo() {
               type="button"
               onClick={() => setActiveLayer(index)}
               aria-pressed={active}
-              className={`flex items-center gap-2.5 border p-3 text-left text-xs font-medium transition-colors ${
+              className={`flex items-center gap-2.5 border-2 border-ink p-3 text-left font-mono text-xs font-bold uppercase transition-colors ${
                 active
-                  ? "border-ink bg-ink text-paper"
-                  : "border-rule bg-paper text-ink hover:border-ink/40"
+                  ? "bg-cobalt text-ivory shadow-[3px_3px_0px_#151515]"
+                  : "bg-ivory text-ink hover:bg-acid"
               }`}
             >
               <Icon
                 className={`h-4 w-4 shrink-0 ${
-                  active ? "text-accent" : "text-slate"
+                  active ? "text-acid" : "text-orange"
                 }`}
                 aria-hidden="true"
               />
@@ -596,11 +592,11 @@ function TechSupportDemo() {
         })}
       </div>
 
-      <div className="border border-rule bg-paper p-4">
-        <p className="font-mono text-[10px] text-accent uppercase">
+      <div className="border-2 border-ink bg-ivory p-4 shadow-[4px_4px_0px_#151515]">
+        <p className="font-mono text-[10px] font-bold text-orange uppercase">
           Supported Layer · {selected.name}
         </p>
-        <p className="mt-1.5 text-xs leading-relaxed text-ink">
+        <p className="mt-1.5 text-xs leading-relaxed font-semibold text-ink">
           {selected.detail}
         </p>
       </div>
@@ -608,12 +604,12 @@ function TechSupportDemo() {
   );
 }
 
-/** Dispatches and animates the interactive visual demonstration matching each Web Guru service category. */
+/** Dispatches and animates the preserved interactive visual demonstration for each Web Guru service category. */
 export function ServiceDemonstration({ kind }: ServiceDemonstrationProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="border border-rule bg-linen p-4 sm:p-5">
+    <div className="border-2 border-ink bg-concrete p-4 sm:p-5">
       <AnimatePresence mode="wait">
         <motion.div
           key={kind}
